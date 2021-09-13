@@ -3,7 +3,7 @@
     <div class="admin_main_block">
       <div class="admin_main_block_top">
         <div class="admin_main_block_left">
-          <div>{{ $t('flash.from') }}</div>
+          <div>{{ $t('printer.from') }}</div>
         </div>
 
         <div class="admin_main_block_right">
@@ -18,35 +18,28 @@
       <div class="admin_form_main">
         <el-form label-width="140px" ref="dataForm" :model="dataForm" :rules="dataRule">
 
-          <el-form-item :label="$t('flash.category.title')" prop="category_id">
-            <el-select v-model="dataForm.category_id" :placeholder="$t('common.please_select')+$t('flash.category.title')">
+          <!-- <el-form-item :label="$t('printer.category.title')" prop="category_id">
+            <el-select v-model="dataForm.category_id" :placeholder="$t('common.please_select')+$t('printer.category.title')">
               <el-option v-for="(v,k) in categoryList" :label="v.title" :key="k" :value="v.id"></el-option>
             </el-select>
+          </el-form-item> -->
+
+          <el-form-item :label="$t('printer.title')" prop="title">
+            <el-input :placeholder="$t('printer.title')" v-model="dataForm.title"></el-input>
           </el-form-item>
 
-          <el-form-item :label="$t('flash.title')" prop="title">
-            <el-input :placeholder="$t('flash.title')" v-model="dataForm.title"></el-input>
+          <el-form-item :label="$t('printer.model')" prop="model">
+            <el-input :placeholder="$t('printer.model')" v-model="dataForm.model"></el-input>
           </el-form-item>
 
-          <el-form-item class="mavon" prop="content" :label="$t('flash.content')">
-            <editor ref="editor" :value="dataForm.content"></editor>
-          </el-form-item>
+          <form-area ref="area" :province_id="dataForm.province_id" :city_id="dataForm.city_id" :region_id="dataForm.region_id" @setProvinceInfo="setProvinceInfo" @setCityInfo="setCityInfo" @setAreaInfo="setAreaInfo"></form-area>
 
-          <el-form-item :label="$t('flash.bullish_total')" prop="bullish_total">
-            <el-input-number :placeholder="$t('flash.bullish_total')" :min="0" v-model="dataForm.bullish_total"></el-input-number>
-          </el-form-item>
-
-          <el-form-item :label="$t('flash.bearish_total')" prop="bearish_total">
-            <el-input-number :placeholder="$t('flash.bearish_total')" :min="0" v-model="dataForm.bearish_total"></el-input-number>
-          </el-form-item>
-
-          <el-form-item :label="$t('flash.audit_status')" prop="audit_status">
-            <el-switch v-model="dataForm.audit_status" :active-value="1" :active-text="$t('common.pass')" :inactive-value="2" :inactive-text="$t('common.no_pass')">
-            </el-switch>
+          <el-form-item :label="$t('printer.address')" prop="address">
+            <el-input type="textarea" v-model="dataForm.address" :placeholder="$t('common.please_input')+$t('printer.address')"></el-input>
           </el-form-item>
 
           <el-form-item>
-            <el-button v-if="isAuth('module:flash:handle')" type="primary" @click="dataFormSubmit()">
+            <el-button v-if="isAuth('module:printer:handle')" type="primary" @click="dataFormSubmit()">
               {{ $t('common.confirm') }}
             </el-button>
             <el-button @click="resetForm()">
@@ -62,31 +55,32 @@
 
 <script>
   import common from '@/views/common/base'
-  import Editor from "@/components/form/editor"
+  import formArea from '@/views/common/component/form-area'
   export default {
     extends: common,
     components: {
-      Editor
+      formArea
     },
     data()
     {
       return {
-        model: 'flash',
+        model: 'printer',
         categoryList: [],
         dataForm:
         {
           id: 0,
           category_id: '',
           title: '',
-          content: '',
-          bullish_total: 0,
-          bearish_total: 0,
-          audit_status: 0,
+          model: '',
+          province_id : '',
+          city_id : '',
+          region_id : '',
+          address: '',
         },
         dataRule:
         {
           title: [
-            { required: true, message: this.$t('flash.rules.title.require'), trigger: 'blur' },
+            { required: true, message: this.$t('printer.rules.title.require'), trigger: 'blur' },
           ]
         }
       };
@@ -103,17 +97,18 @@
           this.$refs['dataForm'].resetFields()
           if (this.dataForm.id) {
             this.$http({
-              url: this.$http.adornUrl(`/flash/view/${this.dataForm.id}`),
+              url: this.$http.adornUrl(`/printer/view/${this.dataForm.id}`),
               method: 'get',
               params: this.$http.adornParams()
             }).then(({data}) => {
               if (data && data.status === 200) {
-                this.dataForm.category_id   = data.data.category_id
-                this.dataForm.title         = data.data.title
-                this.dataForm.content       = data.data.content
-                this.dataForm.bullish_total = data.data.bullish_total
-                this.dataForm.bearish_total = data.data.bearish_total
-                this.dataForm.audit_status  = data.data.audit_status.value
+                this.dataForm.category_id = data.data.category_id
+                this.dataForm.title       = data.data.title
+                this.dataForm.model       = data.data.model
+                this.dataForm.province_id  = data.data.province_id
+                this.dataForm.city_id      = data.data.city_id
+                this.dataForm.region_id    = data.data.region_id
+                this.dataForm.address      = data.data.address
               }
             })
           }
@@ -124,16 +119,17 @@
         this.$refs['dataForm'].validate((valid) => {
           if (valid) {
             this.$http({
-              url: this.$http.adornUrl(`/flash/handle`),
+              url: this.$http.adornUrl(`/printer/handle`),
               method: 'post',
               data: this.$http.adornData({
                 'id': this.dataForm.id || undefined,
                 'category_id': this.dataForm.category_id,
                 'title': this.dataForm.title,
-                'content': this.$refs.editor.content,
-                'bullish_total': this.dataForm.bullish_total,
-                'bearish_total': this.dataForm.bearish_total,
-                'audit_status': this.dataForm.audit_status,
+                'model': this.dataForm.model,
+                'province_id': this.$refs.area.province_id,
+                'city_id': this.$refs.area.city_id,
+                'region_id': this.$refs.area.region_id,
+                'address': this.dataForm.address,
               })
             }).then(({data}) => {
               if (data && data.status === 200) {
@@ -152,7 +148,7 @@
       },
       loadCategoryList () {
         this.$http({
-          url: this.$http.adornUrl('/flash/category/select'),
+          url: this.$http.adornUrl('/printer/category/select'),
           method: 'get'
         }).then(({data}) => {
           if (data && data.status === 200) {
@@ -162,17 +158,21 @@
           }
         })
       },
+      setProvinceInfo (id) {
+        this.dataForm.province_id = id
+      },
+      setCityInfo (id) {
+        this.dataForm.city_id = id
+      },
+      setAreaInfo (id) {
+        this.dataForm.region_id = id
+      },
     },
     created(request)
     {
       this.init();
 
-      this.loadCategoryList();
+      // this.loadCategoryList();
     },
   };
 </script>
-<style lang="scss" scoped>
-  .mavon {
-    width: 95% !important;
-  }
-</style>

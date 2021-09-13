@@ -10,11 +10,11 @@
             <el-card shadow="never">
               <el-row>
                 <el-col :span="12">
-                  <i class="icon el-icon-medal-1"></i>
+                  <i class="icon el-icon-printer"></i>
                 </el-col>
                 <el-col :span="12">
                   <div class="default_day_sale">
-                    <div>今日订单收入</div>
+                    <div>设备总数</div>
                     <div class="blue mt10">
                       <b>{{ statistical.order.today_order_total || 0.00 }}</b>
                     </div>
@@ -27,11 +27,11 @@
             <el-card shadow="never">
               <el-row>
                 <el-col :span="12">
-                  <i class="icon el-icon-medal"></i>
+                  <i class="icon el-icon-s-custom"></i>
                 </el-col>
                 <el-col :span="12">
                   <div class="default_day_sale">
-                    <div>昨日订单收入</div>
+                    <div>代理店长</div>
                     <div class="blue mt10">
                       <b>{{ statistical.order.yesterday_order_total || 0.00 }}</b>
                     </div>
@@ -44,11 +44,11 @@
             <el-card shadow="never">
               <el-row>
                 <el-col :span="12">
-                  <i class="icon el-icon-trophy-1"></i>
+                  <i class="icon el-icon-user"></i>
                 </el-col>
                 <el-col :span="12">
                   <div class="default_day_sale">
-                    <div>近7天订单收入</div>
+                    <div>用户总量</div>
                     <div class="blue mt10">
                       <b>{{ statistical.order.week_order_total || 0.00 }}</b>
                     </div>
@@ -61,11 +61,11 @@
             <el-card shadow="never">
               <el-row>
                 <el-col :span="12">
-                  <i class="icon el-icon-trophy"></i>
+                  <i class="icon el-icon-tickets"></i>
                 </el-col>
                 <el-col :span="12">
                   <div class="default_day_sale">
-                    <div>近1个月订单收入</div>
+                    <div>订单总页数</div>
                     <div class="blue mt10">
                       <b>{{ statistical.order.month_order_total || 0.00 }}</b>
                     </div>

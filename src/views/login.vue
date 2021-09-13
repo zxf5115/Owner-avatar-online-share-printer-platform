@@ -58,6 +58,8 @@
           params: this.$http.adornParams()
         }).then(({data}) => {
           if (data && data.status === 200) {
+            localStorage.setItem('web_info', JSON.stringify(data.data));
+
             this.website_logo          = data.data.logo
             this.website_chinese_title = data.data.web_chinese_name
             this.website_english_title = data.data.web_english_name
@@ -65,9 +67,6 @@
             this.website_basic_title   = data.data.web_basic_name
             this.website_description   = data.data.description
             this.copyright             = data.data.copyright
-
-            // 系统标题
-            document.title = this.website_chinese_title
           }
         })
       },

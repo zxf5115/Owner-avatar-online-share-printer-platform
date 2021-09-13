@@ -50,6 +50,7 @@ export default {
           'name': this.dataForm.name,
           'code': this.dataForm.code,
           'title': this.dataForm.title,
+          'status': this.dataForm.status,
           'username': this.dataForm.username,
           'nickname': this.dataForm.nickname,
           'realname': this.dataForm.realname,
@@ -94,14 +95,6 @@ export default {
           'goods_title': this.dataForm.goods_title,
           'course_start_time': this.dataForm.course_start_time,
           'account_payment_account': this.dataForm.account_payment_account,
-          'symbol': this.dataForm.symbol,
-          'base_currency': this.dataForm.base_currency,
-          'quote_currency': this.dataForm.quote_currency,
-          'courseware_title': this.dataForm.courseware_title,
-          'slug': this.dataForm.slug,
-          'symbol': this.dataForm.symbol,
-          'fullname': this.dataForm.fullname,
-          'market': this.dataForm.market,
         })
       }).then(({data}) => {
         if (data && data.status === 200)

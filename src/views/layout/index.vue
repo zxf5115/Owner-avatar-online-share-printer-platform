@@ -8,10 +8,10 @@
           <!-- LOGO -->
           <div class="head_logo">
             <span>
-              {{ this.$store.state.system.website_short_title }}
+              {{ web_info.web_short_name }}
             </span>
             <font v-show="isShow">
-              {{ this.$store.state.system.website_basic_title  }}
+              {{ web_info.web_basic_name  }}
             </font>
           </div>
           <!-- 左侧导航 -->
@@ -130,6 +130,7 @@
         defaultActive: '0',
         permisssion_menus:[],
         user_info:{},
+        web_info: {}, // 系统数据
       };
     },
     watch: {},
@@ -165,6 +166,10 @@
         let _this = this;
         _this.user_info = JSON.parse(localStorage.getItem('user_info'));
         _this.loading = false
+      },
+      getWebInfo: function() {
+        let _this = this;
+        _this.web_info = JSON.parse(localStorage.getItem('web_info'));
       },
       getPermissionMenus:function(){
         let _this = this;
@@ -238,6 +243,7 @@
     },
     created() {
       this.getUserInfo();
+      this.getWebInfo();
       this.getUnreadMessage();
       this.getCurrentActive();
       this.getPermissionMenus();

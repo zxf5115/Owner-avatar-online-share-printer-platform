@@ -19,8 +19,6 @@ import  {member}  from './module/platform/member/zh'
 
 import  {advertising}  from './module/platform/advertising/zh'
 
-import  {courseware}  from './module/platform/education/courseware/zh'
-
 import  {order}  from './module/platform/order/zh'
 
 import  {complain}  from './module/platform/complain/zh'
@@ -31,19 +29,11 @@ import  {financial}  from './module/platform/financial/zh'
 
 import  {problem}  from './module/platform/common/problem/zh'
 
-import  {project}  from './module/platform/common/project/zh'
-
 import  {contact}  from './module/platform/contact/zh'
-
-import  {flash}  from './module/platform/flash/zh'
-
-import  {information}  from './module/platform/information/zh'
 
 import  {vip}  from './module/platform/vip/zh'
 
-import  {community}  from './module/platform/community/zh'
-
-import  {currency}  from './module/platform/currency/zh'
+import  {printer}  from './module/platform/printer/zh'
 
 export default {
 
@@ -104,11 +94,6 @@ export default {
     ...member
   },
 
-  // 课件
-  courseware: {
-    ...courseware
-  },
-
   // 订单
   order: {
     ...order
@@ -134,24 +119,9 @@ export default {
     ...problem
   },
 
-  // 项目
-  project: {
-    ...project
-  },
-
   // 联系客服
   contact: {
     ...contact
-  },
-
-  // 快讯
-  flash: {
-    ...flash
-  },
-
-  // 资讯
-  information: {
-    ...information
   },
 
   // 贵宾
@@ -159,13 +129,8 @@ export default {
     ...vip
   },
 
-  // 社区
-  community: {
-    ...community
-  },
-
-  // 货币
-  currency: {
-    ...currency
+  // 打印机
+  printer: {
+    ...printer
   },
 }
