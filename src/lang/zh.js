@@ -35,6 +35,10 @@ import  {vip}  from './module/platform/vip/zh'
 
 import  {printer}  from './module/platform/printer/zh'
 
+import  {material}  from './module/platform/material/zh'
+
+import  {repair}  from './module/platform/repair/zh'
+
 export default {
 
   // 公共
@@ -132,5 +136,15 @@ export default {
   // 打印机
   printer: {
     ...printer
+  },
+
+  // 耗材
+  material: {
+    ...material
+  },
+
+  // 报修
+  repair: {
+    ...repair
   },
 }
