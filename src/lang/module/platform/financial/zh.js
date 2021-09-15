@@ -42,4 +42,22 @@ export const financial = {
       require: '现金价格不能为空',
     },
   },
+
+  price: {
+    list: '价格列表',
+    from: '价格操作',
+    view: '查看价格',
+
+    title: '费用名称',
+    price: '收费价格',
+
+    rules: {
+      title: {
+        require: '费用名称不能为空',
+      },
+      price: {
+        require: '收费价格不能为空',
+      },
+    },
+  }
 }

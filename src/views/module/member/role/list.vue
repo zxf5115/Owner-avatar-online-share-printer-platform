@@ -4,26 +4,7 @@
       <div class="admin_main_block_top">
         <div class="admin_main_block_left">
           <div>
-            <router-link :to="{name: 'module_member_role_form'}">
-              <el-button v-if="isAuth('module:member:role:form')" type="success" icon="el-icon-plus">
-                {{ $t('common.create') }}
-              </el-button>
-            </router-link>
-          </div>
-        </div>
-        <div class="admin_main_block_right">
-          <div>
-            <el-button v-if="isAuth('module:member:role:delete')" type="danger" icon="el-icon-delete" @click="deleteHandle()">
-              {{ $t('common.batch_delete') }}
-            </el-button>
-          </div>
-        </div>
-      </div>
-
-      <div class="admin_main_block_top">
-        <div class="admin_main_block_left">
-          <div>
-            <el-input v-model="dataForm.content" :placeholder="$t('common.please_input') + $t('member.role.content')" clearable>
+            <el-input v-model="dataForm.title" :placeholder="$t('common.please_input') + $t('member.role.title')" clearable>
             </el-input>
           </div>
           <div>
@@ -50,14 +31,10 @@
           <el-table-column prop="content" :label="$t('member.role.content')">
           </el-table-column>
 
-          <el-table-column :label="$t('common.handle')" fixed="right" width="200px">
+          <el-table-column :label="$t('common.handle')" fixed="right" width="100">
             <template slot-scope="scope">
               <el-button v-if="isAuth('module:member:role:form')" type="primary" icon="el-icon-edit" @click="$router.push({name:'module_member_role_form',query:{id:scope.row.id}})">
                 {{ $t('common.update') }}
-              </el-button>
-
-              <el-button v-if="isAuth('module:member:role:delete')" type="danger" icon="el-icon-delete" @click="deleteHandle(scope.row.id)">
-                {{ $t('common.delete') }}
               </el-button>
             </template>
           </el-table-column>
@@ -87,7 +64,7 @@
       return {
         model: 'member/role',
         dataForm: [
-          'content'
+          'title'
         ],
       };
     },

@@ -111,10 +111,14 @@
             </template>
           </el-table-column>
 
-          <el-table-column :label="$t('common.handle')" fixed="right" width="220">
+          <el-table-column :label="$t('common.handle')" fixed="right" width="280">
             <template slot-scope="scope">
               <el-button v-if="isAuth('module:printer:form')" type="primary" icon="el-icon-edit" @click="$router.push({name: 'module_printer_form', query: {id : scope.row.id}})">
                 {{ $t('common.update') }}
+              </el-button>
+
+              <el-button v-if="isAuth('module:printer:log:list')" type="info" icon="el-icon-paperclip" @click="$router.push({name: 'module_printer_log_list', query: {printer_id : scope.row.id}})">
+                {{ $t('printer.log_info') }}
               </el-button>
 
               <el-button v-if="isAuth('module:printer:delete')" type="danger" icon="el-icon-delete" @click="deleteHandle(scope.row.id)">

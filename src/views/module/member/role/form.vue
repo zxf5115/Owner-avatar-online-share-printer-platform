@@ -19,7 +19,7 @@
         <el-form label-width="100px" ref="dataForm" :model="dataForm" :rules="dataRule">
 
           <el-form-item :label="$t('member.role.title')" prop="title">
-            <el-input v-model="dataForm.title" :placeholder="$t('common.please_input')+$t('member.role.title')"></el-input>
+            <el-input v-model="dataForm.title" :placeholder="$t('common.please_input')+$t('member.role.title')" disabled></el-input>
           </el-form-item>
 
           <el-form-item :label="$t('member.role.content')" prop="content">
@@ -116,19 +116,19 @@
                 this.dataForm.content = data.data.content
               }
             }).then(() => {
-              if (this.dataForm.id) {
-                this.$http({
-                  url: this.$http.adornUrl(`/member/role/permission/${this.dataForm.id}`),
-                  method: 'get',
-                  params: this.$http.adornParams()
-                }).then(({data}) => {
-                  if (data && data.status === 200) {
-                    this.checkedMenu = this.menuListId.length === data.data.permission.length
+              // if (this.dataForm.id) {
+              //   this.$http({
+              //     url: this.$http.adornUrl(`/member/role/permission/${this.dataForm.id}`),
+              //     method: 'get',
+              //     params: this.$http.adornParams()
+              //   }).then(({data}) => {
+              //     if (data && data.status === 200) {
+              //       this.checkedMenu = this.menuListId.length === data.data.permission.length
 
-                    // this.$refs.menuListTree.setCheckedKeys(data.data.permission)
-                  }
-                })
-              }
+              //       // this.$refs.menuListTree.setCheckedKeys(data.data.permission)
+              //     }
+              //   })
+              // }
             })
           }
         })

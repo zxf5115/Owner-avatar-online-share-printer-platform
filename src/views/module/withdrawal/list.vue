@@ -35,12 +35,6 @@
             </template>
           </el-table-column>
 
-          <el-table-column :label="$t('financial.withdrawal_type')">
-            <template slot-scope="scope">
-                {{ scope.row.withdrawal_type.text }}
-            </template>
-          </el-table-column>
-
           <el-table-column :label="$t('member.account.payment_name')">
             <template slot-scope="scope">
               <span v-if="scope.row.account">
@@ -57,7 +51,7 @@
             </template>
           </el-table-column>
 
-          <el-table-column :label="$t('financial.withdrawal_status')">
+          <!-- <el-table-column :label="$t('financial.withdrawal_status')">
             <template slot-scope="scope">
                 {{ scope.row.withdrawal_status.text }}
             </template>
@@ -67,7 +61,7 @@
             <template slot-scope="scope">
                 {{ scope.row.audit_type.text }}
             </template>
-          </el-table-column>
+          </el-table-column> -->
 
           <el-table-column :label="$t('financial.money')">
             <template slot-scope="scope">
@@ -110,7 +104,7 @@
     extends: common,
     data() {
       return {
-        model: 'financial/withdrawal',
+        model: 'withdrawal',
         dataForm: [
           'member_username',
           'account_payment_account',

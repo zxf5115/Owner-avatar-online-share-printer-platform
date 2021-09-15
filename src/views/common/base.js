@@ -69,6 +69,7 @@ export default {
           'position_id': this.dataForm.position_id,
           'organization_id': this.dataForm.organization_id,
           'relevance_role_id': this.dataForm.relevance_role_id,
+          'printer_id': this.dataForm.printer_id,
 
           'add_time': this.dataForm.add_time,
           'valid_time': this.dataForm.valid_time,
