@@ -80,192 +80,32 @@
 
     <el-card class="box-card mt10">
       <div slot="header" class="clearfix">
-        <span>待办事项</span>
+        <span>设备状况</span>
+        <div class="type">
+          <el-select v-model="order_type" clearable @change="data">
+            <el-option v-for="(v,k) in typeList" :label="v.title" :key="k" :value="v.id"></el-option>
+          </el-select>
+        </div>
       </div>
       <div class="text item text-center">
         <el-row :gutter="20">
-          <el-col :span="8" class="default_block_col">
+          <el-col :span="12" class="default_block_col">
             <el-card shadow="never">
-              <el-row>
-                <el-col :span="12">
-                  <i class="icon el-icon-s-order"></i>
-                </el-col>
-                <el-col :span="12">
-                  <div class="default_day_sale">
-                    <div class="blue">
-                      <b>{{ statistical.todo.wait_pay_total || 0 }}</b>
-                    </div>
-                    <div class="mt10">待付款订单</div>
-                  </div>
-                </el-col>
-              </el-row>
+              <ve-ring :data="statistical.data.ring"></ve-ring>
             </el-card>
           </el-col>
-          <el-col :span="8" class="default_block_col">
+          <el-col :span="12" class="default_block_col">
             <el-card shadow="never">
-              <el-row>
-                <el-col :span="12">
-                  <i class="icon el-icon-s-claim"></i>
-                </el-col>
-                <el-col :span="12">
-                  <div class="default_day_sale">
-                    <div class="blue">
-                      <b>{{ statistical.todo.wait_confirm_total || 0 }}</b>
-                    </div>
-                    <div class="mt10">待确认订单</div>
-                  </div>
-                </el-col>
-              </el-row>
-            </el-card>
-          </el-col>
-          <el-col :span="8" class="default_block_col">
-            <el-card shadow="never">
-              <el-row>
-                <el-col :span="12">
-                  <i class="icon el-icon-alarm-clock"></i>
-                </el-col>
-                <el-col :span="12">
-                  <div class="default_day_sale">
-                    <div class="blue">
-                      <b>{{ statistical.todo.wait_return_total || 0 }}</b>
-                    </div>
-                    <div class="mt10">待处理退款申请</div>
-                  </div>
-                </el-col>
-              </el-row>
+              <ve-histogram :data="statistical.data.histogram"></ve-histogram>
             </el-card>
           </el-col>
         </el-row>
       </div>
     </el-card>
 
-    <el-row :gutter="20" class="mt10">
-      <el-col :span="12" class="default_block_col">
-        <el-card class="box-card">
-          <div slot="header" class="clearfix">
-            <span>课程总览</span>
-          </div>
-          <div class="text item text-center">
-            <el-row :gutter="20">
-              <el-col :span="8" class="default_block_col">
-                <el-card shadow="never">
-                  <el-row>
-                    <el-col :span="24">
-                      <div class="default_day_sale">
-                        <div class="blue">
-                          <b>{{ statistical.course.online_course_total || 0 }}</b>
-                        </div>
-                        <div class="mt10">已上架</div>
-                      </div>
-                    </el-col>
-                  </el-row>
-                </el-card>
-              </el-col>
-              <el-col :span="8" class="default_block_col">
-                <el-card shadow="never">
-                  <el-row>
-                    <el-col :span="24">
-                      <div class="default_day_sale">
-                        <div class="blue">
-                          <b>{{ statistical.course.offline_course_total || 0 }}</b>
-                        </div>
-                        <div class="mt10">已下架</div>
-                      </div>
-                    </el-col>
-                  </el-row>
-                </el-card>
-              </el-col>
-              <el-col :span="8" class="default_block_col">
-                <el-card shadow="never">
-                  <el-row>
-                    <el-col :span="24">
-                      <div class="default_day_sale">
-                        <div class="blue">
-                          <b>{{ statistical.course.course_total || 0 }}</b>
-                        </div>
-                        <div class="mt10">全部</div>
-                      </div>
-                    </el-col>
-                  </el-row>
-                </el-card>
-              </el-col>
-            </el-row>
-          </div>
-        </el-card>
-      </el-col>
-
-      <el-col :span="12" class="default_block_col">
-        <el-card class="box-card">
-          <div slot="header" class="clearfix">
-            <span>会员总览</span>
-          </div>
-          <div class="text item text-center">
-            <el-row :gutter="20">
-              <el-col :span="6" class="default_block_col">
-                <el-card shadow="never">
-                  <el-row>
-                    <el-col :span="24">
-                      <div class="default_day_sale">
-                        <div class="blue">
-                          <b>{{ statistical.member.today_member_total || 0 }}</b>
-                        </div>
-                        <div class="mt10">今日新增</div>
-                      </div>
-                    </el-col>
-                  </el-row>
-                </el-card>
-              </el-col>
-              <el-col :span="6" class="default_block_col">
-                <el-card shadow="never">
-                  <el-row>
-                    <el-col :span="24">
-                      <div class="default_day_sale">
-                        <div class="blue">
-                          <b>{{ statistical.member.yesterday_member_total || 0 }}</b>
-                        </div>
-                        <div class="mt10">昨日新增</div>
-                      </div>
-                    </el-col>
-                  </el-row>
-                </el-card>
-              </el-col>
-              <el-col :span="6" class="default_block_col">
-                <el-card shadow="never">
-                  <el-row>
-                    <el-col :span="24">
-                      <div class="default_day_sale">
-                        <div class="blue">
-                          <b>{{ statistical.member.month_member_total || 0 }}</b>
-                        </div>
-                        <div class="mt10">本月新增</div>
-                      </div>
-                    </el-col>
-                  </el-row>
-                </el-card>
-              </el-col>
-              <el-col :span="6" class="default_block_col">
-                <el-card shadow="never">
-                  <el-row>
-                    <el-col :span="24">
-                      <div class="default_day_sale">
-                        <div class="blue">
-                          <b>{{ statistical.member.member_total || 0 }}</b>
-                        </div>
-                        <div class="mt10">学员总数</div>
-                      </div>
-                    </el-col>
-                  </el-row>
-                </el-card>
-              </el-col>
-            </el-row>
-          </div>
-        </el-card>
-      </el-col>
-    </el-row>
-
     <el-card class="box-card mt10">
       <div slot="header" class="clearfix">
-        <span>订单统计</span>
+        <span>待处理设备</span>
         <div class="type">
           <el-select v-model="order_type" clearable @change="data">
             <el-option v-for="(v,k) in typeList" :label="v.title" :key="k" :value="v.id"></el-option>
@@ -292,7 +132,7 @@
           </el-row>
         </div>
         <div class="default_total">
-          <ve-line :data="statistical.data.line"></ve-line>
+
         </div>
       </div>
     </el-card>
@@ -300,10 +140,12 @@
 </template>
 
 <script>
-  import VeLine from 'v-charts/lib/line.common'
+  import VeHistogram from 'v-charts/lib/histogram.common'
+  import VeRing from 'v-charts/lib/ring.common'
   export default {
     components: {
-      VeLine,
+      VeHistogram,
+      VeRing,
     },
     data() {
       return {
@@ -341,6 +183,25 @@
               columns: ['title', '订单数'],
               rows: []
             },
+            ring: {
+              columns: ['title', 'value'],
+              rows: [
+                { 'title': '在线设备', 'value': 123 },
+                { 'title': '离线设备', 'value': 1223 },
+                { 'title': '异常设备', 'value': 2123 }
+              ]
+            },
+            histogram: {
+              columns: ['title', '收益'],
+              rows: [
+                { 'title': '代理人1', '收益': 123 },
+                { 'title': '代理人2', '收益': 1223 },
+                { 'title': '代理人3', '收益': 2123 },
+                { 'title': '代理人4', '收益': 4123 },
+                { 'title': '代理人5', '收益': 3123 },
+                { 'title': '代理人6', '收益': 7123 }
+              ]
+            }
           }
         },
       };

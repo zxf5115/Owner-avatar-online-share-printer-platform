@@ -16,6 +16,8 @@ import  {log}  from './system/platform/log/zh'
 import  {organization}  from './module/platform/organization/zh'
 
 import  {member}  from './module/platform/member/zh'
+import  {manager}  from './module/platform/manager/zh'
+import  {agent}  from './module/platform/agent/zh'
 
 import  {advertising}  from './module/platform/advertising/zh'
 
@@ -93,9 +95,19 @@ export default {
     ...organization
   },
 
-  // 学员
+  // 会员
   member: {
     ...member
+  },
+
+  // 店长
+  manager: {
+    ...manager
+  },
+
+  // 代理人
+  agent: {
+    ...agent
   },
 
   // 订单

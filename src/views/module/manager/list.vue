@@ -4,7 +4,7 @@
       <div class="admin_main_block_top">
         <div class="admin_main_block_right">
           <div>
-            <el-button v-if="isAuth('module:member:delete')" type="danger" icon="el-icon-delete" @click="deleteHandle()">
+            <el-button v-if="isAuth('module:manager:delete')" type="danger" icon="el-icon-delete" @click="deleteHandle()">
               {{ $t('common.batch_delete') }}
             </el-button>
           </div>
@@ -14,11 +14,11 @@
       <div class="admin_main_block_top">
         <div class="admin_main_block_left">
           <div>
-            <el-input v-model="dataForm.username" :placeholder="$t('common.please_input') + $t('member.username')" clearable>
+            <el-input v-model="dataForm.username" :placeholder="$t('common.please_input') + $t('manager.username')" clearable>
             </el-input>
           </div>
           <div>
-            <el-input v-model="dataForm.nickname" :placeholder="$t('common.please_input') + $t('member.nickname')" clearable>
+            <el-input v-model="dataForm.nickname" :placeholder="$t('common.please_input') + $t('manager.nickname')" clearable>
             </el-input>
           </div>
           <div>
@@ -36,10 +36,10 @@
           <el-table-column prop="id" :label="$t('common.id')" width="70">
           </el-table-column>
 
-          <el-table-column prop="username" :label="$t('member.username')" width="100">
+          <el-table-column prop="username" :label="$t('manager.username')" width="100">
           </el-table-column>
 
-          <el-table-column :label="$t('member.info')" width="260">
+          <el-table-column :label="$t('manager.info')" width="260">
             <template slot-scope="scope">
               <dl class="table_dl">
                 <dt>
@@ -48,34 +48,34 @@
                   </el-avatar>
                 </dt>
                 <dd class="table_dl_dd_all_30">
-                  {{ $t('member.nickname') }}： {{ scope.row.nickname }}
+                  {{ $t('manager.nickname') }}： {{ scope.row.nickname }}
                 </dd>
                 <dd class="table_dl_dd_all_16_gray">
-                  {{ $t('member.create_time') }}： {{ scope.row.create_time }}
+                  {{ $t('manager.create_time') }}： {{ scope.row.create_time }}
                 </dd>
               </dl>
             </template>
           </el-table-column>
 
-          <el-table-column :label="$t('member.asset_money')">
+          <el-table-column :label="$t('manager.asset_money')">
             <template slot-scope="scope" v-if="scope.row.asset">
               {{ scope.row.asset.money }}
             </template>
           </el-table-column>
 
-          <el-table-column :label="$t('member.certification_info')">
+          <el-table-column :label="$t('manager.certification_info')">
             <template slot-scope="scope" v-if="scope.row.certification">
               {{ scope.row.certification.type.text }}
             </template>
           </el-table-column>
 
-          <el-table-column :label="$t('member.certification_status')">
+          <el-table-column :label="$t('manager.certification_status')">
             <template slot-scope="scope" v-if="scope.row.certification">
               {{ scope.row.certification.certification_status.text }}
             </template>
           </el-table-column>
 
-          <el-table-column prop="status" :label="$t('member.status')" width="100">
+          <el-table-column prop="status" :label="$t('manager.status')" width="100">
             <template slot-scope="scope">
               <el-switch
                 v-model="scope.row.status.value"
@@ -86,17 +86,21 @@
             </template>
           </el-table-column>
 
-          <el-table-column :label="$t('common.handle')" fixed="right" width="280">
+          <el-table-column :label="$t('common.handle')" fixed="right" width="380">
             <template slot-scope="scope">
-              <el-button v-if="isAuth('module:member:view')" type="info" icon="el-icon-view" @click="$router.push({name: 'module_member_view', query: {id: scope.row.id}})">
+              <el-button v-if="isAuth('module:manager:view')" type="info" icon="el-icon-view" @click="$router.push({name: 'module_manager_view', query: {id: scope.row.id}})">
                 {{ $t('common.view') }}
               </el-button>
 
-              <el-button v-if="isAuth('module:member:certification') && scope.row.certification && 1 != scope.row.certification.certification_status.value" type="warning" icon="el-icon-edit" @click="$router.push({name: 'module_member_certification', query: {id: scope.row.id}})">
+              <el-button v-if="isAuth('module:manager:form')" type="primary" icon="el-icon-check" @click="$router.push({name: 'module_manager_form', query: {id: scope.row.id}})">
+                {{ $t('common.update') }}
+              </el-button>
+
+              <el-button v-if="isAuth('module:manager:certification') && scope.row.certification && 1 != scope.row.certification.certification_status.value" type="warning" icon="el-icon-edit" @click="$router.push({name: 'module_manager_certification', query: {id: scope.row.id}})">
                 {{ $t('common.certification') }}
               </el-button>
 
-              <el-button v-if="isAuth('module:member:delete') && scope.row.id != 1" type="danger" icon="el-icon-delete" @click="deleteHandle(scope.row.id)">
+              <el-button v-if="isAuth('module:manager:delete') && scope.row.id != 1" type="danger" icon="el-icon-delete" @click="deleteHandle(scope.row.id)">
                 {{ $t('common.delete') }}
               </el-button>
             </template>
@@ -125,7 +129,7 @@
     extends: common,
     data() {
       return {
-        model: 'member',
+        model: 'manager',
         dataForm: [
           'username',
           'nickname',
@@ -135,7 +139,7 @@
     methods: {
       handleStatus($event, id, field) {
         this.$http({
-          url: this.$http.adornUrl('/member/status'),
+          url: this.$http.adornUrl('/manager/status'),
           method: 'post',
           data: {
             id: id,

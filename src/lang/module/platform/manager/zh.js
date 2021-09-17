@@ -1,11 +1,12 @@
-export const member = {
-  list: '会员列表',
-  from: '会员操作',
-  info: '会员信息',
-  view: '会员详情',
-  delete: '删除会员',
-  export: '导出会员',
-  archive_info: '会员档案',
+export const manager = {
+  list: '店长列表',
+  from: '店长操作',
+  info: '店长信息',
+  view: '店长详情',
+  delete: '删除店长',
+  export: '导出店长',
+  archive_info: '店长档案',
+  vip_info: '贵宾信息',
   asset_info: '资金信息',
   social_info: '社交信息',
   certification_info: '认证信息',
@@ -15,12 +16,14 @@ export const member = {
   certification_status: '认证状态',
   certification_content: '认证意见',
 
-  member_no: '会员ID',
-  avatar: '会员头像',
-  username: '会员电话',
+  member_no: '店长ID',
+  avatar: '店长头像',
+  username: '店长电话',
   mobile: '手机',
   email: '邮箱',
-  nickname: '会员昵称',
+  nickname: '店长昵称',
+  vip_title: '店长类型',
+  vip_end_time: '到期时间',
   asset_money: '账户余额',
   audit_status: '审核状态',
   status: '账号状态',
@@ -79,9 +82,9 @@ export const member = {
     list: '档案列表',
     from: '档案操作',
     view: '档案详情',
-    info: '会员档案',
+    info: '店长档案',
 
-    sex: '会员性别',
+    sex: '店长性别',
     attention_total: '关注总数',
     fans_total: '粉丝总数',
     approval_total: '点赞总数',
@@ -93,7 +96,7 @@ export const member = {
 
     rules: {
       member_id: {
-        require: '会员昵称不能为空',
+        require: '店长昵称不能为空',
       },
       realname: {
         require: '真实姓名不能为空',
@@ -106,7 +109,7 @@ export const member = {
 
   homework: {
     'answer_time': '完成时间',
-    'answer_content': '会员答案',
+    'answer_content': '店长答案',
     'answer_result': '老师批复',
     'answer_remark': '老师建议',
   },
