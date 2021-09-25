@@ -22,6 +22,12 @@
             </el-input>
           </div>
           <div>
+            <el-select v-model="dataForm.archive_province_id" :placeholder="$t('common.please_select') + $t('common.province')" clearable>
+              <el-option :label="$t('common.all')" value=""></el-option>
+              <el-option v-for="(v,k) in provinceList" :label="v.title" :key="k" :value="v.id"></el-option>
+            </el-select>
+          </div>
+          <div>
             <el-button icon="el-icon-search" @click="getDataList(true)">
               {{ $t('common.search') }}
             </el-button>
@@ -34,6 +40,12 @@
           </el-table-column>
 
           <el-table-column prop="id" :label="$t('common.id')" width="70">
+          </el-table-column>
+
+          <el-table-column :label="$t('manager.agent_name')" width="120">
+            <template slot-scope="scope" v-if="scope.row.parent">
+              {{ scope.row.parent.nickname }}
+            </template>
           </el-table-column>
 
           <el-table-column prop="username" :label="$t('manager.username')" width="100">
@@ -57,21 +69,42 @@
             </template>
           </el-table-column>
 
-          <el-table-column :label="$t('manager.asset_money')">
+          <el-table-column :label="$t('manager.asset_money')" width="100">
             <template slot-scope="scope" v-if="scope.row.asset">
               {{ scope.row.asset.money }}
             </template>
           </el-table-column>
 
-          <el-table-column :label="$t('manager.certification_info')">
-            <template slot-scope="scope" v-if="scope.row.certification">
-              {{ scope.row.certification.type.text }}
+          <el-table-column :label="$t('manager.proportion')" width="100">
+            <template slot-scope="scope" v-if="scope.row.asset">
+              {{ scope.row.asset.proportion }}
             </template>
           </el-table-column>
 
-          <el-table-column :label="$t('manager.certification_status')">
-            <template slot-scope="scope" v-if="scope.row.certification">
-              {{ scope.row.certification.certification_status.text }}
+          <el-table-column prop="printer_total" :label="$t('agent.printer_total')" width="100">
+          </el-table-column>
+
+          <el-table-column :label="$t('manager.order_total')" width="100">
+            <template slot-scope="scope" v-if="scope.row.asset">
+              {{ scope.row.asset.order_total }}
+            </template>
+          </el-table-column>
+
+          <el-table-column :label="$t('common.province')" width="150">
+            <template slot-scope="scope" v-if="scope.row.archive">
+              {{ scope.row.archive.province_id.text }}
+            </template>
+          </el-table-column>
+
+          <el-table-column :label="$t('common.city')" width="150">
+            <template slot-scope="scope" v-if="scope.row.archive">
+              {{ scope.row.archive.city_id.text }}
+            </template>
+          </el-table-column>
+
+          <el-table-column :label="$t('common.region')" width="150">
+            <template slot-scope="scope" v-if="scope.row.archive">
+              {{ scope.row.archive.region_id.text }}
             </template>
           </el-table-column>
 
@@ -86,18 +119,10 @@
             </template>
           </el-table-column>
 
-          <el-table-column :label="$t('common.handle')" fixed="right" width="380">
+          <el-table-column :label="$t('common.handle')" fixed="right" width="200">
             <template slot-scope="scope">
               <el-button v-if="isAuth('module:manager:view')" type="info" icon="el-icon-view" @click="$router.push({name: 'module_manager_view', query: {id: scope.row.id}})">
                 {{ $t('common.view') }}
-              </el-button>
-
-              <el-button v-if="isAuth('module:manager:form')" type="primary" icon="el-icon-check" @click="$router.push({name: 'module_manager_form', query: {id: scope.row.id}})">
-                {{ $t('common.update') }}
-              </el-button>
-
-              <el-button v-if="isAuth('module:manager:certification') && scope.row.certification && 1 != scope.row.certification.certification_status.value" type="warning" icon="el-icon-edit" @click="$router.push({name: 'module_manager_certification', query: {id: scope.row.id}})">
-                {{ $t('common.certification') }}
               </el-button>
 
               <el-button v-if="isAuth('module:manager:delete') && scope.row.id != 1" type="danger" icon="el-icon-delete" @click="deleteHandle(scope.row.id)">
@@ -105,7 +130,6 @@
               </el-button>
             </template>
           </el-table-column>
-
         </el-table>
         <div class="admin_table_main_pagination">
           <el-pagination
@@ -130,13 +154,28 @@
     data() {
       return {
         model: 'manager',
+        provinceList: [],
         dataForm: [
           'username',
           'nickname',
+          'parent_nickname',
+          'archive_province_id',
         ],
       };
     },
     methods: {
+      loadProvinceList () {
+        this.$http({
+          url: this.$http.adornUrl('/common/area/list'),
+          method: 'get'
+        }).then(({data}) => {
+          if (data && data.status === 200) {
+            this.provinceList = data.data
+          } else {
+            this.$message.error(this.$t(data.message))
+          }
+        })
+      },
       handleStatus($event, id, field) {
         this.$http({
           url: this.$http.adornUrl('/manager/status'),
@@ -164,6 +203,7 @@
     },
     created() {
       this.getDataList()
+      this.loadProvinceList()
     }
   };
 </script>

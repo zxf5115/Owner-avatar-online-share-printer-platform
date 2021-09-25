@@ -80,10 +80,10 @@ export default {
 
           'is_recommend': this.dataForm.is_recommend,
           'is_hidden': this.dataForm.is_hidden,
-          'course_title': this.dataForm.course_title,
-          'organization_title': this.dataForm.organization_title,
           'archive_weixin': this.dataForm.archive_weixin,
-          'teacher_name': this.dataForm.teacher_name,
+
+          'archive_province_id': this.dataForm.archive_province_id,
+
 
           'order_no': this.dataForm.order_no,
           'pay_status': this.dataForm.pay_status,

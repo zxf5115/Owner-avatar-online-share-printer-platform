@@ -7,13 +7,8 @@ export const agent = {
   export: '导出代理商',
   archive_info: '代理商档案',
   asset_info: '资金信息',
-  social_info: '社交信息',
-  certification_info: '认证信息',
-  certification_personal: '个人认证',
-  certification_company: '企业认证',
-  certification_project: '项目认证',
-  certification_status: '认证状态',
-  certification_content: '认证意见',
+  facility_info: '设备信息',
+  printer_info: '打印机信息',
 
   member_no: '代理商ID',
   avatar: '代理商头像',
@@ -23,10 +18,15 @@ export const agent = {
   nickname: '代理商昵称',
   asset_money: '账户余额',
   audit_status: '审核状态',
+  proportion: '分成金额',
+  printer_total: '打印机数量',
+  below_agent: '下属代理商',
+  below_manager: '下属店长',
   status: '账号状态',
   last_login_time: '最后登录时间',
   create_time: '注册时间',
 
+  facility: '设备',
   enable: '解禁',
   disable: '禁用',
 
@@ -59,27 +59,7 @@ export const agent = {
     },
   },
 
-  certification: {
-    personal: {
-      id_card_front_picture: '身份证正面照片',
-      id_card_behind_picture: '身份证反面照片',
-    },
-    company: {
-      company_name: '企业名称',
-      business_license_no: '营业执照号',
-      business_license_picture: '营业执照图片',
-    },
-    project: {
-      project_name: '项目名称',
-      project_logo: '项目logo',
-      realname: '联系人',
-      mobile: '联系人手机号',
-      project_category: '项目分类',
-      project_website: '项目官网',
-      project_document: '白皮书地址',
-      project_social: '社交媒体',
-      project_report: '审计报告',
-      project_github: 'github地址',
-    },
+  printer: {
+    use_status: '使用状态'
   }
 }

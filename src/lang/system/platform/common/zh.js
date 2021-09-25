@@ -71,9 +71,9 @@ export const common =  {
   please_input: '请输入',
   finish_clear: '清空完成',
   user_center: '个人中心',
-  province: '省',
-  city: '市',
-  region: '区/县',
+  province: '省份',
+  city: '城市',
+  region: '区县',
 
   month: '月份',
 

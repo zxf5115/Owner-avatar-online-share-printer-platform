@@ -8,34 +8,22 @@ export const manager = {
   archive_info: '店长档案',
   vip_info: '贵宾信息',
   asset_info: '资金信息',
-  social_info: '社交信息',
-  certification_info: '认证信息',
-  certification_personal: '个人认证',
-  certification_company: '企业认证',
-  certification_project: '项目认证',
-  certification_status: '认证状态',
-  certification_content: '认证意见',
 
   member_no: '店长ID',
   avatar: '店长头像',
   username: '店长电话',
-  mobile: '手机',
-  email: '邮箱',
-  nickname: '店长昵称',
-  vip_title: '店长类型',
-  vip_end_time: '到期时间',
+  nickname: '店长姓名',
+  agent_name: '所属代理商',
   asset_money: '账户余额',
   audit_status: '审核状态',
+  proportion: '分成金额',
+  order_total: '订单总量',
   status: '账号状态',
   last_login_time: '最后登录时间',
   create_time: '注册时间',
 
   enable: '解禁',
   disable: '禁用',
-
-  push: 'APP推送',
-  push_course: '课程推送',
-  push_activity: '活动推送',
 
   role: {
     list: '身份列表',
@@ -104,51 +92,6 @@ export const manager = {
       id_card_no: {
         require: '身份证号不能为空',
       },
-    },
-  },
-
-  homework: {
-    'answer_time': '完成时间',
-    'answer_content': '店长答案',
-    'answer_result': '老师批复',
-    'answer_remark': '老师建议',
-  },
-
-
-  address: {
-    list: '收货地址列表',
-    from: '收货地址操作',
-    view: '收货地址详情',
-
-    name: '收货人姓名',
-    mobile: '联系电话',
-    province: '省',
-    city: '市',
-    county: '县',
-    address: '收货地址',
-  },
-
-  certification: {
-    personal: {
-      id_card_front_picture: '身份证正面照片',
-      id_card_behind_picture: '身份证反面照片',
-    },
-    company: {
-      company_name: '企业名称',
-      business_license_no: '营业执照号',
-      business_license_picture: '营业执照图片',
-    },
-    project: {
-      project_name: '项目名称',
-      project_logo: '项目logo',
-      realname: '联系人',
-      mobile: '联系人手机号',
-      project_category: '项目分类',
-      project_website: '项目官网',
-      project_document: '白皮书地址',
-      project_social: '社交媒体',
-      project_report: '审计报告',
-      project_github: 'github地址',
     },
   }
 }

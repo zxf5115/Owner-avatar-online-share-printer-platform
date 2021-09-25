@@ -11,6 +11,7 @@ export const printer = {
   model: '打印机型号',
   failure_number: '故障次数',
   address: '安装地址',
+  allot_status: '分配地址',
   status: '打印机状态',
 
   log: {

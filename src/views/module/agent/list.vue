@@ -45,6 +45,17 @@
           <el-table-column prop="id" :label="$t('common.id')" width="70">
           </el-table-column>
 
+          <el-table-column :label="$t('manager.agent_name')" width="120">
+            <template slot-scope="scope">
+              <span v-if="scope.row.parent">
+                {{ scope.row.parent.nickname }}
+              </span>
+              <span v-else>
+                {{ $t('common.empty') }}
+              </span>
+            </template>
+          </el-table-column>
+
           <el-table-column prop="username" :label="$t('agent.username')" width="100">
           </el-table-column>
 
@@ -66,22 +77,25 @@
             </template>
           </el-table-column>
 
-          <el-table-column :label="$t('agent.asset_money')">
+          <el-table-column :label="$t('agent.asset_money')" width="100">
             <template slot-scope="scope" v-if="scope.row.asset">
               {{ scope.row.asset.money }}
             </template>
           </el-table-column>
 
-          <el-table-column :label="$t('agent.certification_info')">
-            <template slot-scope="scope" v-if="scope.row.certification">
-              {{ scope.row.certification.type.text }}
+          <el-table-column :label="$t('agent.proportion')" width="100">
+            <template slot-scope="scope" v-if="scope.row.asset">
+              {{ scope.row.asset.proportion }}
             </template>
           </el-table-column>
 
-          <el-table-column :label="$t('agent.certification_status')">
-            <template slot-scope="scope" v-if="scope.row.certification">
-              {{ scope.row.certification.certification_status.text }}
-            </template>
+          <el-table-column prop="printer_total" :label="$t('agent.printer_total')" width="100">
+          </el-table-column>
+
+          <el-table-column prop="below_agent_total" :label="$t('agent.below_agent')" width="100">
+          </el-table-column>
+
+          <el-table-column prop="below_manager_total" :label="$t('agent.below_manager')" width="100">
           </el-table-column>
 
           <el-table-column prop="status" :label="$t('agent.status')" width="100">
@@ -101,12 +115,12 @@
                 {{ $t('common.view') }}
               </el-button>
 
-              <el-button v-if="isAuth('module:agent:form')" type="primary" icon="el-icon-check" @click="$router.push({name: 'module_agent_form', query: {id: scope.row.id}})">
-                {{ $t('common.update') }}
+              <el-button v-if="isAuth('module:agent:facility')" type="warning" icon="el-icon-printer" @click="$router.push({name: 'module_agent_facility', query: {id: scope.row.id}})">
+                {{ $t('agent.facility') }}
               </el-button>
 
-              <el-button v-if="isAuth('module:agent:certification') && scope.row.certification && 1 != scope.row.certification.certification_status.value" type="warning" icon="el-icon-edit" @click="$router.push({name: 'module_agent_certification', query: {id: scope.row.id}})">
-                {{ $t('common.certification') }}
+              <el-button v-if="isAuth('module:agent:form')" type="primary" icon="el-icon-check" @click="$router.push({name: 'module_agent_form', query: {id: scope.row.id}})">
+                {{ $t('common.update') }}
               </el-button>
 
               <el-button v-if="isAuth('module:agent:delete') && scope.row.id != 1" type="danger" icon="el-icon-delete" @click="deleteHandle(scope.row.id)">
