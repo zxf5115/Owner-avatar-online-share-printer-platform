@@ -63,16 +63,7 @@
             </template>
           </el-table-column>
 
-          <el-table-column :label="$t('member.certification_info')">
-            <template slot-scope="scope" v-if="scope.row.certification">
-              {{ scope.row.certification.type.text }}
-            </template>
-          </el-table-column>
-
-          <el-table-column :label="$t('member.certification_status')">
-            <template slot-scope="scope" v-if="scope.row.certification">
-              {{ scope.row.certification.certification_status.text }}
-            </template>
+          <el-table-column prop="last_login_time" :label="$t('member.last_login_time')" width="140">
           </el-table-column>
 
           <el-table-column prop="status" :label="$t('member.status')" width="100">
@@ -86,14 +77,10 @@
             </template>
           </el-table-column>
 
-          <el-table-column :label="$t('common.handle')" fixed="right" width="280">
+          <el-table-column :label="$t('common.handle')" fixed="right" width="200">
             <template slot-scope="scope">
               <el-button v-if="isAuth('module:member:view')" type="info" icon="el-icon-view" @click="$router.push({name: 'module_member_view', query: {id: scope.row.id}})">
                 {{ $t('common.view') }}
-              </el-button>
-
-              <el-button v-if="isAuth('module:member:certification') && scope.row.certification && 1 != scope.row.certification.certification_status.value" type="warning" icon="el-icon-edit" @click="$router.push({name: 'module_member_certification', query: {id: scope.row.id}})">
-                {{ $t('common.certification') }}
               </el-button>
 
               <el-button v-if="isAuth('module:member:delete') && scope.row.id != 1" type="danger" icon="el-icon-delete" @click="deleteHandle(scope.row.id)">
@@ -101,8 +88,8 @@
               </el-button>
             </template>
           </el-table-column>
-
         </el-table>
+
         <div class="admin_table_main_pagination">
           <el-pagination
             @size-change="sizeChangeHandle"

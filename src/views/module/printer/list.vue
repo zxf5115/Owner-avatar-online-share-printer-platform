@@ -53,6 +53,9 @@
               <span v-if="scope.row.member">
                 {{ scope.row.member.nickname }}
               </span>
+              <span v-else>
+                {{ $t('common.empty') }}
+              </span>
             </template>
           </el-table-column>
 
@@ -60,6 +63,9 @@
             <template slot-scope="scope">
               <span v-if="scope.row.member">
                 {{ scope.row.member.username }}
+              </span>
+              <span v-else>
+                {{ $t('common.empty') }}
               </span>
             </template>
           </el-table-column>
@@ -98,6 +104,14 @@
           </el-table-column>
 
           <el-table-column prop="address" :label="$t('printer.address')">
+          </el-table-column>
+
+          <el-table-column :label="$t('printer.allot_status')" width="100">
+            <template slot-scope="scope">
+              <span>
+                {{ scope.row.allot_status.text }}
+              </span>
+            </template>
           </el-table-column>
 
           <el-table-column prop="status" :label="$t('printer.status')" width="100">

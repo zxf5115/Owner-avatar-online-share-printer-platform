@@ -72,44 +72,6 @@
               </el-row>
             </div>
           </el-card>
-
-          <el-card class="box-card mt10" shadow="never">
-            <div slot="header" class="clearfix">
-              <span>{{ $t('member.social_info') }}</span>
-            </div>
-            <div class="text item">
-              <el-row>
-                <el-col :span="6">
-                  <el-form-item :label="$t('member.archive.attention_total')" label-width="100">
-                    <span v-if="dataForm.archive">
-                      {{ dataForm.archive.attention_total }}
-                    </span>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="6">
-                  <el-form-item :label="$t('member.archive.fans_total')" label-width="100">
-                    <span v-if="dataForm.archive">
-                      {{ dataForm.archive.fans_total }}
-                    </span>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="6">
-                  <el-form-item :label="$t('member.archive.approval_total')" label-width="100">
-                    <span v-if="dataForm.archive">
-                      {{ dataForm.archive.approval_total }}
-                    </span>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="6">
-                  <el-form-item :label="$t('member.archive.accepted_total')" label-width="100">
-                    <span v-if="dataForm.archive">
-                      {{ dataForm.archive.accepted_total }}
-                    </span>
-                  </el-form-item>
-                </el-col>
-              </el-row>
-            </div>
-          </el-card>
         </el-form>
       </div>
     </div>

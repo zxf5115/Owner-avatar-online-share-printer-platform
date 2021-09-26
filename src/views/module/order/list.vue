@@ -8,11 +8,11 @@
               {{ $t('common.batch_delete') }}
             </el-button>
           </div>
-          <div class="mr10">
+          <!-- <div class="mr10">
             <el-button v-if="isAuth('module:order:export')" type="success" icon="el-icon-download" @click="handleExport">
               {{ $t('common.export') }}
             </el-button>
-          </div>
+          </div> -->
         </div>
       </div>
 
@@ -23,7 +23,7 @@
             </el-input>
           </div>
           <div>
-            <el-input v-model="dataForm.courseware_title" :placeholder="$t('common.please_input') + $t('courseware.title')" clearable>
+            <el-input v-model="dataForm.title" :placeholder="$t('common.please_input') + $t('order.title')" clearable>
             </el-input>
           </div>
           <div>
@@ -58,15 +58,7 @@
           <el-table-column prop="order_no" :label="$t('order.order_no')" width="180">
           </el-table-column>
 
-          <el-table-column :label="$t('courseware.title')" width="200">
-            <template slot-scope="scope">
-              <span v-if="scope.row.courseware" v-for="(v,k) in scope.row.courseware" :key="k">
-                <div>{{ v.title }}</div>
-              </span>
-            </template>
-          </el-table-column>
-
-          <el-table-column :label="$t('order.nickname')">
+          <el-table-column :label="$t('order.nickname')" width="120">
             <template slot-scope="scope">
               <span v-if="scope.row.member">
                 {{ scope.row.member.nickname }}
@@ -74,7 +66,7 @@
             </template>
           </el-table-column>
 
-          <el-table-column :label="$t('order.username')">
+          <el-table-column :label="$t('order.username')" width="100">
             <template slot-scope="scope">
               <span v-if="scope.row.member">
                 {{ scope.row.member.username }}
@@ -82,7 +74,25 @@
             </template>
           </el-table-column>
 
-          <el-table-column :label="$t('order.pay_money')">
+          <el-table-column prop="title" :label="$t('order.title')">
+          </el-table-column>
+
+          <el-table-column :label="$t('order.type')" width="100">
+            <template slot-scope="scope">
+              {{ scope.row.type.text }}
+            </template>
+          </el-table-column>
+
+          <el-table-column prop="page_total" :label="$t('order.page_total')" width="100">
+          </el-table-column>
+
+          <el-table-column prop="print_total" :label="$t('order.print_total')" width="100">
+          </el-table-column>
+
+          <el-table-column prop="total" :label="$t('order.total')" width="100">
+          </el-table-column>
+
+          <el-table-column :label="$t('order.pay_money')" width="100">
             <template slot-scope="scope">
               <span class="red">
                 {{ scope.row.pay_money }}
@@ -91,19 +101,19 @@
 
           </el-table-column>
 
-          <el-table-column prop="pay_type" :label="$t('order.pay_type')">
+          <el-table-column prop="pay_type" :label="$t('order.pay_type')" width="100">
             <template slot-scope="scope">
               {{ scope.row.pay_type.text }}
             </template>
           </el-table-column>
 
-          <el-table-column prop="pay_status" :label="$t('order.pay_status')">
+          <el-table-column prop="pay_status" :label="$t('order.pay_status')" width="100">
             <template slot-scope="scope">
               {{ scope.row.pay_status.text }}
             </template>
           </el-table-column>
 
-          <el-table-column prop="order_status" :label="$t('order.order_status')">
+          <el-table-column prop="order_status" :label="$t('order.order_status')" width="100">
             <template slot-scope="scope">
               {{ scope.row.order_status.text }}
             </template>
@@ -118,11 +128,11 @@
                 {{ $t('order.view') }}
               </el-button>
 
-              <el-button v-if="isAuth('module:order:cancel') && scope.row.pay_status.value == 0 && scope.row.order_status.value != 3" type="warning" icon="el-icon-switch-button" @click="handleCancel(scope.row.id)">
+              <el-button v-if="isAuth('module:order:cancel') && scope.row.pay_status.value == 0 && scope.row.order_status.value == 0" type="warning" icon="el-icon-switch-button" @click="handleCancel(scope.row.id)">
                 {{ $t('order.cancel') }}
               </el-button>
 
-              <el-button v-if="isAuth('module:order:delete') && scope.row.order_status.value == 3" type="danger" icon="el-icon-delete" @click="deleteHandle(scope.row.id)">
+              <el-button v-if="isAuth('module:order:delete') && scope.row.order_status.value == 4" type="danger" icon="el-icon-delete" @click="deleteHandle(scope.row.id)">
                 {{ $t('order.delete') }}
               </el-button>
             </template>
