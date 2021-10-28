@@ -18,11 +18,11 @@
       <div class="admin_form_main">
         <el-form label-width="140px" ref="dataForm" :model="dataForm" :rules="dataRule">
 
-          <!-- <el-form-item :label="$t('printer.category.title')" prop="category_id">
-            <el-select v-model="dataForm.category_id" :placeholder="$t('common.please_select')+$t('printer.category.title')">
-              <el-option v-for="(v,k) in categoryList" :label="v.title" :key="k" :value="v.id"></el-option>
+          <el-form-item :label="$t('agent.nickname')" prop="member_id">
+            <el-select v-model="dataForm.member_id" :placeholder="$t('common.please_select')+$t('agent.nickname')">
+              <el-option v-for="(v,k) in memberList" :label="v.nickname" :key="k" :value="v.id"></el-option>
             </el-select>
-          </el-form-item> -->
+          </el-form-item>
 
           <el-form-item :label="$t('printer.title')" prop="title">
             <el-input :placeholder="$t('printer.title')" v-model="dataForm.title"></el-input>
@@ -65,11 +65,11 @@
     {
       return {
         model: 'printer',
-        categoryList: [],
+        memberList: [],
         dataForm:
         {
           id: 0,
-          category_id: '',
+          member_id: '',
           title: '',
           model: '',
           province_id : '',
@@ -102,13 +102,13 @@
               params: this.$http.adornParams()
             }).then(({data}) => {
               if (data && data.status === 200) {
-                this.dataForm.category_id = data.data.category_id
+                this.dataForm.member_id   = data.data.member_id
                 this.dataForm.title       = data.data.title
                 this.dataForm.model       = data.data.model
-                this.dataForm.province_id  = data.data.province_id
-                this.dataForm.city_id      = data.data.city_id
-                this.dataForm.region_id    = data.data.region_id
-                this.dataForm.address      = data.data.address
+                this.dataForm.province_id = data.data.province_id
+                this.dataForm.city_id     = data.data.city_id
+                this.dataForm.region_id   = data.data.region_id
+                this.dataForm.address     = data.data.address
               }
             })
           }
@@ -123,7 +123,7 @@
               method: 'post',
               data: this.$http.adornData({
                 'id': this.dataForm.id || undefined,
-                'category_id': this.dataForm.category_id,
+                'member_id': this.dataForm.member_id,
                 'title': this.dataForm.title,
                 'model': this.dataForm.model,
                 'province_id': this.$refs.area.province_id,
@@ -146,13 +146,13 @@
       {
         this.$refs['dataForm'].resetFields();
       },
-      loadCategoryList () {
+      loadMemberList () {
         this.$http({
-          url: this.$http.adornUrl('/printer/category/select'),
+          url: this.$http.adornUrl('/agent/select'),
           method: 'get'
         }).then(({data}) => {
           if (data && data.status === 200) {
-            this.categoryList = data.data
+            this.memberList = data.data
           } else {
             this.$message.error(this.$t(data.message))
           }
@@ -172,7 +172,7 @@
     {
       this.init();
 
-      // this.loadCategoryList();
+      this.loadMemberList();
     },
   };
 </script>

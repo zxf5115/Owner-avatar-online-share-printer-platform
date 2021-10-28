@@ -43,8 +43,13 @@
           </el-table-column>
 
           <el-table-column :label="$t('manager.agent_name')" width="120">
-            <template slot-scope="scope" v-if="scope.row.parent">
-              {{ scope.row.parent.nickname }}
+            <template slot-scope="scope">
+              <span v-if="scope.row.parent">
+                {{ scope.row.parent.nickname }}
+              </span>
+              <span v-else>
+                {{ $t('common.empty') }}
+              </span>
             </template>
           </el-table-column>
 
@@ -125,7 +130,7 @@
                 {{ $t('common.view') }}
               </el-button>
 
-              <el-button v-if="isAuth('module:manager:delete') && scope.row.id != 1" type="danger" icon="el-icon-delete" @click="deleteHandle(scope.row.id)">
+              <el-button v-if="isAuth('module:manager:delete')" type="danger" icon="el-icon-delete" @click="deleteHandle(scope.row.id)">
                 {{ $t('common.delete') }}
               </el-button>
             </template>

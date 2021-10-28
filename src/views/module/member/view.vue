@@ -53,9 +53,48 @@
                   </el-form-item>
                 </el-col>
               </el-row>
+              <el-row>
+                <el-col :span="6">
+                  <el-form-item :label="$t('member.archive.age')" label-width="80">
+                    <span v-if="dataForm.archive">
+                      {{ dataForm.archive.age }}
+                    </span>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="6">
+                  <el-form-item :label="$t('member.archive.sex')" label-width="80">
+                    <span v-if="dataForm.archive">
+                      {{ dataForm.archive.sex.text }}
+                    </span>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="6">
+                  <el-form-item :label="$t('common.province')" label-width="80">
+                    <span v-if="dataForm.archive">
+                      {{ dataForm.archive.province_id.text }}
+                    </span>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="6">
+                  <el-form-item :label="$t('common.city')" label-width="80">
+                    <span v-if="dataForm.archive">
+                      {{ dataForm.archive.city_id.text }}
+                    </span>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="6">
+                  <el-form-item :label="$t('common.region')" label-width="80">
+                    <span v-if="dataForm.archive">
+                      {{ dataForm.archive.region_id.text }}
+                    </span>
+                  </el-form-item>
+                </el-col>
+              </el-row>
             </div>
           </el-card>
-
+<!--
           <el-card class="box-card mt10" shadow="never">
             <div slot="header" class="clearfix">
               <span>{{ $t('member.asset_info') }}</span>
@@ -71,7 +110,7 @@
                 </el-col>
               </el-row>
             </div>
-          </el-card>
+          </el-card> -->
         </el-form>
       </div>
     </div>

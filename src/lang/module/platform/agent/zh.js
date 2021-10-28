@@ -10,16 +10,18 @@ export const agent = {
   facility_info: '设备信息',
   printer_info: '打印机信息',
 
+  level: '代理商级别',
   member_no: '代理商ID',
   avatar: '代理商头像',
   username: '代理商电话',
   mobile: '手机',
   email: '邮箱',
-  nickname: '代理商昵称',
+  nickname: '代理商姓名',
   asset_money: '账户余额',
   audit_status: '审核状态',
   proportion: '分成金额',
   printer_total: '打印机数量',
+  superior_agent: '所属代理商',
   below_agent: '下属代理商',
   below_manager: '下属店长',
   status: '账号状态',
@@ -36,7 +38,9 @@ export const agent = {
     view: '档案详情',
     info: '代理商档案',
 
+    age: '代理商年龄',
     sex: '代理商性别',
+
     attention_total: '关注总数',
     fans_total: '粉丝总数',
     approval_total: '点赞总数',
@@ -61,5 +65,9 @@ export const agent = {
 
   printer: {
     use_status: '使用状态'
+  },
+
+  asset: {
+    proportion: '分成金额',
   }
 }

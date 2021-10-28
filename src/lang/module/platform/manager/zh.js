@@ -7,6 +7,7 @@ export const manager = {
   export: '导出店长',
   archive_info: '店长档案',
   vip_info: '贵宾信息',
+  parent_info: '代理人信息',
   asset_info: '资金信息',
 
   member_no: '店长ID',
@@ -72,6 +73,7 @@ export const manager = {
     view: '档案详情',
     info: '店长档案',
 
+    age: '店长年龄',
     sex: '店长性别',
     attention_total: '关注总数',
     fans_total: '粉丝总数',
@@ -93,5 +95,9 @@ export const manager = {
         require: '身份证号不能为空',
       },
     },
+  },
+
+  asset: {
+    proportion: '分成金额',
   }
 }

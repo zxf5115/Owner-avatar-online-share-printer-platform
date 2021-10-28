@@ -59,7 +59,13 @@
           <el-table-column prop="username" :label="$t('agent.username')" width="100">
           </el-table-column>
 
-          <el-table-column :label="$t('agent.info')" width="260">
+          <el-table-column :label="$t('agent.level')" width="100">
+            <template slot-scope="scope">
+              {{ scope.row.level.text }}
+            </template>
+          </el-table-column>
+
+          <el-table-column :label="$t('agent.info')">
             <template slot-scope="scope">
               <dl class="table_dl">
                 <dt>
@@ -115,15 +121,15 @@
                 {{ $t('common.view') }}
               </el-button>
 
-              <el-button v-if="isAuth('module:agent:facility')" type="warning" icon="el-icon-printer" @click="$router.push({name: 'module_agent_facility', query: {id: scope.row.id}})">
-                {{ $t('agent.facility') }}
-              </el-button>
-
               <el-button v-if="isAuth('module:agent:form')" type="primary" icon="el-icon-check" @click="$router.push({name: 'module_agent_form', query: {id: scope.row.id}})">
                 {{ $t('common.update') }}
               </el-button>
 
-              <el-button v-if="isAuth('module:agent:delete') && scope.row.id != 1" type="danger" icon="el-icon-delete" @click="deleteHandle(scope.row.id)">
+              <el-button v-if="isAuth('module:agent:facility')" type="warning" icon="el-icon-printer" @click="$router.push({name: 'module_agent_facility', query: {id: scope.row.id}})">
+                {{ $t('agent.facility') }}
+              </el-button>
+
+              <el-button v-if="isAuth('module:agent:delete')" type="danger" icon="el-icon-delete" @click="deleteHandle(scope.row.id)">
                 {{ $t('common.delete') }}
               </el-button>
             </template>

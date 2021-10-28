@@ -3,12 +3,12 @@
     <div class="admin_main_block">
       <div class="admin_main_block_top">
         <div class="admin_main_block_left">
-          <div>{{ $t('member.archive_info') }}</div>
+          <div>{{ $t('manager.archive_info') }}</div>
         </div>
 
         <div class="admin_main_block_right">
           <div class="mr10">
-            <el-button icon="el-icon-back" @click="$router.push({name: 'module_member_list'})">
+            <el-button icon="el-icon-back" @click="$router.push({name: 'module_manager_list'})">
               {{ $t('common.return') }}
             </el-button>
           </div>
@@ -29,27 +29,66 @@
                   </el-form-item>
                 </el-col>
                 <el-col :span="6">
-                  <el-form-item :label="$t('member.create_time')" label-width="80">
+                  <el-form-item :label="$t('manager.create_time')" label-width="80">
                     {{ dataForm.create_time }}
                   </el-form-item>
                 </el-col>
               </el-row>
               <el-row>
                 <el-col :span="6">
-                  <el-form-item :label="$t('member.avatar')" label-width="80">
+                  <el-form-item :label="$t('manager.avatar')" label-width="80">
                     <el-avatar :size="30" :src="dataForm.avatar">
                       <img src="@/assets/images/default/circle.png"/>
                     </el-avatar>
                   </el-form-item>
                 </el-col>
                 <el-col :span="6">
-                  <el-form-item :label="$t('member.username')" label-width="80">
+                  <el-form-item :label="$t('manager.username')" label-width="80">
                     {{ dataForm.username }}
                   </el-form-item>
                 </el-col>
                 <el-col :span="6">
-                  <el-form-item :label="$t('member.nickname')" label-width="80">
+                  <el-form-item :label="$t('manager.nickname')" label-width="80">
                     {{ dataForm.nickname }}
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="6">
+                  <el-form-item :label="$t('manager.archive.age')" label-width="80">
+                    <span v-if="dataForm.archive">
+                      {{ dataForm.archive.age }}
+                    </span>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="6">
+                  <el-form-item :label="$t('manager.archive.sex')" label-width="80">
+                    <span v-if="dataForm.archive">
+                      {{ dataForm.archive.sex.text }}
+                    </span>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="6">
+                  <el-form-item :label="$t('common.province')" label-width="80">
+                    <span v-if="dataForm.archive">
+                      {{ dataForm.archive.province_id.text }}
+                    </span>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="6">
+                  <el-form-item :label="$t('common.city')" label-width="80">
+                    <span v-if="dataForm.archive">
+                      {{ dataForm.archive.city_id.text }}
+                    </span>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="6">
+                  <el-form-item :label="$t('common.region')" label-width="80">
+                    <span v-if="dataForm.archive">
+                      {{ dataForm.archive.region_id.text }}
+                    </span>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -58,52 +97,45 @@
 
           <el-card class="box-card mt10" shadow="never">
             <div slot="header" class="clearfix">
-              <span>{{ $t('member.asset_info') }}</span>
+              <span>{{ $t('manager.parent_info') }}</span>
             </div>
             <div class="text item">
               <el-row>
                 <el-col :span="6">
-                  <el-form-item :label="$t('member.asset_money')" label-width="100">
+                  <el-form-item :label="$t('agent.username')" label-width="100">
+                    <span v-if="dataForm.parent">
+                      {{ dataForm.parent.username }}
+                    </span>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="6">
+                  <el-form-item :label="$t('agent.nickname')" label-width="100">
+                    <span v-if="dataForm.parent">
+                      {{ dataForm.parent.nickname }}
+                    </span>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+            </div>
+          </el-card>
+
+          <el-card class="box-card mt10" shadow="never">
+            <div slot="header" class="clearfix">
+              <span>{{ $t('manager.asset_info') }}</span>
+            </div>
+            <div class="text item">
+              <el-row>
+                <el-col :span="6">
+                  <el-form-item :label="$t('manager.asset_money')" label-width="100">
                     <span v-if="dataForm.asset">
                       {{ dataForm.asset.money }}
                     </span>
                   </el-form-item>
                 </el-col>
-              </el-row>
-            </div>
-          </el-card>
-
-          <el-card class="box-card mt10" shadow="never">
-            <div slot="header" class="clearfix">
-              <span>{{ $t('member.social_info') }}</span>
-            </div>
-            <div class="text item">
-              <el-row>
                 <el-col :span="6">
-                  <el-form-item :label="$t('member.archive.attention_total')" label-width="100">
-                    <span v-if="dataForm.archive">
-                      {{ dataForm.archive.attention_total }}
-                    </span>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="6">
-                  <el-form-item :label="$t('member.archive.fans_total')" label-width="100">
-                    <span v-if="dataForm.archive">
-                      {{ dataForm.archive.fans_total }}
-                    </span>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="6">
-                  <el-form-item :label="$t('member.archive.approval_total')" label-width="100">
-                    <span v-if="dataForm.archive">
-                      {{ dataForm.archive.approval_total }}
-                    </span>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="6">
-                  <el-form-item :label="$t('member.archive.accepted_total')" label-width="100">
-                    <span v-if="dataForm.archive">
-                      {{ dataForm.archive.accepted_total }}
+                  <el-form-item :label="$t('manager.asset.proportion')" label-width="100">
+                    <span v-if="dataForm.asset">
+                      {{ dataForm.asset.proportion }}
                     </span>
                   </el-form-item>
                 </el-col>
@@ -124,7 +156,7 @@
     data()
     {
       return {
-        model: 'member',
+        model: 'manager',
         dataForm:
         {
           id: 0
@@ -143,7 +175,7 @@
         this.$nextTick(() => {
           if (this.dataForm.id) {
             this.$http({
-              url: this.$http.adornUrl(`/member/view/${this.dataForm.id}`),
+              url: this.$http.adornUrl(`/manager/view/${this.dataForm.id}`),
               method: 'get',
               params: this.$http.adornParams()
             }).then(({data}) => {

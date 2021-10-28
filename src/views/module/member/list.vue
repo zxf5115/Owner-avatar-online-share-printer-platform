@@ -39,7 +39,7 @@
           <el-table-column prop="username" :label="$t('member.username')" width="100">
           </el-table-column>
 
-          <el-table-column :label="$t('member.info')" width="260">
+          <el-table-column :label="$t('member.info')">
             <template slot-scope="scope">
               <dl class="table_dl">
                 <dt>
@@ -57,9 +57,33 @@
             </template>
           </el-table-column>
 
-          <el-table-column :label="$t('member.asset_money')">
-            <template slot-scope="scope" v-if="scope.row.asset">
-              {{ scope.row.asset.money }}
+          <el-table-column :label="$t('member.archive.age')" width="100">
+            <template slot-scope="scope" v-if="scope.row.archive">
+              {{ scope.row.archive.age }}
+            </template>
+          </el-table-column>
+
+          <el-table-column :label="$t('member.archive.sex')" width="100">
+            <template slot-scope="scope" v-if="scope.row.archive">
+              {{ scope.row.archive.sex.text }}
+            </template>
+          </el-table-column>
+
+          <el-table-column :label="$t('common.province')" width="140">
+            <template slot-scope="scope" v-if="scope.row.archive">
+              {{ scope.row.archive.province_id.text }}
+            </template>
+          </el-table-column>
+
+          <el-table-column :label="$t('common.city')" width="140">
+            <template slot-scope="scope" v-if="scope.row.archive">
+              {{ scope.row.archive.city_id.text }}
+            </template>
+          </el-table-column>
+
+          <el-table-column :label="$t('common.region')" width="140">
+            <template slot-scope="scope" v-if="scope.row.archive">
+              {{ scope.row.archive.region_id.text }}
             </template>
           </el-table-column>
 
@@ -83,7 +107,7 @@
                 {{ $t('common.view') }}
               </el-button>
 
-              <el-button v-if="isAuth('module:member:delete') && scope.row.id != 1" type="danger" icon="el-icon-delete" @click="deleteHandle(scope.row.id)">
+              <el-button v-if="isAuth('module:member:delete')" type="danger" icon="el-icon-delete" @click="deleteHandle(scope.row.id)">
                 {{ $t('common.delete') }}
               </el-button>
             </template>

@@ -74,6 +74,7 @@ export const member = {
     view: '档案详情',
     info: '会员档案',
 
+    age: '会员年龄',
     sex: '会员性别',
     attention_total: '关注总数',
     fans_total: '粉丝总数',
