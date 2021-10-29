@@ -110,18 +110,25 @@
         </div>
       </div>
       <div class="text item text-center">
-        <el-row :gutter="20">
-          <el-col :span="12" class="default_block_col">
-            <el-card shadow="never">
-              <ve-map :data="statistical.map.data" :settings="statistical.map.settings"></ve-map>
-            </el-card>
-          </el-col>
-          <el-col :span="12" class="default_block_col">
-            <el-card shadow="never">
-              <ve-histogram :data="statistical.data.histogram"></ve-histogram>
-            </el-card>
-          </el-col>
-        </el-row>
+        <el-card shadow="never">
+          <ve-map height="640px" :data="statistical.map.data" :settings="statistical.map.settings"></ve-map>
+        </el-card>
+      </div>
+    </el-card>
+
+    <el-card class="box-card mt10">
+      <div slot="header" class="clearfix">
+        <span>设备状况</span>
+        <div class="type">
+          <el-select v-model="order_type" clearable @change="data">
+            <el-option v-for="(v,k) in typeList" :label="v.title" :key="k" :value="v.id"></el-option>
+          </el-select>
+        </div>
+      </div>
+      <div class="text item text-center">
+        <el-card shadow="never">
+          <ve-histogram :data="statistical.data.histogram"></ve-histogram>
+        </el-card>
       </div>
     </el-card>
 
@@ -165,6 +172,7 @@
   import VeHistogram from 'v-charts/lib/histogram.common'
   import VeMap from 'v-charts/lib/map.common'
   import VeRing from 'v-charts/lib/ring.common'
+  import china from '@/assets/china.json'
   export default {
     components: {
       VeHistogram,
@@ -211,7 +219,12 @@
               ]
             },
             settings: {
-              positionJsonLink: 'https://geo.datav.aliyun.com/areas_v3/bound/geojson?code=100000_full',
+              aspectScale: 1,
+              roam: true,
+              zoom: 1.2,
+              beforeRegisterMap (json) {
+                return china
+              },
               itemStyle: {
                 normal: {
                   borderColor: '#fff',
