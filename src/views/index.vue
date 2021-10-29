@@ -102,12 +102,7 @@
 
     <el-card class="box-card mt10">
       <div slot="header" class="clearfix">
-        <span>设备状况</span>
-        <div class="type">
-          <el-select v-model="order_type" clearable @change="data">
-            <el-option v-for="(v,k) in typeList" :label="v.title" :key="k" :value="v.id"></el-option>
-          </el-select>
-        </div>
+        <span>全国设备状态</span>
       </div>
       <div class="text item text-center">
         <el-card shadow="never">
@@ -211,12 +206,7 @@
           map: {
             data: {
               columns: ['位置', '在线', '离线', '故障'],
-              rows: [
-                { '位置': '北京', '在线': 123, '离线': 123, '故障': 92134 },
-                { '位置': '上海', '在线': 1223, '离线': 2123, '故障': 29234 },
-                { '位置': '内蒙古自治区', '在线': 2123, '离线': 1243, '故障': 94234 },
-                { '位置': '天津市', '在线': 4123, '离线': 5123, '故障': 29234 }
-              ]
+              rows: []
             },
             settings: {
               aspectScale: 1,
@@ -298,22 +288,20 @@
           }
         })
       },
-      course() {
+      equipment() {
         this.$http({
-          url: this.$http.adornUrl(`/index/course`),
+          url: this.$http.adornUrl(`/index/equipment`),
           method: 'get',
-          params: this.$http.adornParams()
+          params: this.$http.adornParams({})
         }).then(({data}) => {
           if (data && data.status === 200) {
-            this.statistical.course.online_course_total  = data.data.online_course_total
-            this.statistical.course.offline_course_total = data.data.offline_course_total
-            this.statistical.course.course_total         = data.data.course_total
+            this.statistical.map.data.rows   = data.data
           }
         })
       },
       data(type = 3) {
         this.$http({
-          url: this.$http.adornUrl(`/index/data`),
+          url: this.$http.adornUrl(`/index/equipment`),
           method: 'get',
           params: this.$http.adornParams({
             'type': type
@@ -330,9 +318,9 @@
     {
       this.printer();
       this.agent();
-      // this.course();
       this.member();
-      this.data();
+
+      this.equipment();
     }
   };
 </script>
