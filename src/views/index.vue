@@ -102,7 +102,7 @@
 
     <el-card class="box-card mt10">
       <div slot="header" class="clearfix">
-        <span>全国设备状态</span>
+        <span>各地区设备状态</span>
       </div>
       <div class="text item text-center">
         <el-card shadow="never">
@@ -113,7 +113,7 @@
 
     <el-card class="box-card mt10">
       <div slot="header" class="clearfix">
-        <span>设备状况</span>
+        <span>各地区市场销售额</span>
         <div class="type">
           <el-select v-model="order_type" clearable @change="data">
             <el-option v-for="(v,k) in typeList" :label="v.title" :key="k" :value="v.id"></el-option>
@@ -122,42 +122,24 @@
       </div>
       <div class="text item text-center">
         <el-card shadow="never">
-          <ve-histogram :data="statistical.data.histogram"></ve-histogram>
+          <ve-histogram :data="statistical.histogram.area"></ve-histogram>
         </el-card>
       </div>
     </el-card>
 
     <el-card class="box-card mt10">
       <div slot="header" class="clearfix">
-        <span>待处理设备</span>
+        <span>各代理商市场销售额</span>
         <div class="type">
-          <el-select v-model="order_type" clearable @change="data">
-            <el-option v-for="(v,k) in typeList" :label="v.title" :key="k" :value="v.id"></el-option>
+          <el-select v-model="level" clearable @change="agentSales">
+            <el-option v-for="(v,k) in levelList" :label="v.title" :key="k" :value="v.id"></el-option>
           </el-select>
         </div>
       </div>
       <div class="text item text-center">
-        <div>
-          <el-row :gutter="20">
-            <el-col :span="24" class="default_block_col">
-              <el-card shadow="never">
-                <el-row>
-                  <el-col :span="24">
-                    <div class="default_day_sale">
-                      <div>订单总数</div>
-                      <div class="blue mt10">
-                        <b>{{ statistical.data.order_total }}</b>
-                      </div>
-                    </div>
-                  </el-col>
-                </el-row>
-              </el-card>
-            </el-col>
-          </el-row>
-        </div>
-        <div class="default_total">
-
-        </div>
+        <el-card shadow="never">
+          <ve-histogram :data="statistical.histogram.agent"></ve-histogram>
+        </el-card>
       </div>
     </el-card>
   </div>
@@ -177,9 +159,14 @@
     data() {
       return {
         order_type: 3,
+        level: 1,
         typeList: [
           {'id': 3, 'title': '最近七日'},
           {'id': 4, 'title': '最近一个月'},
+        ],
+        levelList: [
+          {'id': 1, 'title': '一级代理'},
+          {'id': 2, 'title': '二级代理'},
         ],
         statistical: {
           printer: {
@@ -226,21 +213,27 @@
               },
             }
           },
-          data: {
-            order_total: 0,
-            line: {
-              columns: ['title', '订单数'],
-              rows: []
-            },
-            histogram: {
-              columns: ['title', '收益'],
+          histogram: {
+            area: {
+              columns: ['title', '销售额'],
               rows: [
-                { 'title': '代理人1', '收益': 123 },
-                { 'title': '代理人2', '收益': 1223 },
-                { 'title': '代理人3', '收益': 2123 },
-                { 'title': '代理人4', '收益': 4123 },
-                { 'title': '代理人5', '收益': 3123 },
-                { 'title': '代理人6', '收益': 7123 }
+                { 'title': '代理人1', '销售额': 123 },
+                { 'title': '代理人2', '销售额': 1223 },
+                { 'title': '代理人3', '销售额': 2123 },
+                { 'title': '代理人4', '销售额': 4123 },
+                { 'title': '代理人5', '销售额': 3123 },
+                { 'title': '代理人6', '销售额': 7123 }
+              ]
+            },
+            agent: {
+              columns: ['title', '销售额'],
+              rows: [
+                { 'title': '代理人1', '销售额': 123 },
+                { 'title': '代理人2', '销售额': 1223 },
+                { 'title': '代理人3', '销售额': 2123 },
+                { 'title': '代理人4', '销售额': 4123 },
+                { 'title': '代理人5', '销售额': 3123 },
+                { 'title': '代理人6', '销售额': 7123 }
               ]
             }
           }
@@ -299,19 +292,18 @@
           }
         })
       },
-      data(type = 3) {
-        this.$http({
-          url: this.$http.adornUrl(`/index/equipment`),
-          method: 'get',
-          params: this.$http.adornParams({
-            'type': type
-          })
-        }).then(({data}) => {
-          if (data && data.status === 200) {
-            this.statistical.data.order_total = data.data.order_total
-            this.statistical.data.line.rows   = data.data.line
-          }
-        })
+      agentSales(level = 1) {
+        // this.$http({
+        //   url: this.$http.adornUrl(`/index/agentsales`),
+        //   method: 'get',
+        //   params: this.$http.adornParams({
+        //     'level': level
+        //   })
+        // }).then(({data}) => {
+        //   if (data && data.status === 200) {
+        //     this.statistical.line.agent.rows   = data.data.line
+        //   }
+        // })
       },
     },
     created(request)
@@ -321,6 +313,8 @@
       this.member();
 
       this.equipment();
+
+      this.agentSales();
     }
   };
 </script>
