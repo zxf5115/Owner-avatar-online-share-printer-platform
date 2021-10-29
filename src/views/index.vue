@@ -300,7 +300,7 @@
     {
       this.printer();
       this.agent();
-      this.course();
+      // this.course();
       this.member();
       this.data();
     }
