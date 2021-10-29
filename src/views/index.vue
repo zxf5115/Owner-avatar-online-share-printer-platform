@@ -54,7 +54,7 @@
               </el-row>
               <el-row class="mb10">
                 <el-col :span="12">
-                  <div class="green1">
+                  <div class="">
                     <span>一级代理</span>
                     <b class="ml10">{{ statistical.agent.first_total || 0 }}</b>
                   </div>
@@ -113,7 +113,7 @@
         <el-row :gutter="20">
           <el-col :span="12" class="default_block_col">
             <el-card shadow="never">
-              <ve-ring :data="statistical.data.ring"></ve-ring>
+              <ve-map :data="statistical.map.data" :settings="statistical.map.settings"></ve-map>
             </el-card>
           </el-col>
           <el-col :span="12" class="default_block_col">
@@ -163,10 +163,12 @@
 
 <script>
   import VeHistogram from 'v-charts/lib/histogram.common'
+  import VeMap from 'v-charts/lib/map.common'
   import VeRing from 'v-charts/lib/ring.common'
   export default {
     components: {
       VeHistogram,
+      VeMap,
       VeRing,
     },
     data() {
@@ -198,19 +200,34 @@
             offline_course_total: 0,
             course_total: 0,
           },
+          map: {
+            data: {
+              columns: ['位置', '在线', '离线', '故障'],
+              rows: [
+                { '位置': '北京', '在线': 123, '离线': 123, '故障': 92134 },
+                { '位置': '上海', '在线': 1223, '离线': 2123, '故障': 29234 },
+                { '位置': '内蒙古自治区', '在线': 2123, '离线': 1243, '故障': 94234 },
+                { '位置': '天津市', '在线': 4123, '离线': 5123, '故障': 29234 }
+              ]
+            },
+            settings: {
+              positionJsonLink: 'https://geo.datav.aliyun.com/areas_v3/bound/geojson?code=100000_full',
+              itemStyle: {
+                normal: {
+                  borderColor: '#fff',
+                  areaColor: '#E6EFFF'
+                },
+                emphasis: {
+                  areaColor: '#6A9FFF'
+                }
+              },
+            }
+          },
           data: {
             order_total: 0,
             line: {
               columns: ['title', '订单数'],
               rows: []
-            },
-            ring: {
-              columns: ['title', 'value'],
-              rows: [
-                { 'title': '在线设备', 'value': 123 },
-                { 'title': '离线设备', 'value': 1223 },
-                { 'title': '异常设备', 'value': 2123 }
-              ]
             },
             histogram: {
               columns: ['title', '收益'],
