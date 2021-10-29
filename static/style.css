@@ -196,11 +196,21 @@ body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,
 .color .orange{
     color: #ff9946;
 }
+.ml10 {
+    margin-left: 10px;
+}
 .mr10 {
     margin-right: 10px;
 }
-
-
+.mt10 {
+    margin-top: 10px;
+}
+.mb10 {
+    margin-bottom: 10px;
+}
+.fs24 {
+    font-size: 24px;
+}
 
 
 /*富文本编辑破解*/

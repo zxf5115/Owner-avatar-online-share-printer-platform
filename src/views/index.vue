@@ -6,69 +6,91 @@
       </div>
       <div class="text item text-center">
         <el-row :gutter="20">
-          <el-col :span="6" class="default_block_col">
+          <el-col :span="8" class="default_block_col">
             <el-card shadow="never">
               <el-row>
-                <el-col :span="12">
-                  <i class="icon el-icon-printer"></i>
-                </el-col>
-                <el-col :span="12">
+                <el-col :span="24">
                   <div class="default_day_sale">
-                    <div>设备总数</div>
-                    <div class="blue mt10">
-                      <b>{{ statistical.order.today_order_total || 0.00 }}</b>
+                    <div class="fs24">
+                      <span>设备总数</span>
+                      <b class="blue ml10">{{ statistical.printer.total || 0 }}</b>
                     </div>
+                  </div>
+                </el-col>
+              </el-row>
+              <el-row class="mb10">
+                <el-col :span="8">
+                  <div class="green1">
+                    <span>在线</span>
+                    <b class="ml10">{{ statistical.printer.online_total || 0 }}</b>
+                  </div>
+                </el-col>
+                <el-col :span="8">
+                  <div class="">
+                    <span>离线</span>
+                    <b class="ml10">{{ statistical.printer.offline_total || 0 }}</b>
+                  </div>
+                </el-col>
+                <el-col :span="8">
+                  <div class="red">
+                    <span>故障</span>
+                    <b class="ml10">{{ statistical.printer.fault_total || 0 }}</b>
                   </div>
                 </el-col>
               </el-row>
             </el-card>
           </el-col>
-          <el-col :span="6" class="default_block_col">
+          <el-col :span="8" class="default_block_col">
             <el-card shadow="never">
               <el-row>
+                <el-col :span="24">
+                  <div class="default_day_sale">
+                    <div class="fs24">
+                      <span>代理商总数</span>
+                      <b class="blue ml10">{{ statistical.agent.total || 0 }}</b>
+                    </div>
+                  </div>
+                </el-col>
+              </el-row>
+              <el-row class="mb10">
                 <el-col :span="12">
-                  <i class="icon el-icon-s-custom"></i>
+                  <div class="green1">
+                    <span>一级代理</span>
+                    <b class="ml10">{{ statistical.agent.first_total || 0 }}</b>
+                  </div>
                 </el-col>
                 <el-col :span="12">
-                  <div class="default_day_sale">
-                    <div>代理店长</div>
-                    <div class="blue mt10">
-                      <b>{{ statistical.order.yesterday_order_total || 0.00 }}</b>
-                    </div>
+                  <div class="">
+                    <span>二级代理</span>
+                    <b class="ml10">{{ statistical.agent.second_total || 0 }}</b>
                   </div>
                 </el-col>
               </el-row>
             </el-card>
           </el-col>
-          <el-col :span="6" class="default_block_col">
+          <el-col :span="8" class="default_block_col">
             <el-card shadow="never">
               <el-row>
-                <el-col :span="12">
-                  <i class="icon el-icon-user"></i>
-                </el-col>
-                <el-col :span="12">
+                <el-col :span="24">
                   <div class="default_day_sale">
-                    <div>用户总量</div>
-                    <div class="blue mt10">
-                      <b>{{ statistical.order.week_order_total || 0.00 }}</b>
+                    <div class="fs24">
+                      <span>用户总数</span>
+                      <b class="blue ml10">{{ statistical.member.total || 0 }}</b>
                     </div>
                   </div>
                 </el-col>
               </el-row>
-            </el-card>
-          </el-col>
-          <el-col :span="6" class="default_block_col">
-            <el-card shadow="never">
-              <el-row>
+              <el-row class="mb10">
                 <el-col :span="12">
-                  <i class="icon el-icon-tickets"></i>
+                  <div class="">
+                    <span>店长</span>
+                    <b class="ml10">{{ statistical.member.manger_total || 0 }}</b>
+                  </div>
                 </el-col>
                 <el-col :span="12">
-                  <div class="default_day_sale">
-                    <div>订单总页数</div>
-                    <div class="blue mt10">
-                      <b>{{ statistical.order.month_order_total || 0.00 }}</b>
-                    </div>
+                  <div class="">
+                    <span>用户</span>
+                    <b class="ml10">{{ statistical.member.member_total || 0 }}</b>
                   </div>
                 </el-col>
               </el-row>
@@ -155,27 +177,26 @@
           {'id': 4, 'title': '最近一个月'},
         ],
         statistical: {
-          order: {
-            today_order_total: 0.00,
-            yesterday_order_total: 0.00,
-            week_order_total: 0.00,
-            month_order_total: 0.00,
+          printer: {
+            total: 0,
+            online_total: 0,
+            offline_total: 0,
+            fault_total: 0,
           },
-          todo: {
-            wait_pay_total: 0,
-            wait_confirm_total: 0,
-            wait_return_total: 0,
+          agent: {
+            total: 0,
+            first_total: 0,
+            second_total: 0,
+          },
+          member: {
+            total: 0,
+            manger_total: 0,
+            member_total: 0,
           },
           course: {
             online_course_total: 0,
             offline_course_total: 0,
             course_total: 0,
-          },
-          member: {
-            today_member_total: 0,
-            yesterday_member_total: 0,
-            month_member_total: 0,
-            member_total: 0,
           },
           data: {
             order_total: 0,
@@ -207,30 +228,43 @@
       };
     },
     methods: {
-      order() {
+      printer() {
         this.$http({
-          url: this.$http.adornUrl(`/index/order`),
+          url: this.$http.adornUrl(`/index/printer`),
           method: 'get',
           params: this.$http.adornParams()
         }).then(({data}) => {
           if (data && data.status === 200) {
-            this.statistical.order.today_order_total     = data.data.today_order_total
-            this.statistical.order.yesterday_order_total = data.data.yesterday_order_total
-            this.statistical.order.week_order_total      = data.data.week_order_total
-            this.statistical.order.month_order_total     = data.data.month_order_total
+            this.statistical.printer.total         = data.data.total
+            this.statistical.printer.online_total  = data.data.online_total
+            this.statistical.printer.offline_total = data.data.offline_total
+            this.statistical.printer.fault_total   = data.data.fault_total
           }
         })
       },
-      todo() {
+      agent() {
         this.$http({
-          url: this.$http.adornUrl(`/index/todo`),
+          url: this.$http.adornUrl(`/index/agent`),
           method: 'get',
           params: this.$http.adornParams()
         }).then(({data}) => {
           if (data && data.status === 200) {
-            this.statistical.todo.wait_pay_total     = data.data.wait_pay_total
-            this.statistical.todo.wait_confirm_total = data.data.wait_confirm_total
-            this.statistical.todo.wait_return_total  = data.data.wait_return_total
+            this.statistical.agent.total        = data.data.total
+            this.statistical.agent.first_total  = data.data.first_total
+            this.statistical.agent.second_total = data.data.second_total
+          }
+        })
+      },
+      member() {
+        this.$http({
+          url: this.$http.adornUrl(`/index/member`),
+          method: 'get',
+          params: this.$http.adornParams()
+        }).then(({data}) => {
+          if (data && data.status === 200) {
+            this.statistical.member.total        = data.data.total
+            this.statistical.member.manger_total = data.data.manger_total
+            this.statistical.member.member_total = data.data.member_total
           }
         })
       },
@@ -244,20 +278,6 @@
             this.statistical.course.online_course_total  = data.data.online_course_total
             this.statistical.course.offline_course_total = data.data.offline_course_total
             this.statistical.course.course_total         = data.data.course_total
-          }
-        })
-      },
-      member() {
-        this.$http({
-          url: this.$http.adornUrl(`/index/member`),
-          method: 'get',
-          params: this.$http.adornParams()
-        }).then(({data}) => {
-          if (data && data.status === 200) {
-            this.statistical.member.today_member_total     = data.data.today_member_total
-            this.statistical.member.yesterday_member_total = data.data.yesterday_member_total
-            this.statistical.member.month_member_total     = data.data.month_member_total
-            this.statistical.member.member_total           = data.data.member_total
           }
         })
       },
@@ -278,8 +298,8 @@
     },
     created(request)
     {
-      this.order();
-      this.todo();
+      this.printer();
+      this.agent();
       this.course();
       this.member();
       this.data();

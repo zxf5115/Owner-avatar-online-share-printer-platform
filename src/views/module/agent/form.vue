@@ -32,6 +32,10 @@
             </el-select>
           </el-form-item>
 
+          <el-form-item :label="$t('agent.another_name')" prop="another_name">
+            <el-input v-model="dataForm.another_name" :placeholder="$t('common.please_input') + $t('agent.another_name')"></el-input>
+          </el-form-item>
+
           <el-form-item :class="display ? 'display' : ''" :label="$t('agent.superior_agent')" prop="parent_id">
             <el-select v-model="dataForm.parent_id" :placeholder="$t('common.please_select')+$t('agent.superior_agent')">
               <el-option v-for="(v,k) in memberList" :label="v.nickname" :key="k" :value="v.id"></el-option>
@@ -84,6 +88,7 @@
         {
           id: 0,
           level: '',
+          another_name: '',
           parent_id: '',
           username: '',
           nickname: '',
@@ -120,15 +125,16 @@
               params: this.$http.adornParams()
             }).then(({data}) => {
               if (data && data.status === 200) {
-                this.dataForm.level       = data.data.level.value
-                this.dataForm.parent_id   = data.data.parent_id
-                this.dataForm.username    = data.data.username
-                this.dataForm.nickname    = data.data.nickname
-                this.dataForm.proportion  = data.data.asset.proportion
-                this.dataForm.province_id = data.data.archive.province_id.value
-                this.dataForm.city_id     = data.data.archive.city_id.value
-                this.dataForm.region_id   = data.data.archive.region_id.value
-                this.dataForm.address     = data.data.archive.address
+                this.dataForm.level        = data.data.level.value
+                this.dataForm.parent_id    = data.data.parent_id
+                this.dataForm.another_name = data.data.another_name
+                this.dataForm.username     = data.data.username
+                this.dataForm.nickname     = data.data.nickname
+                this.dataForm.proportion   = data.data.asset.proportion
+                this.dataForm.province_id  = data.data.archive.province_id.value
+                this.dataForm.city_id      = data.data.archive.city_id.value
+                this.dataForm.region_id    = data.data.archive.region_id.value
+                this.dataForm.address      = data.data.archive.address
               }
             })
           }
@@ -145,6 +151,7 @@
                 'id': this.dataForm.id || undefined,
                 'level': this.dataForm.level,
                 'parent_id': this.dataForm.parent_id,
+                'another_name': this.dataForm.another_name,
                 'username': this.dataForm.username,
                 'nickname': this.dataForm.nickname,
                 'proportion': this.dataForm.proportion,

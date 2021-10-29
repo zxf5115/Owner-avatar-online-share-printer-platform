@@ -65,6 +65,9 @@
             </template>
           </el-table-column>
 
+          <el-table-column prop="another_name" :label="$t('agent.another_name')" width="100">
+          </el-table-column>
+
           <el-table-column :label="$t('agent.info')">
             <template slot-scope="scope">
               <dl class="table_dl">

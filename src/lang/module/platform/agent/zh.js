@@ -11,6 +11,7 @@ export const agent = {
   printer_info: '打印机信息',
 
   level: '代理商级别',
+  another_name: '代理商别名',
   member_no: '代理商ID',
   avatar: '代理商头像',
   username: '代理商电话',

@@ -43,6 +43,11 @@
                   </el-form-item>
                 </el-col>
                 <el-col :span="6">
+                  <el-form-item :label="$t('agent.another_name')" label-width="80">
+                    {{ dataForm.another_name }}
+                  </el-form-item>
+                </el-col>
+                <el-col :span="6">
                   <el-form-item :label="$t('agent.username')" label-width="80">
                     {{ dataForm.username }}
                   </el-form-item>
