@@ -12,7 +12,6 @@ export const agent = {
 
   level: '代理商级别',
   another_name: '代理商别名',
-  member_no: '代理商ID',
   avatar: '代理商头像',
   username: '代理商电话',
   mobile: '手机',

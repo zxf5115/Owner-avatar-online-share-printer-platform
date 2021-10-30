@@ -8,7 +8,6 @@ export const member = {
   archive_info: '会员档案',
   asset_info: '资金信息',
 
-  member_no: '会员ID',
   avatar: '会员头像',
   username: '会员电话',
   mobile: '手机',

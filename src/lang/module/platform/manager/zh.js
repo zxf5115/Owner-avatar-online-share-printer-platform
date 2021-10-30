@@ -10,7 +10,6 @@ export const manager = {
   parent_info: '代理人信息',
   asset_info: '资金信息',
 
-  member_no: '店长ID',
   avatar: '店长头像',
   username: '店长电话',
   nickname: '店长姓名',
