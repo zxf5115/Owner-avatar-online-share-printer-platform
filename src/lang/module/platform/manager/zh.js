@@ -13,11 +13,8 @@ export const manager = {
   avatar: '店长头像',
   username: '店长电话',
   nickname: '店长姓名',
-  agent_name: '所属代理商',
-  asset_money: '账户余额',
+  agent_name: '上级代理商',
   audit_status: '审核状态',
-  proportion: '分成金额',
-  order_total: '订单总量',
   status: '账号状态',
   last_login_time: '最后登录时间',
   create_time: '注册时间',
@@ -97,6 +94,9 @@ export const manager = {
   },
 
   asset: {
-    proportion: '分成金额',
+    money: '账户余额(元)',
+    proportion: '收益(元)',
+    withdrawal_money: '已提现金额(元)',
+    order_total: '订单总量',
   }
 }

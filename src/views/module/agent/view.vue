@@ -68,22 +68,24 @@
             <div class="text item">
               <el-row>
                 <el-col :span="4">
-                  <el-form-item :label="$t('agent.asset_money')" label-width="100">
+                  <el-form-item :label="$t('agent.asset.money')" label-width="100">
                     <span v-if="dataForm.asset">
                       {{ dataForm.asset.money }}
                     </span>
                   </el-form-item>
                 </el-col>
                 <el-col :span="4">
-                  <el-form-item :label="$t('agent.proportion')" label-width="100">
+                  <el-form-item :label="$t('agent.asset.proportion')" label-width="100">
                     <span v-if="dataForm.asset">
                       {{ dataForm.asset.proportion }}
                     </span>
                   </el-form-item>
                 </el-col>
                 <el-col :span="4">
-                  <el-form-item :label="$t('agent.printer_total')" label-width="100">
-                    {{ dataForm.printer_total }}
+                  <el-form-item :label="$t('agent.asset.should_printer_total')" label-width="100">
+                    <span v-if="dataForm.asset">
+                      {{ dataForm.asset.should_printer_total }}
+                    </span>
                   </el-form-item>
                 </el-col>
                 <el-col :span="4">
@@ -104,34 +106,47 @@
             <div slot="header" class="clearfix">
               <span>{{ $t('agent.facility_info') }}</span>
             </div>
-            <div class="text item">
-              <el-table :data="dataForm.member_printer" v-loading="dataListLoading" height="200">
-                <el-table-column prop="id" :label="$t('common.id')"  width="70">
-                </el-table-column>
-
-                <el-table-column prop="title" :label="$t('printer.title')">
-                  <template slot-scope="scope">
-                    <span v-if="scope.row.printer">
-                      {{ scope.row.printer.title }}
-                    </span>
-                  </template>
+            <div class="text item color">
+              <el-table :data="dataForm.printer" v-loading="dataListLoading" height="260">
+                <el-table-column prop="id" :label="$t('common.id')" width="70">
                 </el-table-column>
 
                 <el-table-column prop="model" :label="$t('printer.model')">
+                </el-table-column>
+
+                <el-table-column prop="code" :label="$t('printer.code')">
+                </el-table-column>
+
+                <el-table-column :label="$t('printer.status')">
                   <template slot-scope="scope">
-                    <span v-if="scope.row.printer">
-                      {{ scope.row.printer.model }}
+                    {{ scope.row.province_id.text }}
+                  </template>
+                </el-table-column>
+
+                <el-table-column prop="activate_time" :label="$t('printer.activate_time')">
+                </el-table-column>
+
+                <el-table-column :label="$t('printer.status')">
+                  <template slot-scope="scope">
+                    <span v-if="2 == scope.row.bind_status.value">
+                      {{ scope.row.bind_status.text }}
+                    </span>
+                    <span class="green1" v-else-if="1 == scope.row.status.value">
+                      {{ scope.row.status.text }}
+                    </span>
+                    <span class="red" v-else-if="2 == scope.row.status.value">
+                      {{ scope.row.status.text }}
+                    </span>
+                    <span v-else>
+                      {{ scope.row.status.text }}
                     </span>
                   </template>
                 </el-table-column>
 
-                <el-table-column :label="$t('agent.printer.use_status')">
+                <el-table-column :label="$t('printer.ink_quantity')">
                   <template slot-scope="scope">
-                    {{ scope.row.use_status.text }}
+                    <el-progress :text-inside="true" :stroke-width="20" status="exception" :percentage="scope.row.ink_quantity"></el-progress>
                   </template>
-                </el-table-column>
-
-                <el-table-column prop="create_time" :label="$t('common.create_time')">
                 </el-table-column>
               </el-table>
             </div>

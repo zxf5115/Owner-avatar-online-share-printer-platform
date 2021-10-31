@@ -17,10 +17,7 @@ export const agent = {
   mobile: '手机',
   email: '邮箱',
   nickname: '代理商姓名',
-  asset_money: '账户余额',
   audit_status: '审核状态',
-  proportion: '分成金额',
-  printer_total: '打印机数量',
   superior_agent: '所属代理商',
   below_agent: '下属代理商',
   below_manager: '下属店长',
@@ -40,11 +37,6 @@ export const agent = {
 
     age: '代理商年龄',
     sex: '代理商性别',
-
-    attention_total: '关注总数',
-    fans_total: '粉丝总数',
-    approval_total: '点赞总数',
-    accepted_total: '获赞总数',
     city: '所在城市',
     area: '地区',
     address: '详细地址',
@@ -68,6 +60,10 @@ export const agent = {
   },
 
   asset: {
-    proportion: '分成金额',
+    money: '账户余额(元)',
+    proportion: '收益(元)',
+    withdrawal_money: '已提现金额(元)',
+    order_total: '订单总量',
+    should_printer_total: '认购数量',
   }
 }

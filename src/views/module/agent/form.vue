@@ -81,7 +81,6 @@
         levelList: [
           {'id': 1, 'title': '一级代理'},
           {'id': 2, 'title': '二级代理'},
-          {'id': 3, 'title': '三级代理'},
         ],
         display: true,
         dataForm:

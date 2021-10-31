@@ -83,6 +83,7 @@ export default {
           'archive_weixin': this.dataForm.archive_weixin,
 
           'archive_province_id': this.dataForm.archive_province_id,
+          'level': this.dataForm.level,
 
 
           'order_no': this.dataForm.order_no,
@@ -91,6 +92,7 @@ export default {
           'courseware_title': this.dataForm.courseware_title,
           'member_username': this.dataForm.member_username,
           'member_nickname': this.dataForm.member_nickname,
+          'parent_nickname': this.dataForm.parent_nickname,
           'archive_age': this.dataForm.archive_age,
           'course_title': this.dataForm.course_title,
           'goods_title': this.dataForm.goods_title,

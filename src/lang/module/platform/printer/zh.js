@@ -5,13 +5,14 @@ export const printer = {
 
   log_info: '日志',
 
-  nickname: '代理人姓名',
-  username: '代理人电话',
   title: '打印机名称',
   model: '打印机型号',
-  failure_number: '故障次数',
+  code: '打印机编号',
   address: '安装地址',
-  allot_status: '分配地址',
+  ink_quantity: '剩余墨量',
+  failure_number: '故障次数',
+  bind_status: '绑定状态',
+  activate_time: '激活时间',
   status: '打印机状态',
 
   log: {

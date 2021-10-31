@@ -24,94 +24,46 @@
             <div class="text item">
               <el-row>
                 <el-col :span="6">
-                  <el-form-item :label="$t('common.id')" label-width="80">
-                    {{ dataForm.id }}
+                  <el-form-item :label="$t('manager.nickname')" label-width="80">
+                    {{ dataForm.nickname }}
                   </el-form-item>
                 </el-col>
                 <el-col :span="6">
-                  <el-form-item :label="$t('manager.create_time')" label-width="80">
-                    {{ dataForm.create_time }}
+                  <el-form-item :label="$t('manager.asset.proportion')" label-width="100">
+                    <span v-if="dataForm.asset">
+                      {{ dataForm.asset.proportion }}
+                    </span>
                   </el-form-item>
                 </el-col>
               </el-row>
               <el-row>
-                <el-col :span="6">
-                  <el-form-item :label="$t('manager.avatar')" label-width="80">
-                    <el-avatar :size="30" :src="dataForm.avatar">
-                      <img src="@/assets/images/default/circle.png"/>
-                    </el-avatar>
-                  </el-form-item>
-                </el-col>
                 <el-col :span="6">
                   <el-form-item :label="$t('manager.username')" label-width="80">
                     {{ dataForm.username }}
                   </el-form-item>
                 </el-col>
                 <el-col :span="6">
-                  <el-form-item :label="$t('manager.nickname')" label-width="80">
-                    {{ dataForm.nickname }}
-                  </el-form-item>
-                </el-col>
-              </el-row>
-              <el-row>
-                <el-col :span="6">
-                  <el-form-item :label="$t('manager.archive.age')" label-width="80">
-                    <span v-if="dataForm.archive">
-                      {{ dataForm.archive.age }}
-                    </span>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="6">
-                  <el-form-item :label="$t('manager.archive.sex')" label-width="80">
-                    <span v-if="dataForm.archive">
-                      {{ dataForm.archive.sex.text }}
-                    </span>
-                  </el-form-item>
-                </el-col>
-              </el-row>
-              <el-row>
-                <el-col :span="6">
-                  <el-form-item :label="$t('common.province')" label-width="80">
-                    <span v-if="dataForm.archive">
-                      {{ dataForm.archive.province_id.text }}
-                    </span>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="6">
-                  <el-form-item :label="$t('common.city')" label-width="80">
-                    <span v-if="dataForm.archive">
-                      {{ dataForm.archive.city_id.text }}
-                    </span>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="6">
-                  <el-form-item :label="$t('common.region')" label-width="80">
-                    <span v-if="dataForm.archive">
-                      {{ dataForm.archive.region_id.text }}
-                    </span>
-                  </el-form-item>
-                </el-col>
-              </el-row>
-            </div>
-          </el-card>
-
-          <el-card class="box-card mt10" shadow="never">
-            <div slot="header" class="clearfix">
-              <span>{{ $t('manager.parent_info') }}</span>
-            </div>
-            <div class="text item">
-              <el-row>
-                <el-col :span="6">
-                  <el-form-item :label="$t('agent.username')" label-width="100">
+                  <el-form-item :label="$t('manager.agent_name')" label-width="80">
                     <span v-if="dataForm.parent">
-                      {{ dataForm.parent.username }}
+                      {{ dataForm.parent.nickname }} | {{ dataForm.parent.level.text }}
                     </span>
                   </el-form-item>
                 </el-col>
+              </el-row>
+              <el-row>
                 <el-col :span="6">
-                  <el-form-item :label="$t('agent.nickname')" label-width="100">
-                    <span v-if="dataForm.parent">
-                      {{ dataForm.parent.nickname }}
+                  <el-form-item :label="$t('common.area')" label-width="80">
+                    <span v-if="dataForm.archive">
+                      {{ dataForm.archive.province_id.text }} {{ dataForm.archive.city_id.text }} {{ dataForm.archive.region_id.text }}
+                    </span>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="6">
+                  <el-form-item :label="$t('manager.archive.address')" label-width="80">
+                    <span v-if="dataForm.archive">
+                      {{ dataForm.archive.address }}
                     </span>
                   </el-form-item>
                 </el-col>
@@ -126,20 +78,81 @@
             <div class="text item">
               <el-row>
                 <el-col :span="6">
-                  <el-form-item :label="$t('manager.asset_money')" label-width="100">
+                  <el-form-item :label="$t('manager.asset.money')" label-width="100">
                     <span v-if="dataForm.asset">
                       {{ dataForm.asset.money }}
                     </span>
                   </el-form-item>
                 </el-col>
                 <el-col :span="6">
-                  <el-form-item :label="$t('manager.asset.proportion')" label-width="100">
-                    <span v-if="dataForm.asset">
-                      {{ dataForm.asset.proportion }}
-                    </span>
+                  <el-form-item :label="$t('manager.asset.withdrawal_money')" label-width="100">
+                    <template slot-scope="scope" v-if="dataForm.asset">
+                      <el-link type="primary" @click="$router.push({name: 'module_manager_list', query: {id: dataForm.id}})">
+                        {{ dataForm.asset.withdrawal_money }}
+                      </el-link>
+                    </template>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="6">
+                  <el-form-item :label="$t('manager.asset.order_total')" label-width="100">
+                    <template slot-scope="scope" v-if="dataForm.asset">
+                      <el-link type="primary" @click="$router.push({name: 'module_manager_list', query: {id: dataForm.id}})">
+                        {{ dataForm.asset.order_total }}
+                      </el-link>
+                    </template>
                   </el-form-item>
                 </el-col>
               </el-row>
+            </div>
+          </el-card>
+
+          <el-card class="box-card mt10" shadow="never">
+            <div slot="header" class="clearfix">
+              <span>{{ $t('agent.facility_info') }}</span>
+            </div>
+            <div class="text item color">
+              <el-table :data="dataForm.manager" v-loading="dataListLoading" height="260">
+                <el-table-column prop="id" :label="$t('common.id')" width="70">
+                </el-table-column>
+
+                <el-table-column prop="model" :label="$t('printer.model')">
+                </el-table-column>
+
+                <el-table-column prop="code" :label="$t('printer.code')">
+                </el-table-column>
+
+                <el-table-column :label="$t('printer.status')">
+                  <template slot-scope="scope">
+                    {{ scope.row.province_id.text }}
+                  </template>
+                </el-table-column>
+
+                <el-table-column prop="activate_time" :label="$t('printer.activate_time')">
+                </el-table-column>
+
+                <el-table-column :label="$t('printer.status')">
+                  <template slot-scope="scope">
+                    <span v-if="2 == scope.row.bind_status.value">
+                      {{ scope.row.bind_status.text }}
+                    </span>
+                    <span class="green1" v-else-if="1 == scope.row.status.value">
+                      {{ scope.row.status.text }}
+                    </span>
+                    <span class="red" v-else-if="2 == scope.row.status.value">
+                      {{ scope.row.status.text }}
+                    </span>
+                    <span v-else>
+                      {{ scope.row.status.text }}
+                    </span>
+                  </template>
+                </el-table-column>
+
+                <el-table-column :label="$t('printer.ink_quantity')">
+                  <template slot-scope="scope">
+                    <el-progress :text-inside="true" :stroke-width="20" status="exception" :percentage="scope.row.ink_quantity"></el-progress>
+                  </template>
+                </el-table-column>
+              </el-table>
             </div>
           </el-card>
         </el-form>

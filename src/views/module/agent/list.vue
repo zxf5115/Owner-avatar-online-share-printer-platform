@@ -23,12 +23,24 @@
       <div class="admin_main_block_top">
         <div class="admin_main_block_left">
           <div>
+            <el-select v-model="dataForm.parent_id" :placeholder="$t('common.please_select') + $t('manager.agent_name')" clearable>
+              <el-option :label="$t('common.all')" value=""></el-option>
+              <el-option v-for="(v,k) in agentList" :label="v.nickname" :key="k" :value="v.id"></el-option>
+            </el-select>
+          </div>
+          <div>
             <el-input v-model="dataForm.username" :placeholder="$t('common.please_input') + $t('agent.username')" clearable>
             </el-input>
           </div>
           <div>
             <el-input v-model="dataForm.nickname" :placeholder="$t('common.please_input') + $t('agent.nickname')" clearable>
             </el-input>
+          </div>
+          <div>
+            <el-select v-model="dataForm.level" :placeholder="$t('common.please_select') + $t('agent.level')" clearable>
+              <el-option :label="$t('common.all')" value=""></el-option>
+              <el-option v-for="(v,k) in levelList" :label="v.title" :key="k" :value="v.id"></el-option>
+            </el-select>
           </div>
           <div>
             <el-button icon="el-icon-search" @click="getDataList(true)">
@@ -86,25 +98,33 @@
             </template>
           </el-table-column>
 
-          <el-table-column :label="$t('agent.asset_money')" width="100">
+          <el-table-column :label="$t('agent.asset.money')" width="100">
             <template slot-scope="scope" v-if="scope.row.asset">
               {{ scope.row.asset.money }}
             </template>
           </el-table-column>
 
-          <el-table-column :label="$t('agent.proportion')" width="100">
+          <el-table-column :label="$t('agent.asset.proportion')" width="100">
             <template slot-scope="scope" v-if="scope.row.asset">
               {{ scope.row.asset.proportion }}
             </template>
           </el-table-column>
 
-          <el-table-column prop="printer_total" :label="$t('agent.printer_total')" width="100">
+          <el-table-column :label="$t('agent.asset.should_printer_total')" width="100">
+            <template slot-scope="scope" v-if="scope.row.asset">
+              {{ scope.row.asset.should_printer_total }}
+            </template>
           </el-table-column>
 
           <el-table-column prop="below_agent_total" :label="$t('agent.below_agent')" width="100">
           </el-table-column>
 
-          <el-table-column prop="below_manager_total" :label="$t('agent.below_manager')" width="100">
+          <el-table-column :label="$t('agent.below_manager')" width="100">
+            <template slot-scope="scope">
+              <el-link type="primary" @click="$router.push({name: 'module_manager_list', query: {parent_id: scope.row.id}})">
+                {{ scope.row.below_manager_total }}
+              </el-link>
+            </template>
           </el-table-column>
 
           <el-table-column prop="status" :label="$t('agent.status')" width="100">
@@ -118,7 +138,7 @@
             </template>
           </el-table-column>
 
-          <el-table-column :label="$t('common.handle')" fixed="right" width="380">
+          <el-table-column :label="$t('common.handle')" fixed="right" width="280">
             <template slot-scope="scope">
               <el-button v-if="isAuth('module:agent:view')" type="info" icon="el-icon-view" @click="$router.push({name: 'module_agent_view', query: {id: scope.row.id}})">
                 {{ $t('common.view') }}
@@ -126,10 +146,6 @@
 
               <el-button v-if="isAuth('module:agent:form')" type="primary" icon="el-icon-check" @click="$router.push({name: 'module_agent_form', query: {id: scope.row.id}})">
                 {{ $t('common.update') }}
-              </el-button>
-
-              <el-button v-if="isAuth('module:agent:facility')" type="warning" icon="el-icon-printer" @click="$router.push({name: 'module_agent_facility', query: {id: scope.row.id}})">
-                {{ $t('agent.facility') }}
               </el-button>
 
               <el-button v-if="isAuth('module:agent:delete')" type="danger" icon="el-icon-delete" @click="deleteHandle(scope.row.id)">
@@ -162,32 +178,31 @@
     data() {
       return {
         model: 'agent',
+        levelList: [
+          {'id': 1, 'title': '一级代理'},
+          {'id': 2, 'title': '二级代理'},
+        ],
+        agentList: [],
         dataForm: [
           'username',
           'nickname',
+          'parent_id',
+          'level',
         ],
       };
     },
     methods: {
-      handleStatus($event, id, field) {
+      loadAgentList () {
         this.$http({
-          url: this.$http.adornUrl('/agent/status'),
-          method: 'post',
-          data: {
-            id: id,
-            field: field,
-            value: $event
-          }
+          url: this.$http.adornUrl('/agent/select'),
+          method: 'get',
+          params: this.$http.adornParams({
+            'role_id': 3,
+            'level': 1
+          })
         }).then(({data}) => {
           if (data && data.status === 200) {
-            this.$message({
-              message: this.$t('common.handle_success'),
-              type: 'success',
-              duration: 1500,
-              onClose: () => {
-                this.getDataList()
-              }
-            })
+            this.agentList = data.data
           } else {
             this.$message.error(this.$t(data.message))
           }
@@ -195,7 +210,9 @@
       }
     },
     created() {
-      this.getDataList()
+      this.getDataList();
+
+      this.loadAgentList();
     }
   };
 </script>

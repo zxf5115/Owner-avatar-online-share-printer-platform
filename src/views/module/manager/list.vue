@@ -22,12 +22,6 @@
             </el-input>
           </div>
           <div>
-            <el-select v-model="dataForm.archive_province_id" :placeholder="$t('common.please_select') + $t('common.province')" clearable>
-              <el-option :label="$t('common.all')" value=""></el-option>
-              <el-option v-for="(v,k) in provinceList" :label="v.title" :key="k" :value="v.id"></el-option>
-            </el-select>
-          </div>
-          <div>
             <el-button icon="el-icon-search" @click="getDataList(true)">
               {{ $t('common.search') }}
             </el-button>
@@ -56,7 +50,7 @@
           <el-table-column prop="username" :label="$t('manager.username')" width="100">
           </el-table-column>
 
-          <el-table-column :label="$t('manager.info')" width="260">
+          <el-table-column :label="$t('manager.info')">
             <template slot-scope="scope">
               <dl class="table_dl">
                 <dt>
@@ -74,13 +68,13 @@
             </template>
           </el-table-column>
 
-          <el-table-column :label="$t('manager.asset_money')" width="100">
+          <el-table-column :label="$t('manager.asset.money')" width="100">
             <template slot-scope="scope" v-if="scope.row.asset">
               {{ scope.row.asset.money }}
             </template>
           </el-table-column>
 
-          <el-table-column :label="$t('manager.proportion')" width="100">
+          <el-table-column :label="$t('manager.asset.proportion')" width="100">
             <template slot-scope="scope" v-if="scope.row.asset">
               {{ scope.row.asset.proportion }}
             </template>
@@ -89,13 +83,13 @@
           <el-table-column prop="printer_total" :label="$t('agent.printer_total')" width="100">
           </el-table-column>
 
-          <el-table-column :label="$t('manager.order_total')" width="100">
+          <el-table-column :label="$t('manager.asset.order_total')" width="100">
             <template slot-scope="scope" v-if="scope.row.asset">
               {{ scope.row.asset.order_total }}
             </template>
           </el-table-column>
 
-          <el-table-column :label="$t('common.province')" width="150">
+          <el-table-column :label="$t('manager.archive.area')" width="150">
             <template slot-scope="scope" v-if="scope.row.archive">
               {{ scope.row.archive.province_id.text }}
             </template>
@@ -168,47 +162,10 @@
         ],
       };
     },
-    methods: {
-      loadProvinceList () {
-        this.$http({
-          url: this.$http.adornUrl('/common/area/list'),
-          method: 'get'
-        }).then(({data}) => {
-          if (data && data.status === 200) {
-            this.provinceList = data.data
-          } else {
-            this.$message.error(this.$t(data.message))
-          }
-        })
-      },
-      handleStatus($event, id, field) {
-        this.$http({
-          url: this.$http.adornUrl('/manager/status'),
-          method: 'post',
-          data: {
-            id: id,
-            field: field,
-            value: $event
-          }
-        }).then(({data}) => {
-          if (data && data.status === 200) {
-            this.$message({
-              message: this.$t('common.handle_success'),
-              type: 'success',
-              duration: 1500,
-              onClose: () => {
-                this.getDataList()
-              }
-            })
-          } else {
-            this.$message.error(this.$t(data.message))
-          }
-        })
-      }
-    },
     created() {
-      this.getDataList()
-      this.loadProvinceList()
+      this.dataForm.parent_id = this.$route.query.parent_id;
+
+      this.getDataList();
     }
   };
 </script>

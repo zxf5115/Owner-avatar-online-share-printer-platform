@@ -48,10 +48,10 @@
           <el-table-column prop="id" label="#" width="70">
           </el-table-column>
 
-          <el-table-column :label="$t('printer.nickname')" width="120">
+          <el-table-column :label="$t('manager.nickname')" width="120">
             <template slot-scope="scope">
-              <span v-if="scope.row.member">
-                {{ scope.row.member.nickname }}
+              <span v-if="scope.row.manager">
+                {{ scope.row.manager.nickname }}
               </span>
               <span v-else>
                 {{ $t('common.empty') }}
@@ -59,10 +59,10 @@
             </template>
           </el-table-column>
 
-          <el-table-column :label="$t('printer.username')" width="120">
+          <el-table-column :label="$t('manager.username')" width="120">
             <template slot-scope="scope">
-              <span v-if="scope.row.member">
-                {{ scope.row.member.username }}
+              <span v-if="scope.row.manager">
+                {{ scope.row.manager.username }}
               </span>
               <span v-else>
                 {{ $t('common.empty') }}
@@ -106,10 +106,10 @@
           <el-table-column prop="address" :label="$t('printer.address')">
           </el-table-column>
 
-          <el-table-column :label="$t('printer.allot_status')" width="100">
+          <el-table-column :label="$t('printer.bind_status')" width="100">
             <template slot-scope="scope">
               <span>
-                {{ scope.row.allot_status.text }}
+                {{ scope.row.bind_status.text }}
               </span>
             </template>
           </el-table-column>
@@ -167,6 +167,7 @@
         statusList: [
           {'id': 1, title: '在线'},
           {'id': 2, title: '离线'},
+          {'id': 3, title: '损坏'},
         ],
         dataForm: [
           'title',
