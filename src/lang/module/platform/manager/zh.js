@@ -15,6 +15,7 @@ export const manager = {
   nickname: '店长姓名',
   agent_name: '上级代理商',
   audit_status: '审核状态',
+  printer_total: '打印机数量',
   status: '账号状态',
   last_login_time: '最后登录时间',
   create_time: '注册时间',

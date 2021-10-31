@@ -47,10 +47,7 @@
             </template>
           </el-table-column>
 
-          <el-table-column prop="username" :label="$t('manager.username')" width="100">
-          </el-table-column>
-
-          <el-table-column :label="$t('manager.info')">
+          <el-table-column :label="$t('manager.info')" width="360">
             <template slot-scope="scope">
               <dl class="table_dl">
                 <dt>
@@ -68,19 +65,22 @@
             </template>
           </el-table-column>
 
-          <el-table-column :label="$t('manager.asset.money')" width="100">
+          <el-table-column prop="username" :label="$t('manager.username')" width="120">
+          </el-table-column>
+
+          <el-table-column :label="$t('manager.asset.money')" width="120">
             <template slot-scope="scope" v-if="scope.row.asset">
               {{ scope.row.asset.money }}
             </template>
           </el-table-column>
 
-          <el-table-column :label="$t('manager.asset.proportion')" width="100">
+          <el-table-column :label="$t('manager.asset.proportion')" width="120">
             <template slot-scope="scope" v-if="scope.row.asset">
               {{ scope.row.asset.proportion }}
             </template>
           </el-table-column>
 
-          <el-table-column prop="printer_total" :label="$t('agent.printer_total')" width="100">
+          <el-table-column prop="printer_total" :label="$t('manager.printer_total')" width="100">
           </el-table-column>
 
           <el-table-column :label="$t('manager.asset.order_total')" width="100">
@@ -89,21 +89,9 @@
             </template>
           </el-table-column>
 
-          <el-table-column :label="$t('manager.archive.area')" width="150">
+          <el-table-column :label="$t('common.area')" width="150">
             <template slot-scope="scope" v-if="scope.row.archive">
               {{ scope.row.archive.province_id.text }}
-            </template>
-          </el-table-column>
-
-          <el-table-column :label="$t('common.city')" width="150">
-            <template slot-scope="scope" v-if="scope.row.archive">
-              {{ scope.row.archive.city_id.text }}
-            </template>
-          </el-table-column>
-
-          <el-table-column :label="$t('common.region')" width="150">
-            <template slot-scope="scope" v-if="scope.row.archive">
-              {{ scope.row.archive.region_id.text }}
             </template>
           </el-table-column>
 

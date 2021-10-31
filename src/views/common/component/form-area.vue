@@ -2,21 +2,21 @@
   <el-form-item :label="$t('common.area')" prop="mobile" class="area">
     <div class="area">
       <div>
-        <el-select v-model="province_id" filterable size="small" value-key="id" @change="selectProvince" placeholder="请选择省份">
+        <el-select v-model="province" filterable size="small" value-key="id" @change="selectProvince" placeholder="请选择省份">
           <el-option value="" label="请选择省份"></el-option>
           <el-option :key="index" :value="item.id" :label="item.title" v-for="(item, index) in provinceList"></el-option>
         </el-select>
       </div>
 
       <div>
-        <el-select v-model="city_id" filterable size="small" value-key="id" @change="selectCity" placeholder="请选择城市">
+        <el-select v-model="city" filterable size="small" value-key="id" @change="selectCity" placeholder="请选择城市">
           <el-option value="" label="请选择城市"></el-option>
           <el-option :key="index" :value="item.id" :label="item.title" v-for="(item, index) in cityList"></el-option>
         </el-select>
       </div>
 
       <div>
-        <el-select v-model="region_id" filterable size="small" value-key="id" @change="selectArea" placeholder="请选择区县">
+        <el-select v-model="region" filterable size="small" value-key="id" @change="selectArea" placeholder="请选择区县">
           <el-option value="" label="请选择区县"></el-option>
           <el-option :key="index" :value="item.id" :label="item.title" v-for="(item, index) in areaList"></el-option>
         </el-select>
@@ -27,6 +27,11 @@
 
 <script>
   export default {
+    props: {
+      province_id: [String, Number],
+      city_id: [String, Number],
+      region_id: [String, Number],
+    },
     data () {
       return {
         // 整个省市县数据
@@ -34,15 +39,10 @@
         cityList: [],
         areaList: [],
 
-        province: '',
-        city: '',
-        region: '',
+        province: this.province_id,
+        city: this.city_id,
+        region: this.region_id,
       }
-    },
-    props: {
-      province_id: [String, Number],
-      city_id: [String, Number],
-      region_id: [String, Number],
     },
     methods: {
       init ()

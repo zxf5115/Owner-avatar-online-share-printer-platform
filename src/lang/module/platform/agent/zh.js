@@ -18,12 +18,27 @@ export const agent = {
   email: '邮箱',
   nickname: '代理商姓名',
   audit_status: '审核状态',
-  superior_agent: '所属代理商',
+  parent_agent: '上级代理商',
+  parent_agent_mobile: '上级代理商电话',
   below_agent: '下属代理商',
   below_manager: '下属店长',
   status: '账号状态',
   last_login_time: '最后登录时间',
   create_time: '注册时间',
+
+  rules: {
+    username: {
+      require: '代理商电话不能为空',
+    },
+    nickname: {
+      require: '代理商姓名不能为空',
+    },
+    level: {
+      require: '代理商级别不能为空',
+    },
+  },
+
+
 
   facility: '设备',
   enable: '解禁',
@@ -40,6 +55,7 @@ export const agent = {
     city: '所在城市',
     area: '地区',
     address: '详细地址',
+    business_license: '营业执照',
 
 
     rules: {

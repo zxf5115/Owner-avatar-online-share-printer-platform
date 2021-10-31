@@ -37,6 +37,12 @@
             </el-input>
           </div>
           <div>
+            <el-select v-model="dataForm.archive_province_id" :placeholder="$t('common.please_select') + $t('common.area')" clearable>
+              <el-option :label="$t('common.all')" value=""></el-option>
+              <el-option v-for="(v,k) in provinceList" :label="v.title" :key="k" :value="v.id"></el-option>
+            </el-select>
+          </div>
+          <div>
             <el-select v-model="dataForm.level" :placeholder="$t('common.please_select') + $t('agent.level')" clearable>
               <el-option :label="$t('common.all')" value=""></el-option>
               <el-option v-for="(v,k) in levelList" :label="v.title" :key="k" :value="v.id"></el-option>
@@ -57,7 +63,7 @@
           <el-table-column prop="id" :label="$t('common.id')" width="70">
           </el-table-column>
 
-          <el-table-column :label="$t('manager.agent_name')" width="120">
+          <el-table-column :label="$t('agent.parent_agent')" width="100">
             <template slot-scope="scope">
               <span v-if="scope.row.parent">
                 {{ scope.row.parent.nickname }}
@@ -68,19 +74,7 @@
             </template>
           </el-table-column>
 
-          <el-table-column prop="username" :label="$t('agent.username')" width="100">
-          </el-table-column>
-
-          <el-table-column :label="$t('agent.level')" width="100">
-            <template slot-scope="scope">
-              {{ scope.row.level.text }}
-            </template>
-          </el-table-column>
-
-          <el-table-column prop="another_name" :label="$t('agent.another_name')" width="100">
-          </el-table-column>
-
-          <el-table-column :label="$t('agent.info')">
+          <el-table-column :label="$t('agent.info')" width="260">
             <template slot-scope="scope">
               <dl class="table_dl">
                 <dt>
@@ -95,6 +89,21 @@
                   {{ $t('agent.create_time') }}： {{ scope.row.create_time }}
                 </dd>
               </dl>
+            </template>
+          </el-table-column>
+
+          <el-table-column prop="username" :label="$t('agent.username')" width="120">
+          </el-table-column>
+
+          <el-table-column :label="$t('agent.level')" width="120">
+            <template slot-scope="scope">
+              {{ scope.row.level.text }}
+            </template>
+          </el-table-column>
+
+          <el-table-column :label="$t('common.area')" width="120">
+            <template slot-scope="scope" v-if="scope.row.archive">
+              {{ scope.row.archive.province_id.text }}
             </template>
           </el-table-column>
 
@@ -138,14 +147,10 @@
             </template>
           </el-table-column>
 
-          <el-table-column :label="$t('common.handle')" fixed="right" width="280">
+          <el-table-column :label="$t('common.handle')" fixed="right" width="200">
             <template slot-scope="scope">
               <el-button v-if="isAuth('module:agent:view')" type="info" icon="el-icon-view" @click="$router.push({name: 'module_agent_view', query: {id: scope.row.id}})">
                 {{ $t('common.view') }}
-              </el-button>
-
-              <el-button v-if="isAuth('module:agent:form')" type="primary" icon="el-icon-check" @click="$router.push({name: 'module_agent_form', query: {id: scope.row.id}})">
-                {{ $t('common.update') }}
               </el-button>
 
               <el-button v-if="isAuth('module:agent:delete')" type="danger" icon="el-icon-delete" @click="deleteHandle(scope.row.id)">
@@ -182,16 +187,30 @@
           {'id': 1, 'title': '一级代理'},
           {'id': 2, 'title': '二级代理'},
         ],
+        provinceList: [],
         agentList: [],
         dataForm: [
           'username',
           'nickname',
           'parent_id',
+          'archive_province_id',
           'level',
         ],
       };
     },
     methods: {
+      loadProvinceList () {
+        this.$http({
+          url: this.$http.adornUrl('/common/area/list'),
+          method: 'get'
+        }).then(({data}) => {
+          if (data && data.status === 200) {
+            this.provinceList = data.data
+          } else {
+            this.$message.error(this.$t(data.message))
+          }
+        })
+      },
       loadAgentList () {
         this.$http({
           url: this.$http.adornUrl('/agent/select'),
@@ -212,6 +231,7 @@
     created() {
       this.getDataList();
 
+      this.loadProvinceList();
       this.loadAgentList();
     }
   };

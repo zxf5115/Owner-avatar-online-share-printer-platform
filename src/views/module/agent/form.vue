@@ -15,8 +15,8 @@
         </div>
       </div>
 
-      <div class="admin_form_main">
-        <el-form label-width="100px" ref="dataForm" :model="dataForm" :rules="dataRule">
+      <div class="admin_form_main color">
+        <el-form label-width="120px" ref="dataForm" :model="dataForm" :rules="dataRule">
 
           <el-form-item :label="$t('agent.nickname')" prop="nickname">
             <el-input v-model="dataForm.nickname" :placeholder="$t('common.please_input') + $t('agent.nickname')"></el-input>
@@ -27,29 +27,42 @@
           </el-form-item>
 
           <el-form-item :label="$t('agent.level')" prop="level">
-            <el-select v-model="dataForm.level" :placeholder="$t('common.please_select')+$t('agent.level')" @change="handleParentAgent">
-              <el-option v-for="(v,k) in levelList" :label="v.title" :key="k" :value="v.id"></el-option>
-            </el-select>
+            <el-radio-group v-model="dataForm.level" @change="handleParentAgent">
+              <el-radio label="1">一级代理</el-radio>
+              <el-radio label="2">二级代理</el-radio>
+            </el-radio-group>
+          </el-form-item>
+
+          <el-form-item :class="display ? 'display' : ''" :label="$t('agent.parent_agent_mobile')" prop="parent_username">
+            <el-input v-model="dataForm.parent_username" :placeholder="$t('common.please_input') + $t('agent.parent_agent_mobile')"></el-input>
           </el-form-item>
 
           <el-form-item :label="$t('agent.another_name')" prop="another_name">
             <el-input v-model="dataForm.another_name" :placeholder="$t('common.please_input') + $t('agent.another_name')"></el-input>
           </el-form-item>
 
-          <el-form-item :class="display ? 'display' : ''" :label="$t('agent.superior_agent')" prop="parent_id">
-            <el-select v-model="dataForm.parent_id" :placeholder="$t('common.please_select')+$t('agent.superior_agent')">
-              <el-option v-for="(v,k) in memberList" :label="v.nickname" :key="k" :value="v.id"></el-option>
-            </el-select>
+          <el-form-item :label="$t('agent.asset.should_printer_total')" prop="should_printer_total">
+            <el-input-number v-model="dataForm.should_printer_total" :placeholder="$t('common.please_input') + $t('agent.asset.should_printer_total')"></el-input-number>
           </el-form-item>
 
-          <el-form-item :label="$t('agent.proportion')" prop="proportion">
-            <el-input-number v-model="dataForm.proportion" :min="0.00" :precision="2" :placeholder="$t('common.please_input') + $t('agent.proportion')"></el-input-number>
+          <el-form-item :label="$t('agent.asset.proportion')" prop="proportion">
+            <el-input-number v-model="dataForm.proportion" :min="0.00" :precision="2" :placeholder="$t('common.please_input') + $t('agent.asset.proportion')"></el-input-number>
           </el-form-item>
 
           <form-area ref="area" :province_id="dataForm.province_id" :city_id="dataForm.city_id" :region_id="dataForm.region_id" @setProvinceInfo="setProvinceInfo" @setCityInfo="setCityInfo" @setAreaInfo="setAreaInfo"></form-area>
 
           <el-form-item :label="$t('agent.archive.address')" prop="address">
             <el-input type="textarea" v-model="dataForm.address" :placeholder="$t('common.please_input')+$t('agent.archive.address')"></el-input>
+          </el-form-item>
+
+          <el-form-item :label="$t('agent.archive.business_license')" prop="business_license">
+            <el-upload class="avatar-uploader" :action="this.$http.adornUrl('/file/picture')" :show-file-list="false" :headers="upload_headers" :on-success="handlePictureSuccess" :before-upload="beforePictureUpload">
+              <img v-if="dataForm.business_license" :src="dataForm.business_license" class="avatar-upload">
+              <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+            </el-upload>
+            <div class="red">
+              上传图片分辨率为：355*170
+            </div>
           </el-form-item>
 
           <el-form-item>
@@ -77,33 +90,34 @@
     data() {
       return {
         model: 'agent',
-        memberList: [],
-        levelList: [
-          {'id': 1, 'title': '一级代理'},
-          {'id': 2, 'title': '二级代理'},
-        ],
         display: true,
+        upload_headers:{},
         dataForm:
         {
           id: 0,
-          level: '',
+          level: '1',
           another_name: '',
-          parent_id: '',
+          parent_username: '',
           username: '',
           nickname: '',
+          should_printer_total: 0,
           proportion: 0.00,
           province_id : '',
           city_id : '',
           region_id : '',
           address: '',
+          business_license: '',
         },
         dataRule:
         {
           username: [
-            { required: true, message: this.$t('user.rules.username.require'), trigger: 'blur' },
+            { required: true, message: this.$t('agent.rules.username.require'), trigger: 'blur' },
           ],
           nickname: [
-            { required: true, message: this.$t('user.rules.nickname.require'), trigger: 'blur' },
+            { required: true, message: this.$t('agent.rules.nickname.require'), trigger: 'blur' },
+          ],
+          level: [
+            { required: true, message: this.$t('agent.rules.level.require'), trigger: 'blur' },
           ],
         }
       };
@@ -124,16 +138,18 @@
               params: this.$http.adornParams()
             }).then(({data}) => {
               if (data && data.status === 200) {
-                this.dataForm.level        = data.data.level.value
-                this.dataForm.parent_id    = data.data.parent_id
-                this.dataForm.another_name = data.data.another_name
-                this.dataForm.username     = data.data.username
-                this.dataForm.nickname     = data.data.nickname
-                this.dataForm.proportion   = data.data.asset.proportion
-                this.dataForm.province_id  = data.data.archive.province_id.value
-                this.dataForm.city_id      = data.data.archive.city_id.value
-                this.dataForm.region_id    = data.data.archive.region_id.value
-                this.dataForm.address      = data.data.archive.address
+                this.dataForm.level                = data.data.level.value
+                this.dataForm.parent_username      = data.data.parent_username
+                this.dataForm.another_name         = data.data.another_name
+                this.dataForm.username             = data.data.username
+                this.dataForm.nickname             = data.data.nickname
+                this.dataForm.should_printer_total = data.data.asset.should_printer_total
+                this.dataForm.proportion           = data.data.asset.proportion
+                this.dataForm.province_id          = data.data.archive.province_id.value
+                this.dataForm.city_id              = data.data.archive.city_id.value
+                this.dataForm.region_id            = data.data.archive.region_id.value
+                this.dataForm.address              = data.data.archive.address
+                this.dataForm.business_license     = data.data.archive.business_license
               }
             })
           }
@@ -149,15 +165,17 @@
               data: this.$http.adornData({
                 'id': this.dataForm.id || undefined,
                 'level': this.dataForm.level,
-                'parent_id': this.dataForm.parent_id,
+                'parent_username': this.dataForm.parent_username,
                 'another_name': this.dataForm.another_name,
                 'username': this.dataForm.username,
                 'nickname': this.dataForm.nickname,
+                'should_printer_total': this.dataForm.should_printer_total,
                 'proportion': this.dataForm.proportion,
                 'province_id': this.$refs.area.province_id,
                 'city_id': this.$refs.area.city_id,
                 'region_id': this.$refs.area.region_id,
                 'address': this.dataForm.address,
+                'business_license': this.dataForm.business_license,
               })
             }).then(({data}) => {
               if (data && data.status === 200) {
@@ -174,21 +192,6 @@
       {
         this.$refs['dataForm'].resetFields();
       },
-      loadMemberList (level) {
-        this.$http({
-          url: this.$http.adornUrl('/agent/select'),
-          method: 'get',
-          params: this.$http.adornParams({
-            'level': --level
-          })
-        }).then(({data}) => {
-          if (data && data.status === 200) {
-            this.memberList = data.data
-          } else {
-            this.$message.error(this.$t(data.message))
-          }
-        })
-      },
       setProvinceInfo (id) {
         this.dataForm.province_id = id
       },
@@ -198,12 +201,14 @@
       setAreaInfo (id) {
         this.dataForm.region_id = id
       },
+      // 上传图片
+      handlePictureSuccess(res, file) {
+        this.dataForm.business_license = res.data;
+      },
       handleParentAgent(level) {
-        if(2 == level || 3 == level)
+        if(2 == level)
         {
           this.display = false
-
-          this.loadMemberList(level);
         }
         else
         {
@@ -213,6 +218,9 @@
     },
     created() {
       this.init();
+
+      // 要保证取到
+      this.upload_headers.Authorization = 'Bearer ' + localStorage.getItem('token');
     },
   };
 </script>
