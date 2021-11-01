@@ -229,6 +229,8 @@
       }
     },
     created() {
+      this.dataForm.parent_id = this.$route.query.parent_id;
+
       this.getDataList();
 
       this.loadProvinceList();

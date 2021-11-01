@@ -82,8 +82,10 @@ export default {
           'is_hidden': this.dataForm.is_hidden,
           'archive_weixin': this.dataForm.archive_weixin,
 
+          'member_id': this.dataForm.member_id,
           'archive_province_id': this.dataForm.archive_province_id,
           'level': this.dataForm.level,
+          'organization_username': this.dataForm.organization_username,
 
 
           'order_no': this.dataForm.order_no,

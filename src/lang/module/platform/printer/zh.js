@@ -15,6 +15,11 @@ export const printer = {
   activate_time: '激活时间',
   status: '打印机状态',
 
+  online: '在线',
+  offline: '离线',
+  fault: '故障',
+  unbind: '未绑定',
+
   log: {
     content: '日志内容',
   }

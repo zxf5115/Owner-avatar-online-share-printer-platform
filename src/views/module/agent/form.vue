@@ -55,7 +55,7 @@
             <el-input type="textarea" v-model="dataForm.address" :placeholder="$t('common.please_input')+$t('agent.archive.address')"></el-input>
           </el-form-item>
 
-          <el-form-item :label="$t('agent.archive.business_license')" prop="business_license">
+          <el-form-item :label="$t('agent.resource.business_license')" prop="business_license">
             <el-upload class="avatar-uploader" :action="this.$http.adornUrl('/file/picture')" :show-file-list="false" :headers="upload_headers" :on-success="handlePictureSuccess" :before-upload="beforePictureUpload">
               <img v-if="dataForm.business_license" :src="dataForm.business_license" class="avatar-upload">
               <i v-else class="el-icon-plus avatar-uploader-icon"></i>
@@ -63,6 +63,41 @@
             <div class="red">
               上传图片分辨率为：355*170
             </div>
+          </el-form-item>
+
+          <el-form-item :label="$t('agent.resource.contract')" prop="contract">
+            <el-upload class="upload-demo"
+              :action="this.$http.adornUrl('/file/file')"
+              :headers="upload_headers"
+              :show-file-list="is_show"
+              :file-list="contract_url"
+              :on-success="handleSuccess"
+              :on-change="changeShow">
+              <el-button size="small" type="primary">
+                {{ $t('common.upload') }}
+              </el-button>
+            </el-upload>
+          </el-form-item>
+
+          <el-form-item :label="$t('agent.archive.source')" prop="source">
+            <el-radio-group v-model="dataForm.source" @change="handleSource">
+              <el-radio label="1">官方提供</el-radio>
+              <el-radio label="2">分销商提供</el-radio>
+            </el-radio-group>
+          </el-form-item>
+
+          <el-form-item :class="disable ? 'display' : ''" :label="$t('agent.resource.equipment')" prop="equipment">
+            <el-upload class="upload-demo"
+              :action="this.$http.adornUrl('/file/file')"
+              :headers="upload_headers"
+              :show-file-list="is_equipemnt_show"
+              :file-list="equipment_url"
+              :on-success="handleEquipemntSuccess"
+              :on-change="changeEquipemntShow">
+              <el-button size="small" type="primary">
+                {{ $t('common.upload') }}
+              </el-button>
+            </el-upload>
           </el-form-item>
 
           <el-form-item>
@@ -82,6 +117,7 @@
 <script>
   import common from '@/views/common/base'
   import formArea from '@/views/common/component/form-area'
+  import { isNotEmpty } from '@/utils/validate'
   export default {
     extends: common,
     components: {
@@ -91,7 +127,12 @@
       return {
         model: 'agent',
         display: true,
+        disable: true,
         upload_headers:{},
+        is_show: false,
+        is_equipemnt_show: false,
+        contract_url: [],
+        equipment_url: [],
         dataForm:
         {
           id: 0,
@@ -107,6 +148,8 @@
           region_id : '',
           address: '',
           business_license: '',
+          contract: '',
+          source: '1',
         },
         dataRule:
         {
@@ -149,7 +192,23 @@
                 this.dataForm.city_id              = data.data.archive.city_id.value
                 this.dataForm.region_id            = data.data.archive.region_id.value
                 this.dataForm.address              = data.data.archive.address
-                this.dataForm.business_license     = data.data.archive.business_license
+                this.dataForm.business_license     = data.data.resource.business_license
+                this.dataForm.contract             = data.data.resource.contract
+
+                this.contract_url = [{'url': data.data.resource.contract}]
+
+                if(isNotEmpty(data.data.contract_url))
+                {
+                  this.is_show = true
+                }
+
+                this.equipment_url = [{'url': data.data.resource.equipment}]
+
+                if(isNotEmpty(data.data.equipment_url))
+                {
+                  this.is_equipemnt_show = true
+                }
+
               }
             })
           }
@@ -176,6 +235,7 @@
                 'region_id': this.$refs.area.region_id,
                 'address': this.dataForm.address,
                 'business_license': this.dataForm.business_license,
+                'contract': this.dataForm.contract,
               })
             }).then(({data}) => {
               if (data && data.status === 200) {
@@ -214,7 +274,29 @@
         {
           this.display = true
         }
-      }
+      },
+      handleSource(source) {
+        if(2 == source)
+        {
+          this.disable = false
+        }
+        else
+        {
+          this.disable = true
+        }
+      },
+      handleSuccess(res, file) {
+        this.dataForm.contract_url = res.data;
+      },
+      changeShow(file, fileList) {
+        this.is_show = true
+      },
+      handleEquipemntSuccess(res, file) {
+        this.dataForm.equipemnt_url = res.data;
+      },
+      changeEquipemntShow(file, fileList) {
+        this.is_equipemnt_show = true
+      },
     },
     created() {
       this.init();

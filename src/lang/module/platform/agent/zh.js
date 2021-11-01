@@ -5,6 +5,7 @@ export const agent = {
   view: '代理商详情',
   delete: '删除代理商',
   export: '导出代理商',
+  distribution: '立即分配',
   archive_info: '代理商档案',
   asset_info: '资金信息',
   facility_info: '设备信息',
@@ -55,8 +56,7 @@ export const agent = {
     city: '所在城市',
     area: '地区',
     address: '详细地址',
-    business_license: '营业执照',
-
+    source: '设备来源',
 
     rules: {
       member_id: {
@@ -71,8 +71,10 @@ export const agent = {
     },
   },
 
-  printer: {
-    use_status: '使用状态'
+  resource: {
+    business_license: '营业执照',
+    contract: '分销合同',
+    equipment: '设备列表',
   },
 
   asset: {
@@ -81,5 +83,7 @@ export const agent = {
     withdrawal_money: '已提现金额(元)',
     order_total: '订单总量',
     should_printer_total: '认购数量',
+    already_printer_total: '已分配总量',
+    without_printer_total: '未分配总量',
   }
 }

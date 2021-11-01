@@ -4,11 +4,7 @@
       <div class="admin_main_block_top">
         <div class="admin_main_block_left">
           <div>
-            <el-input v-model="dataForm.member_username" :placeholder="$t('common.please_input') + $t('financial.username')" clearable>
-            </el-input>
-          </div>
-          <div>
-            <el-input v-model="dataForm.account_payment_account" :placeholder="$t('common.please_input') + $t('member.account.payment_name')" clearable>
+            <el-input v-model="dataForm.organization_username" :placeholder="$t('common.please_input') + $t('financial.username')" clearable>
             </el-input>
           </div>
           <div>
@@ -27,60 +23,50 @@
           <el-table-column prop="id" label="#" width="70px">
           </el-table-column>
 
+          <el-table-column :label="$t('financial.nickname')">
+            <template slot-scope="scope">
+              <span v-if="scope.row.organization">
+                {{ scope.row.organization.nickname }}
+              </span>
+            </template>
+          </el-table-column>
+
           <el-table-column :label="$t('financial.username')">
             <template slot-scope="scope">
-              <span v-if="scope.row.member">
-                {{ scope.row.member.username }}
+              <span v-if="scope.row.organization">
+                {{ scope.row.organization.username }}
               </span>
             </template>
           </el-table-column>
-
-          <el-table-column :label="$t('member.account.payment_name')">
-            <template slot-scope="scope">
-              <span v-if="scope.row.account">
-                {{ scope.row.account.payment_name }}
-              </span>
-            </template>
-          </el-table-column>
-
-          <el-table-column :label="$t('member.account.payment_account')">
-            <template slot-scope="scope">
-              <span v-if="scope.row.account">
-                {{ scope.row.account.payment_account }}
-              </span>
-            </template>
-          </el-table-column>
-
-          <!-- <el-table-column :label="$t('financial.withdrawal_status')">
-            <template slot-scope="scope">
-                {{ scope.row.withdrawal_status.text }}
-            </template>
-          </el-table-column>
-
-          <el-table-column :label="$t('financial.audit_type')">
-            <template slot-scope="scope">
-                {{ scope.row.audit_type.text }}
-            </template>
-          </el-table-column> -->
 
           <el-table-column :label="$t('financial.money')">
             <template slot-scope="scope">
-              <span class="blue">
-                {{ scope.row.money }}
-              </span>
+              <b class="red">{{ scope.row.money }}</b>
+            </template>
+          </el-table-column>
+
+          <el-table-column :label="$t('financial.pay_type')">
+            <template slot-scope="scope">
+                {{ scope.row.pay_type.text }}
+            </template>
+          </el-table-column>
+
+          <el-table-column :label="$t('financial.confirm_status')">
+            <template slot-scope="scope">
+                {{ scope.row.confirm_status.text }}
             </template>
           </el-table-column>
 
           <el-table-column prop="create_time" :label="$t('financial.create_time')">
           </el-table-column>
 
-          <el-table-column :label="$t('common.handle')" fixed="right" width="120">
+          <!-- <el-table-column :label="$t('common.handle')" fixed="right" width="120">
             <template slot-scope="scope">
               <el-button v-if="isAuth('module:financial:withdrawal:handle') && scope.row.withdrawal_status.value == 0" type="primary" icon="el-icon-check" @click="agreeHandle(scope.row.id)">
                 {{ $t('financial.agree') }}
               </el-button>
             </template>
-          </el-table-column>
+          </el-table-column> -->
         </el-table>
 
         <div class="admin_table_main_pagination">
@@ -106,8 +92,8 @@
       return {
         model: 'withdrawal',
         dataForm: [
-          'member_username',
-          'account_payment_account',
+          'member_id',
+          'organization_username',
         ]
       };
     },
@@ -144,6 +130,8 @@
       }
     },
     created() {
+      this.dataForm.member_id = this.$route.query.member_id;
+
       this.getDataList()
     }
   };
