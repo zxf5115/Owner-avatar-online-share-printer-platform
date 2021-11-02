@@ -2,15 +2,6 @@
   <div class="qingwu">
     <div class="admin_main_block">
       <div class="admin_main_block_top">
-        <div class="admin_main_block_left">
-          <div>
-            <router-link :to="{name: 'module_printer_form'}">
-              <el-button v-if="isAuth('module:printer:form')" type="success" icon="el-icon-plus">
-                {{ $t('common.create') }}
-              </el-button>
-            </router-link>
-          </div>
-        </div>
         <div class="admin_main_block_right">
           <div>
             <el-button v-if="isAuth('module:printer:delete')" type="danger" icon="el-icon-delete" @click="deleteHandle()">
@@ -70,37 +61,16 @@
             </template>
           </el-table-column>
 
-          <el-table-column prop="title" :label="$t('printer.title')" width="140">
+          <el-table-column prop="code" :label="$t('printer.code')" width="120">
           </el-table-column>
 
-          <el-table-column prop="model" :label="$t('printer.model')" width="120">
-          </el-table-column>
-
-          <el-table-column prop="failure_number" :label="$t('printer.failure_number')" width="100">
-          </el-table-column>
-
-          <el-table-column :label="$t('common.province')" width="140">
+          <el-table-column prop="ink_quantity" :label="$t('printer.ink_quantity')" width="200">
             <template slot-scope="scope">
-              <span v-if="scope.row.province_id">
-                {{ scope.row.province_id.text }}
-              </span>
+              <el-progress :text-inside="true" :stroke-width="20" status="exception" :percentage="scope.row.ink_quantity"></el-progress>
             </template>
           </el-table-column>
 
-          <el-table-column :label="$t('common.city')" width="140">
-            <template slot-scope="scope">
-              <span v-if="scope.row.city_id">
-                {{ scope.row.city_id.text }}
-              </span>
-            </template>
-          </el-table-column>
-
-          <el-table-column :label="$t('common.region')" width="140">
-            <template slot-scope="scope">
-              <span v-if="scope.row.region_id">
-                {{ scope.row.region_id.text }}
-              </span>
-            </template>
+          <el-table-column prop="paper_quantity" :label="$t('printer.paper_quantity')" width="120">
           </el-table-column>
 
           <el-table-column prop="address" :label="$t('printer.address')">
@@ -125,13 +95,21 @@
             </template>
           </el-table-column>
 
-          <el-table-column :label="$t('common.handle')" fixed="right" width="280">
+          <el-table-column :label="$t('common.handle')" fixed="right" width="470">
             <template slot-scope="scope">
-              <el-button v-if="isAuth('module:printer:form')" type="primary" icon="el-icon-edit" @click="$router.push({name: 'module_printer_form', query: {id : scope.row.id}})">
-                {{ $t('common.update') }}
+              <el-button v-if="isAuth('module:printer:paper') && scope.row.bind_status.value == 1" icon="el-icon-files" @click="actionHandle(scope.row.id, 1)">
+                {{ $t('printer.paper_info') }}
               </el-button>
 
-              <el-button v-if="isAuth('module:printer:log:list')" type="info" icon="el-icon-paperclip" @click="$router.push({name: 'module_printer_log_list', query: {printer_id : scope.row.id}})">
+              <el-button v-if="isAuth('module:printer:ink') && scope.row.bind_status.value == 1" type="warning" icon="el-icon-help" @click="actionHandle(scope.row.id, 2)">
+                {{ $t('printer.ink_info') }}
+              </el-button>
+
+              <el-button v-if="isAuth('module:printer:equipment') && scope.row.bind_status.value == 1" type="success" icon="el-icon-printer" @click="actionHandle(scope.row.id, 3)">
+                {{ $t('printer.equipment_info') }}
+              </el-button>
+
+              <el-button v-if="isAuth('module:printer:log:list') && scope.row.bind_status.value == 1" type="info" icon="el-icon-paperclip" @click="$router.push({name: 'module_printer_log_list', query: {printer_id : scope.row.id}})">
                 {{ $t('printer.log_info') }}
               </el-button>
 
@@ -171,9 +149,53 @@
         ],
         dataForm: [
           'title',
+          'bind_status',
           'status',
         ]
       };
+    },
+    methods: {
+      // 操作
+      actionHandle (id, action) {
+        let message = '您确定要配送纸张？'
+
+        if(2 == action)
+        {
+          message = '您确定要更新墨盒？'
+        }
+        else if(3 == action)
+        {
+          message = '您确定要更换设备？'
+        }
+
+        this.$confirm(message, this.$t('common.prompt'), {
+          confirmButtonText: this.$t('common.confirm'),
+          cancelButtonText: this.$t('common.cancel'),
+          type: 'warning'
+        }).then(() => {
+          this.$http({
+            url: this.$http.adornUrl('/printer/log/handle'),
+            method: 'post',
+            data: {
+              printer_id: id,
+              action: action
+            }
+          }).then(({data}) => {
+            if (data && data.status === 200) {
+              this.$message({
+                message: this.$t('common.handle_success'),
+                type: 'success',
+                duration: 1500,
+                onClose: () => {
+                  this.getDataList()
+                }
+              })
+            } else {
+              this.$message.error(this.$t(data.message))
+            }
+          })
+        }).catch(() => {})
+      }
     },
     created() {
       this.getDataList()

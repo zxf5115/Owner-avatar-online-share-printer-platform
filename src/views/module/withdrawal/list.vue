@@ -97,7 +97,6 @@
         ]
       };
     },
-
     methods: {
       // 停用（启用）课程类型
       agreeHandle (id) {
