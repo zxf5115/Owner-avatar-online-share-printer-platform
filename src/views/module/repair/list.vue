@@ -27,6 +27,14 @@
             </el-select>
           </div>
           <div>
+            <el-input v-model="dataForm.printer_code" :placeholder="$t('common.please_input') + $t('printer.code')" clearable>
+            </el-input>
+          </div>
+          <div>
+            <el-input v-model="dataForm.member_username" :placeholder="$t('common.please_input') + $t('manager.username')" clearable>
+            </el-input>
+          </div>
+          <div>
             <el-button icon="el-icon-search" @click="getDataList(true)">
               {{ $t('common.search') }}
             </el-button>
@@ -48,16 +56,34 @@
             </template>
           </el-table-column>
 
-          <el-table-column prop="content" :label="$t('repair.content')">
-          </el-table-column>
-
-          <el-table-column :label="$t('repair.nickname')" width="120">
+          <el-table-column :label="$t('manager.nickname')" width="120">
             <template slot-scope="scope" v-if="scope.row.member">
               {{ scope.row.member.nickname }}
             </template>
           </el-table-column>
 
-          <el-table-column prop="create_time" :label="$t('common.create_time')" width="140">
+          <el-table-column :label="$t('manager.username')" width="120">
+            <template slot-scope="scope" v-if="scope.row.member">
+              {{ scope.row.member.username }}
+            </template>
+          </el-table-column>
+
+          <el-table-column :label="$t('printer.code')" width="120">
+            <template slot-scope="scope" v-if="scope.row.printer">
+              {{ scope.row.printer.code }}
+            </template>
+          </el-table-column>
+
+          <el-table-column :label="$t('printer.address')">
+            <template slot-scope="scope" v-if="scope.row.printer">
+              {{ scope.row.printer.address }}
+            </template>
+          </el-table-column>
+
+          <el-table-column prop="content" :label="$t('repair.content')">
+          </el-table-column>
+
+          <el-table-column prop="create_time" :label="$t('repair.create_time')" width="140">
           </el-table-column>
 
           <el-table-column :label="$t('common.handle')" fixed="right" width="200">
@@ -97,7 +123,10 @@
         model: 'repair',
         categoryList: [],
         dataForm: [
-          'category_id'
+          'category_id',
+          'printer_code',
+          'member_username',
+          'printer_id',
         ]
       };
     },
@@ -116,6 +145,8 @@
       },
     },
     created() {
+      this.dataForm.printer_id = this.$route.query.printer_id;
+
       this.getDataList();
 
       this.loadCategoryList();

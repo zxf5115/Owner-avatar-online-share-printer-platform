@@ -5,7 +5,7 @@ export const repair = {
   update: '处理',
 
   content: '报修内容',
-  nickname: '报修人',
+  create_time: '报修时间',
 
   // 报修分类
   category: {

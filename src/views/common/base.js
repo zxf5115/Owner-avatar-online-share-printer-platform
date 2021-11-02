@@ -86,6 +86,7 @@ export default {
           'archive_province_id': this.dataForm.archive_province_id,
           'level': this.dataForm.level,
           'organization_username': this.dataForm.organization_username,
+          'printer_code': this.dataForm.printer_code,
 
 
           'order_no': this.dataForm.order_no,

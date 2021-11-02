@@ -17,6 +17,58 @@
       </div>
 
       <div class="admin_main_block_top">
+
+        <el-descriptions class="margin-top" :column="3" border>
+          <el-descriptions-item>
+            <template slot="label">
+              {{ $t('manager.nickname') }}
+            </template>
+            <span v-if="printerInfo.manager">
+              {{ printerInfo.manager.nickname }}
+            </span>
+          </el-descriptions-item>
+          <el-descriptions-item>
+            <template slot="label">
+              {{ $t('printer.address') }}
+            </template>
+            {{ printerInfo.address }}
+          </el-descriptions-item>
+          <el-descriptions-item>
+            <template slot="label">
+              {{ $t('printer.code') }}
+            </template>
+            {{ printerInfo.code }}
+          </el-descriptions-item>
+          <el-descriptions-item>
+            <template slot="label">
+              {{ $t('printer.paper_quantity') }}
+            </template>
+            <el-tag type="danger" size="small">
+              {{ printerInfo.paper_quantity }}
+            </el-tag>
+          </el-descriptions-item>
+          <el-descriptions-item>
+            <template slot="label">
+              {{ $t('printer.ink_quantity') }}
+            </template>
+            <el-tag type="danger" size="small">
+              {{ printerInfo.ink_quantity }}
+            </el-tag>
+          </el-descriptions-item>
+          <el-descriptions-item>
+            <template slot="label">
+              {{ $t('printer.failure_number') }}
+            </template>
+            <el-tag type="danger" size="small">
+              <el-link type="danger" @click="$router.push({name: 'module_repair_list', query: {printer_id: printerInfo.id}})">
+                {{ printerInfo.failure_number }}
+              </el-link>
+            </el-tag>
+          </el-descriptions-item>
+        </el-descriptions>
+      </div>
+
+      <div class="admin_main_block_top">
         <div class="admin_main_block_left">
           <div>
             <el-input v-model="dataForm.content" :placeholder="$t('common.please_input') + $t('printer.log.content')" clearable>
@@ -30,49 +82,6 @@
         </div>
       </div>
       <div class="admin_table_main">
-        <el-descriptions class="margin-top" title="带边框列表" :column="3" :size="size" border>
-    <template slot="extra">
-      <el-button type="primary" size="small">操作</el-button>
-    </template>
-    <el-descriptions-item>
-      <template slot="label">
-        <i class="el-icon-user"></i>
-        用户名
-      </template>
-      kooriookami
-    </el-descriptions-item>
-    <el-descriptions-item>
-      <template slot="label">
-        <i class="el-icon-mobile-phone"></i>
-        手机号
-      </template>
-      18100000000
-    </el-descriptions-item>
-    <el-descriptions-item>
-      <template slot="label">
-        <i class="el-icon-location-outline"></i>
-        居住地
-      </template>
-      苏州市
-    </el-descriptions-item>
-    <el-descriptions-item>
-      <template slot="label">
-        <i class="el-icon-tickets"></i>
-        备注
-      </template>
-      <el-tag size="small">学校</el-tag>
-    </el-descriptions-item>
-    <el-descriptions-item>
-      <template slot="label">
-        <i class="el-icon-office-building"></i>
-        联系地址
-      </template>
-      江苏省苏州市吴中区吴中大道 1188 号
-    </el-descriptions-item>
-  </el-descriptions>
-
-
-
         <el-table :data="dataList" v-loading="dataListLoading" @selection-change="selectionChangeHandle">
 
           <el-table-column type="selection" header-align="center" align="center">
@@ -122,13 +131,30 @@
       return {
         model: 'printer/log',
         printer_id: 0,
+        printerInfo: {},
         dataForm: [
           'content',
         ]
       };
     },
+    methods:
+    {
+      printer ()
+      {
+        this.$http({
+          url: this.$http.adornUrl(`/printer/view/${this.dataForm.printer_id}`),
+          method: 'get',
+          params: this.$http.adornParams()
+        }).then(({data}) => {
+          if (data && data.status === 200) {
+            this.printerInfo = data.data
+          }
+        })
+      }
+    },
     created() {
       this.dataForm.printer_id = this.$route.query.printer_id;
+      this.printer()
       this.getDataList()
     }
   };
