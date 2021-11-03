@@ -99,41 +99,60 @@
 
         <el-card class="box-card mt10" shadow="never">
           <div slot="header" class="clearfix">
-            <span>{{ $t('order.course_info') }}</span>
-          </div>
-          <div class="text item">
-            <el-table border v-if="dataForm.courseware" :data="dataForm.courseware" v-loading="dataListLoading">
-              <el-table-column prop="code" :label="$t('courseware.code')">
-              </el-table-column>
-
-              <el-table-column prop="title" :label="$t('courseware.title')">
-              </el-table-column>
-
-              <el-table-column prop="money" :label="$t('courseware.money')">
-              </el-table-column>
-
-              <el-table-column prop="point_total" :label="$t('courseware.point_total')">
-              </el-table-column>
-            </el-table>
-          </div>
-        </el-card>
-
-        <el-card class="box-card mt10" shadow="never">
-          <div slot="header" class="clearfix">
-            <span>{{ $t('order.order_info') }}</span>
+            <span>{{ $t('order.manager_info') }}</span>
           </div>
           <div class="text item">
             <el-form label-width="80">
               <el-row>
                 <el-col :span="8">
-                  <el-form-item :label="$t('order.order_money')" label-width="80">
-                    {{ dataForm.pay_money }}
+                  <el-form-item :label="$t('manager.nickname')" label-width="80">
+                    <span v-if="dataForm.manager">
+                      {{ dataForm.manager.nickname }}
+                    </span>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
-                  <el-form-item :label="$t('order.pay_money')" label-width="80">
-                    <span class="red">
-                      {{ dataForm.pay_money }}
+                  <el-form-item :label="$t('manager.username')" label-width="80">
+                    <span v-if="dataForm.manager">
+                      {{ dataForm.manager.username }}
+                    </span>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('common.area')" label-width="80">
+                    <span v-if="dataForm.printer">
+                      {{ dataForm.printer.province_id.text }}
+                    </span>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="8">
+                  <el-form-item :label="$t('printer.code')" label-width="80">
+                    <span v-if="dataForm.printer">
+                      {{ dataForm.printer.code }}
+                    </span>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('printer.ink_quantity')" label-width="80">
+                    <span v-if="dataForm.printer">
+                      {{ dataForm.printer.ink_quantity }}%
+                    </span>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('printer.status')" label-width="80">
+                    <span v-if="dataForm.printer">
+                      <span class="green1" v-if="1 == dataForm.printer.status.value">
+                        {{ dataForm.printer.status.text }}
+                      </span>
+                      <span class="red" v-else-if="2 == dataForm.printer.status.value">
+                        {{ dataForm.printer.status.text }}
+                      </span>
+                      <span v-else>
+                        {{ dataForm.printer.status.text }}
+                      </span>
                     </span>
                   </el-form-item>
                 </el-col>
@@ -144,39 +163,22 @@
 
         <el-card class="box-card mt10" shadow="never">
           <div slot="header" class="clearfix">
-            <span>{{ $t('order.handle_info') }}</span>
+            <span>{{ $t('order.remark_info') }}</span>
           </div>
           <div class="text item">
             <el-table border v-if="dataForm.log" :data="dataForm.log" v-loading="dataListLoading">
-              <el-table-column prop="username" :label="$t('order.log.username')">
+              <el-table-column prop="type" :label="$t('order.log.type')">
+                <template slot-scope="scope">
+                  {{ scope.row.type.text }}
+                </template>
               </el-table-column>
 
-              <el-table-column prop="content" :label="$t('order.log.content')">
+              <el-table-column prop="content" :label="$t('order.log.paper_use_total')">
               </el-table-column>
 
               <el-table-column prop="create_time" :label="$t('order.log.create_time')">
               </el-table-column>
             </el-table>
-          </div>
-        </el-card>
-
-        <el-card class="box-card mt10" shadow="never">
-          <div slot="header" class="clearfix">
-            <span>{{ $t('order.remark_info') }}</span>
-          </div>
-          <div class="text item">
-            <el-form label-width="100px" ref="dataForm" :model="dataForm" :rules="dataRule">
-
-              <el-form-item :label="$t('order.remark')" prop="remark">
-                <el-input type="textarea" :placeholder="$t('common.please_input')+$t('order.remark')" v-model="dataForm.remark"></el-input>
-              </el-form-item>
-
-              <el-form-item>
-                <el-button v-if="isAuth('module:order:handle')" type="primary" @click="dataFormSubmit()">
-                  {{ $t('common.confirm') }}
-                </el-button>
-              </el-form-item>
-            </el-form>
           </div>
         </el-card>
       </div>
@@ -202,7 +204,6 @@
           pay_type: '',
           pay_status: '',
           order_status: '',
-          remark: '',
         },
         dataRule: {}
       };
@@ -236,28 +237,6 @@
                 }
 
                 this.title = this.$t('order.current_order_status') + this.dataForm.pay_status.text;
-              }
-            })
-          }
-        })
-      },
-      // 表单提交
-      dataFormSubmit () {
-        this.$refs['dataForm'].validate((valid) => {
-          if (valid) {
-            this.$http({
-              url: this.$http.adornUrl(`/order/handle`),
-              method: 'post',
-              data: this.$http.adornData({
-                'id': this.dataForm.id,
-                'remark': this.dataForm.remark,
-              })
-            }).then(({data}) => {
-              if (data && data.status === 200) {
-                this.$message.success(this.$t('common.handle_success'));
-                this.$router.go(-1);
-              } else {
-                this.$message.error(this.$t(data.message))
               }
             })
           }

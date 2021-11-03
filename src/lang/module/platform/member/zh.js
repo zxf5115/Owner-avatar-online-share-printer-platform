@@ -7,6 +7,7 @@ export const member = {
   export: '导出会员',
   archive_info: '会员档案',
   asset_info: '资金信息',
+  order_info: '历史订单',
 
   avatar: '会员头像',
   username: '会员电话',

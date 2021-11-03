@@ -8,10 +8,8 @@ export const order = {
 
   basic_info: '基本信息',
   member_info: '买家信息',
-  course_info: '课程信息',
-  order_info: '订单信息',
-  handle_info: '操作信息',
-  remark_info: '备注信息',
+  manager_info: '店铺信息',
+  remark_info: '异常信息',
 
   order_no: '订单号',
   type: '打印类型',
@@ -33,8 +31,8 @@ export const order = {
   current_order_status: '当前订单状态: ',
 
   log: {
-    username: '操作人',
-    content: '操作行为',
+    type: '异常类型',
+    paper_use_total: '冗余纸张使用',
     create_time: '操作时间',
   },
 }
