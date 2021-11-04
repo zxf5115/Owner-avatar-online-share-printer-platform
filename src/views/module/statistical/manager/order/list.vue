@@ -2,18 +2,64 @@
   <div class="qingwu color">
     <div class="admin_main_block">
       <div class="admin_main_block_top">
-        <div class="admin_main_block_right">
-          <div>
-            <el-button v-if="isAuth('module:order:delete')" type="danger" icon="el-icon-delete" @click="deleteHandle()">
-              {{ $t('common.batch_delete') }}
-            </el-button>
-          </div>
-          <!-- <div class="mr10">
-            <el-button v-if="isAuth('module:order:export')" type="success" icon="el-icon-download" @click="handleExport">
-              {{ $t('common.export') }}
-            </el-button>
-          </div> -->
-        </div>
+        <el-descriptions class="margin-top mt10" :column="3" border>
+          <el-descriptions-item>
+            <template slot="label">
+              {{ $t('manager.nickname') }}
+            </template>
+            <span v-if="printerInfo.manager">
+              {{ printerInfo.manager.nickname }}
+            </span>
+          </el-descriptions-item>
+          <el-descriptions-item>
+            <template slot="label">
+              {{ $t('manager.username') }}
+            </template>
+            <span v-if="printerInfo.manager">
+              {{ printerInfo.manager.username }}
+            </span>
+          </el-descriptions-item>
+          <el-descriptions-item>
+            <template slot="label">
+              {{ $t('manager.asset.proportion') }}
+            </template>
+            <el-tag type="danger" size="small">
+              <span v-if="printerInfo.manager.asset">
+                {{ printerInfo.manager.asset.proportion }}
+              </span>
+            </el-tag>
+          </el-descriptions-item>
+          <el-descriptions-item>
+            <template slot="label">
+              {{ $t('printer.code') }}
+            </template>
+            {{ printerInfo.code }}
+          </el-descriptions-item>
+          <el-descriptions-item>
+            <template slot="label">
+              {{ $t('printer.address') }}
+            </template>
+            {{ printerInfo.address }}
+          </el-descriptions-item>
+          <el-descriptions-item>
+            <template slot="label">
+              {{ $t('printer.status') }}
+            </template>
+            <el-tag type="danger" size="small">
+              {{ printerInfo.status.text }}
+            </el-tag>
+          </el-descriptions-item>
+          <el-descriptions-item>
+            <template slot="label">
+              {{ $t('printer.ink_quantity') }}
+            </template>
+            <el-tag type="danger" size="small">
+              <span v-if="printerInfo.first">
+                {{ printerInfo.first.nickname }}
+              </span>
+            </el-tag>
+          </el-descriptions-item>
+        </el-descriptions>
       </div>
 
       <div class="admin_main_block_top">
@@ -125,22 +171,6 @@
 
           <el-table-column prop="create_time" :label="$t('order.create_time')" width="140">
           </el-table-column>
-
-          <el-table-column :label="$t('common.handle')" fixed="right" width="240">
-            <template slot-scope="scope">
-              <el-button v-if="isAuth('module:order:view')" type="info" icon="el-icon-view" @click="$router.push({name: 'module_order_view', query: {id: scope.row.id}})">
-                {{ $t('order.view') }}
-              </el-button>
-
-              <el-button v-if="isAuth('module:order:cancel') && scope.row.pay_status.value == 0 && scope.row.order_status.value == 0" type="warning" icon="el-icon-switch-button" @click="handleCancel(scope.row.id)">
-                {{ $t('order.cancel') }}
-              </el-button>
-
-              <el-button v-if="isAuth('module:order:delete') && scope.row.order_status.value == 4" type="danger" icon="el-icon-delete" @click="deleteHandle(scope.row.id)">
-                {{ $t('order.delete') }}
-              </el-button>
-            </template>
-          </el-table-column>
         </el-table>
 
         <div class="admin_table_main_pagination">
@@ -164,7 +194,7 @@
     extends: common,
     data() {
       return {
-        model: 'order',
+        model: 'statistical/manager/order',
         payList: [
           {'id': 0, 'title': '待支付'},
           {'id': 1, 'title': '已支付'},
@@ -175,7 +205,10 @@
           {'id': 2, 'title': '已完成'},
           {'id': 3, 'title': '已关闭'},
         ],
+        printer_id: 0,
+        printerInfo: {},
         dataForm: [
+          'printer_id',
           'order_no',
           'courseware_title',
           'member_username',
@@ -185,52 +218,24 @@
         ]
       };
     },
-    created() {
-      this.getDataList()
-    },
     methods: {
-      handleCancel(id) {
-        let message = '您确定要取消当前订单？'
-
-        this.$confirm(message, this.$t('common.prompt'), {
-          confirmButtonText: this.$t('common.confirm'),
-          cancelButtonText: this.$t('common.cancel'),
-          type: 'warning'
-        }).then(() => {
-          this.$http({
-            url: this.$http.adornUrl('/'+this.model+'/cancel'),
-            method: 'post',
-            data: {
-              id: id
-            }
-          }).then(({data}) => {
-            if (data && data.status === 200) {
-              this.getDataList()
-            } else {
-              this.$message.error(this.$t(data.message))
-            }
-          })
-        }).catch(() => {})
-      },
-      handleExport() {
+      printer ()
+      {
         this.$http({
-          url: this.$http.adornUrl(`/order/export`),
-          method: 'post',
-          data: this.$http.adornData({
-            'order_no': this.dataForm.order_no,
-            'courseware_title': this.dataForm.courseware_title,
-            'member_username': this.dataForm.member_username,
-            'page': this.pageIndex,
-            'limit': this.pageSize,
-          })
+          url: this.$http.adornUrl(`/printer/data/${this.dataForm.printer_id}`),
+          method: 'get',
+          params: this.$http.adornParams()
         }).then(({data}) => {
           if (data && data.status === 200) {
-            window.open(data.data)
-          } else {
-            this.$message.error(this.$t(data.message))
+            this.printerInfo = data.data
           }
         })
-      }
+      },
+    },
+    created() {
+      this.dataForm.printer_id = this.$route.query.printer_id;
+      this.printer()
+      this.getDataList()
     },
   };
 </script>

@@ -33,7 +33,7 @@ import  {problem}  from './module/platform/common/problem/zh'
 
 import  {contact}  from './module/platform/contact/zh'
 
-import  {vip}  from './module/platform/vip/zh'
+import  {statistical}  from './module/platform/statistical/zh'
 
 import  {printer}  from './module/platform/printer/zh'
 
@@ -140,9 +140,9 @@ export default {
     ...contact
   },
 
-  // 贵宾
-  vip: {
-    ...vip
+  // 统计
+  statistical: {
+    ...statistical
   },
 
   // 打印机
