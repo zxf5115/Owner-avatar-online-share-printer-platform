@@ -41,6 +41,8 @@ import  {material}  from './module/platform/material/zh'
 
 import  {repair}  from './module/platform/repair/zh'
 
+import  {inventory}  from './module/platform/inventory/zh'
+
 export default {
 
   // 公共
@@ -158,5 +160,10 @@ export default {
   // 报修
   repair: {
     ...repair
+  },
+
+  // 库存
+  inventory: {
+    ...inventory
   },
 }

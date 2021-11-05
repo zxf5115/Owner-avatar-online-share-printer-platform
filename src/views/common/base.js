@@ -48,59 +48,56 @@ export default {
           'page': this.pageIndex,
           'limit': this.pageSize,
           'name': this.dataForm.name,
+          'type': this.dataForm.type,
           'code': this.dataForm.code,
           'title': this.dataForm.title,
           'status': this.dataForm.status,
+          'order_no': this.dataForm.order_no,
           'username': this.dataForm.username,
           'nickname': this.dataForm.nickname,
           'realname': this.dataForm.realname,
-          'id_card_no': this.dataForm.id_card_no,
           'content': this.dataForm.content,
-          'category': this.dataForm.category,
 
+          // 编号
           'pid': this.dataForm.pid,
           'role_id': this.dataForm.role_id,
+          'member_id': this.dataForm.member_id,
           'parent_id': this.dataForm.parent_id,
           'category_id': this.dataForm.category_id,
-          'courseware_id': this.dataForm.courseware_id,
-          'team_id': this.dataForm.team_id,
-          'paper_id': this.dataForm.paper_id,
-          'course_id': this.dataForm.course_id,
           'position_id': this.dataForm.position_id,
           'organization_id': this.dataForm.organization_id,
-          'relevance_role_id': this.dataForm.relevance_role_id,
-          'printer_id': this.dataForm.printer_id,
 
+          // 时间
           'add_time': this.dataForm.add_time,
           'valid_time': this.dataForm.valid_time,
           'create_time': this.dataForm.create_time,
 
+          // 是否
+          'is_hidden': this.dataForm.is_hidden,
+          'is_recommend': this.dataForm.is_recommend,
+
+          // 状态
+          'pay_status': this.dataForm.pay_status,
           'audit_status': this.dataForm.audit_status,
+          'order_status': this.dataForm.order_status,
           'certification_status': this.dataForm.certification_status,
 
-          'is_recommend': this.dataForm.is_recommend,
-          'is_hidden': this.dataForm.is_hidden,
+
+
           'archive_weixin': this.dataForm.archive_weixin,
-
-          'member_id': this.dataForm.member_id,
           'archive_province_id': this.dataForm.archive_province_id,
-          'level': this.dataForm.level,
-          'organization_username': this.dataForm.organization_username,
-          'printer_code': this.dataForm.printer_code,
 
 
-          'order_no': this.dataForm.order_no,
-          'pay_status': this.dataForm.pay_status,
-          'order_status': this.dataForm.order_status,
-          'courseware_title': this.dataForm.courseware_title,
+
           'member_username': this.dataForm.member_username,
           'member_nickname': this.dataForm.member_nickname,
           'parent_nickname': this.dataForm.parent_nickname,
-          'archive_age': this.dataForm.archive_age,
-          'course_title': this.dataForm.course_title,
-          'goods_title': this.dataForm.goods_title,
-          'course_start_time': this.dataForm.course_start_time,
-          'account_payment_account': this.dataForm.account_payment_account,
+          'level': this.dataForm.level,
+          'organization_username': this.dataForm.organization_username,
+          'printer_id': this.dataForm.printer_id,
+          'printer_code': this.dataForm.printer_code,
+          'equipment_status': this.dataForm.equipment_status,
+
         })
       }).then(({data}) => {
         if (data && data.status === 200)
