@@ -57,6 +57,7 @@ export default {
           'nickname': this.dataForm.nickname,
           'realname': this.dataForm.realname,
           'content': this.dataForm.content,
+          'operator': this.dataForm.operator,
 
           // 编号
           'pid': this.dataForm.pid,
@@ -97,7 +98,8 @@ export default {
           'printer_id': this.dataForm.printer_id,
           'printer_code': this.dataForm.printer_code,
           'equipment_status': this.dataForm.equipment_status,
-
+          'inventory_id': this.dataForm.inventory_id,
+          'category': this.dataForm.category,
         })
       }).then(({data}) => {
         if (data && data.status === 200)

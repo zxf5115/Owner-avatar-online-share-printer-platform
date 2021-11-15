@@ -197,7 +197,7 @@
 
                 this.contract_url = [{'url': data.data.resource.contract}]
 
-                if(isNotEmpty(data.data.contract_url))
+                if(isNotEmpty(data.data.resource.contract))
                 {
                   this.is_show = true
                 }
@@ -286,7 +286,12 @@
         }
       },
       handleSuccess(res, file) {
-        this.dataForm.contract_url = res.data;
+        if(0 == res.status)
+        {
+          this.$message.error(res.message)
+        }
+
+        this.dataForm.contract = res.data;
       },
       changeShow(file, fileList) {
         this.is_show = true

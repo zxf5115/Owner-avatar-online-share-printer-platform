@@ -4,13 +4,13 @@
       <div class="admin_main_block_top">
         <div class="admin_main_block_left">
           <div>
-            <el-button v-if="isAuth('module:inventory:in')" type="success" icon="el-icon-download" @click="$router.push({name: 'module_education_course_form'})">
-              {{ $t('inventory.in_info') }}
+            <el-button v-if="isAuth('module:inbound:form')" type="success" icon="el-icon-download" @click="$router.push({name: 'module_inbound_form'})">
+              {{ $t('inventory.inbound.from') }}
             </el-button>
           </div>
           <div>
-            <el-button v-if="isAuth('module:inventory:out')" type="primary" icon="el-icon-upload2" @click="$router.push({name: 'module_education_course_label_list'})">
-              {{ $t('inventory.out_info') }}
+            <el-button v-if="isAuth('module:outbound:form')" type="primary" icon="el-icon-upload2" @click="$router.push({name: 'module_outbound_form'})">
+              {{ $t('inventory.outbound.from') }}
             </el-button>
           </div>
         </div>
@@ -94,7 +94,7 @@
 
           <el-table-column :label="$t('common.handle')" fixed="right" width="100">
             <template slot-scope="scope">
-              <el-button v-if="isAuth('module:complain:delete')" icon="el-icon-tickets" @click="deleteHandle(scope.row.id)">
+              <el-button v-if="isAuth('module:inventory:log:list')" icon="el-icon-tickets" @click="$router.push({name: 'module_inventory_log_list', query: {inventory_id: scope.row.id}})">
                 {{ $t('inventory.log_info') }}
               </el-button>
             </template>

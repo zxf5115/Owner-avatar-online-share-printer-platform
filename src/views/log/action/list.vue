@@ -51,7 +51,7 @@
 
           <el-table-column :label="$t('common.handle')" fixed="right" width="120">
             <template slot-scope="scope">
-              <el-button v-if="isAuth('user:delete')" type="danger" icon="el-icon-delete" @click="deleteHandle(scope.row.id)">
+              <el-button v-if="isAuth('log:action:delete')" type="danger" icon="el-icon-delete" @click="deleteHandle(scope.row.id)">
                 {{ $t('common.delete') }}
               </el-button>
             </template>
