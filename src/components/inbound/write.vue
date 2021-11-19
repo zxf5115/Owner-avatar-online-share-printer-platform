@@ -62,7 +62,7 @@
           </el-form-item>
 
           <el-form-item>
-            <el-button v-if="isAuth('module:outbound:handle')" type="primary" @click="dataFormSubmit()">
+            <el-button v-if="isAuth('module:inbound:handle')" type="primary" @click="dataFormSubmit()">
               {{ $t('common.confirm') }}
             </el-button>
             <el-button @click="resetForm()">
@@ -146,7 +146,7 @@
                 this.dataForm.member_id   = data.data.member_id
                 this.dataForm.type        = data.data.type
                 this.dataForm.category    = data.data.category
-                this.dataForm.device_code = data.data.device_code
+                this.dataForm.device_code = data.data.resource.device_code
                 this.dataForm.total       = data.data.total
                 this.dataForm.operator    = data.data.operator
                 this.dataForm.picture     = data.data.resource.picture

@@ -1,23 +1,27 @@
 <template>
   <div class="oubound">
-    <el-form label-width="100px" ref="dataForm" :model="dataForm" :rules="dataRule">
+    <el-form label-width="120px" ref="dataForm" :model="dataForm" :rules="dataRule">
       <el-card class="box-card mt10" shadow="never">
         <div slot="header" class="clearfix">
-          <span>{{ $t('inventory.outbound.logistics_info') }}</span>
+          <span>{{ $t('inventory.inbound.inventory_info') }}</span>
         </div>
         <div class="text item">
-          <el-form-item :label="$t('inventory.outbound.company_id')" prop="company_id">
-            <el-select v-model="dataForm.company_id" :placeholder="$t('common.please_select')+$t('inventory.outbound.company_id')">
-              <el-option v-for="(v,k) in logisticsList" :label="v.name" :key="k" :value="v.id"></el-option>
-            </el-select>
-          </el-form-item>
-
-          <el-form-item :label="$t('inventory.outbound.logistics_no')" prop="logistics_no">
-            <el-input :placeholder="$t('common.please_input')+$t('inventory.outbound.logistics_no')" v-model="dataForm.logistics_no"></el-input>
+          <el-form-item :label="$t('inventory.inbound.resource.device_code_warehouse')" prop="device_code_warehouse">
+            <el-upload class="upload-demo"
+              :action="this.$http.adornUrl('/file/file')"
+              :headers="upload_headers"
+              :show-file-list="is_show"
+              :file-list="device_code_warehouse_url"
+              :on-success="handleSuccess"
+              :on-change="changeShow">
+              <el-button size="small" type="primary">
+                {{ $t('common.upload') }}
+              </el-button>
+            </el-upload>
           </el-form-item>
 
           <el-form-item>
-            <el-button v-if="isAuth('module:outbound:handle')" type="primary" @click="dataFormSubmit()">
+            <el-button v-if="isAuth('module:inbound:handle')" type="primary" @click="dataFormSubmit()">
               {{ $t('common.confirm') }}
             </el-button>
             <el-button @click="resetForm()">
@@ -32,19 +36,19 @@
 
 <script>
   import common from '@/views/common/base'
+  import { isNotEmpty } from '@/utils/validate'
   export default {
     extends: common,
     data() {
       return {
-        model: 'outbound',
-        logisticsList: [
-          {'id': 1, 'title': '顺丰快递'},
-        ],
+        model: 'inbound',
+        upload_headers:{},
+        is_show: false,
+        device_code_warehouse_url: [],
         dataForm:
         {
           id: 0,
-          company_id: '',
-          logistics_no: '',
+          device_code_warehouse: '',
         },
         dataRule:
         {
@@ -68,13 +72,19 @@
           this.$refs['dataForm'].resetFields()
           if (this.dataForm.id) {
             this.$http({
-              url: this.$http.adornUrl(`/outbound/view/${this.dataForm.id}`),
+              url: this.$http.adornUrl(`/inbound/view/${this.dataForm.id}`),
               method: 'get',
               params: this.$http.adornParams()
             }).then(({data}) => {
               if (data && data.status === 200) {
-                this.dataForm.company_id   = data.data.company_id
-                this.dataForm.logistics_no = data.data.logistics_no
+                this.dataForm.device_code_warehouse = data.data.resource.device_code_warehouse
+
+                this.device_code_url = [{'url': data.data.resource.device_code}]
+
+                if(isNotEmpty(data.data.resource.device_code))
+                {
+                  this.is_show = true
+                }
               }
             })
           }
@@ -85,12 +95,11 @@
         this.$refs['dataForm'].validate((valid) => {
           if (valid) {
             this.$http({
-              url: this.$http.adornUrl(`/outbound/second_step`),
+              url: this.$http.adornUrl(`/inbound/second_step`),
               method: 'post',
               data: this.$http.adornData({
                 'id': this.dataForm.id || undefined,
-                'company_id': this.dataForm.company_id,
-                'logistics_no': this.dataForm.logistics_no,
+                'device_code_warehouse': this.dataForm.device_code_warehouse,
               })
             }).then(({data}) => {
               if (data && data.status === 200) {
@@ -107,23 +116,23 @@
       {
         this.$refs['dataForm'].resetFields();
       },
-      loadLogisticsCompanyList () {
-        this.$http({
-          url: this.$http.adornUrl('/logistics/company/select'),
-          method: 'get'
-        }).then(({data}) => {
-          if (data && data.status === 200) {
-            this.logisticsList = data.data
-          } else {
-            this.$message.error(this.$t(data.message))
-          }
-        })
-      }
+      handleSuccess(res, file) {
+        if(0 == res.status)
+        {
+          this.$message.error(res.message)
+        }
+
+        this.dataForm.device_code_warehouse = res.data;
+      },
+      changeShow(file, fileList) {
+        this.is_show = true
+      },
     },
     created() {
       this.init();
 
-      this.loadLogisticsCompanyList();
+      // 要保证取到
+      this.upload_headers.Authorization = 'Bearer ' + localStorage.getItem('token');
     },
   }
 </script>

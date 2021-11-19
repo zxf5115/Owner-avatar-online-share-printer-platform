@@ -26,7 +26,7 @@ export const inventory = {
     from: '入库申请',
     update: '入库',
     basic_info: '设备信息',
-    logistics_info: '物流信息',
+    inventory_info: '盘点信息',
     resource_info: '资料信息',
     receipt_info: '签收信息',
     finish_info: '完成信息',
@@ -38,6 +38,14 @@ export const inventory = {
     nickname: '系统入库',
     category: '入库类型',
     total: '入库数量',
+
+
+    resource: {
+      device_code: '盘点设备码',
+      picture: '凭证',
+      device_code_warehouse: '对比设备码',
+      receipt_form: '签收单',
+    },
   },
 
   outbound: {

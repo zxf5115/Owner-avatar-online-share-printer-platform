@@ -3,12 +3,12 @@
     <div class="admin_main_block">
       <div class="admin_main_block_top">
         <div class="admin_main_block_left">
-          <div>{{ $t('inventory.outbound.resource_info') }}</div>
+          <div>{{ $t('inventory.inbound.resource_info') }}</div>
         </div>
 
         <div class="admin_main_block_right">
           <div class="mr10">
-            <el-button icon="el-icon-back" @click="$router.push({name: 'module_outbound_list'})">
+            <el-button icon="el-icon-back" @click="$router.push({name: 'module_inbound_list'})">
               {{ $t('common.return') }}
             </el-button>
           </div>
@@ -29,7 +29,7 @@
                   <div class="mt10">
                     <span>
                       <el-link :underline="false">
-                        {{ $t('inventory.outbound.resource.picture') }}
+                        {{ $t('inventory.inbound.resource.picture') }}
                       </el-link>
                     </span>
                   </div>
@@ -40,7 +40,18 @@
                     </el-image>
                     <div class="mt10">
                       <span>
-                        {{ $t('inventory.outbound.resource.device_code') }}
+                        {{ $t('inventory.inbound.resource.device_code') }}
+                      </span>
+                    </div>
+                  </el-link>
+                </el-col>
+                <el-col :span="6" class="text-center">
+                  <el-link :href="dataForm.device_code_warehouse" target="_blank" :underline="false">
+                    <el-image class="resource" :src="require('@/assets/images/excel.png')">
+                    </el-image>
+                    <div class="mt10">
+                      <span>
+                        {{ $t('inventory.inbound.resource.device_code_warehouse') }}
                       </span>
                     </div>
                   </el-link>
@@ -51,7 +62,7 @@
                   <div class="mt10">
                     <span>
                       <el-link :underline="false">
-                        {{ $t('inventory.outbound.resource.receipt_form') }}
+                        {{ $t('inventory.inbound.resource.receipt_form') }}
                       </el-link>
                     </span>
                   </div>
@@ -73,7 +84,7 @@
     data()
     {
       return {
-        model: 'outbound/resource',
+        model: 'inbound/resource',
         dataForm:
         {
           id: 0,
@@ -86,13 +97,13 @@
     {
       init ()
       {
-        let id = this.$route.query.outbound_id
+        let id = this.$route.query.inbound_id
 
         this.dataForm.id = id || 0
         this.$nextTick(() => {
           if (this.dataForm.id) {
             this.$http({
-              url: this.$http.adornUrl(`/outbound/resource/view/${this.dataForm.id}`),
+              url: this.$http.adornUrl(`/inbound/resource/view/${this.dataForm.id}`),
               method: 'get',
               params: this.$http.adornParams({})
             }).then(({data}) => {
