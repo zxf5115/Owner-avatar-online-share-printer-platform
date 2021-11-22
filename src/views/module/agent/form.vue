@@ -149,6 +149,7 @@
           address: '',
           business_license: '',
           contract: '',
+          equipment_url: '',
           source: '1',
         },
         dataRule:
@@ -194,6 +195,7 @@
                 this.dataForm.address              = data.data.archive.address
                 this.dataForm.business_license     = data.data.resource.business_license
                 this.dataForm.contract             = data.data.resource.contract
+                this.dataForm.equipment_url        = data.data.resource.equipment_url
 
                 this.contract_url = [{'url': data.data.resource.contract}]
 
@@ -298,7 +300,7 @@
         this.is_show = true
       },
       handleEquipemntSuccess(res, file) {
-        this.dataForm.equipemnt_url = res.data;
+        this.dataForm.equipment_url = res.data;
       },
       changeEquipemntShow(file, fileList) {
         this.is_equipemnt_show = true
