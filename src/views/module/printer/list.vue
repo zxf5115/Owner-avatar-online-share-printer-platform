@@ -39,6 +39,28 @@
           <el-table-column prop="id" label="#" width="70">
           </el-table-column>
 
+          <el-table-column :label="$t('printer.first_nickname')" width="120">
+            <template slot-scope="scope">
+              <span v-if="scope.row.first">
+                {{ scope.row.first.nickname }}
+              </span>
+              <span v-else>
+                {{ $t('common.empty') }}
+              </span>
+            </template>
+          </el-table-column>
+
+          <el-table-column :label="$t('printer.second_nickname')" width="120">
+            <template slot-scope="scope">
+              <span v-if="scope.row.second">
+                {{ scope.row.second.nickname }}
+              </span>
+              <span v-else>
+                {{ $t('common.empty') }}
+              </span>
+            </template>
+          </el-table-column>
+
           <el-table-column :label="$t('manager.nickname')" width="120">
             <template slot-scope="scope">
               <span v-if="scope.row.manager">

@@ -3,7 +3,7 @@
     <el-form label-width="100px" ref="dataForm" :model="dataForm" :rules="dataRule">
       <el-card class="box-card mt10" shadow="never">
         <div slot="header" class="clearfix">
-          <span>{{ $t('inventory.outbound.receipt_info') }}</span>
+          <span>{{ $t('inventory.inbound.abnormal_info') }}</span>
         </div>
         <div class="text item">
           <el-form-item :label="$t('inventory.outbound.receipt_form')" prop="receipt_form">

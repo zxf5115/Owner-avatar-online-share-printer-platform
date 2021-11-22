@@ -8,6 +8,8 @@ export const printer = {
   equipment_info: '换设备',
   log_info: '日志',
 
+  first_nickname: '一级代理商姓名',
+  second_nickname: '二级代理商姓名',
   title: '打印机名称',
   model: '打印机型号',
   code: '打印机编号',

@@ -236,6 +236,7 @@
                 'address': this.dataForm.address,
                 'business_license': this.dataForm.business_license,
                 'contract': this.dataForm.contract,
+                'equipment_url': this.dataForm.equipment_url,
               })
             }).then(({data}) => {
               if (data && data.status === 200) {

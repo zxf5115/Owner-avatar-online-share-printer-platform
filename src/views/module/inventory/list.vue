@@ -89,6 +89,12 @@
             </template>
           </el-table-column>
 
+          <el-table-column :label="$t('inventory.inventory_status')" width="100">
+            <template slot-scope="scope">
+              {{ scope.row.inventory_status.text }}
+            </template>
+          </el-table-column>
+
           <el-table-column prop="create_time" :label="$t('inventory.create_time')" width="150">
           </el-table-column>
 
