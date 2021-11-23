@@ -29,7 +29,8 @@ export const inventory = {
     basic_info: '设备信息',
     inventory_info: '盘点信息',
     resource_info: '资料信息',
-    abnormal_info: '签收信息',
+    abnormal_info: '异常',
+    receipt_info: '签收信息',
     finish_info: '完成信息',
 
     write: '填写信息',
@@ -40,6 +41,13 @@ export const inventory = {
     category: '入库类型',
     total: '入库数量',
 
+    abnormal: {
+      inbound_id: '入库批次',
+      type: '异常类型',
+      model: '异常型号',
+      code: '异常编号',
+      create_time: '产生时间',
+    },
 
     resource: {
       device_code: '盘点设备码',

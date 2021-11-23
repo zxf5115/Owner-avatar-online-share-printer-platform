@@ -85,10 +85,14 @@
           <el-table-column prop="create_time" :label="$t('inventory.create_time')" width="150">
           </el-table-column>
 
-          <el-table-column :label="$t('common.handle')" fixed="right" width="190">
+          <el-table-column :label="$t('common.handle')" fixed="right" width="280">
             <template slot-scope="scope">
               <el-button v-if="isAuth('module:inbound:form')" type="success" icon="el-icon-download" @click="$router.push({name: 'module_inbound_form', query: {id: scope.row.id}})">
                 {{ $t('inventory.inbound.update') }}
+              </el-button>
+
+              <el-button v-if="isAuth('module:inbound:abnormal:list')" type="warning" icon="el-icon-question" @click="$router.push({name: 'module_inbound_abnormal_list', query: {inbound_id: scope.row.id}})">
+                {{ $t('inventory.inbound.abnormal_info') }}
               </el-button>
 
               <el-button v-if="isAuth('module:inbound:resource:view')" icon="el-icon-paperclip" @click="$router.push({name: 'module_inbound_resource_view', query: {inbound_id: scope.row.id}})">

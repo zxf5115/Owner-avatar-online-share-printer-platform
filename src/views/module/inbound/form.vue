@@ -29,7 +29,7 @@
           <inventory></inventory>
         </div>
         <div v-if="2 == dataForm.active">
-          <abnormal></abnormal>
+          <receipt></receipt>
         </div>
         <div v-if="3 == dataForm.active">
           <finish></finish>
@@ -43,14 +43,14 @@
   import common from '@/views/common/base'
   import Write from "@/components/inbound/write.vue";
   import Inventory from "@/components/inbound/inventory.vue";
-  import Abnormal from "@/components/inbound/abnormal.vue";
+  import Receipt from "@/components/inbound/receipt.vue";
   import Finish from "@/components/inbound/finish.vue";
   export default {
     extends: common,
     components: {
       Write,
       Inventory,
-      Abnormal,
+      Receipt,
       Finish,
     },
     data() {
