@@ -29,7 +29,7 @@ export const inventory = {
     basic_info: '设备信息',
     inventory_info: '盘点信息',
     resource_info: '资料信息',
-    abnormal_info: '异常信息',
+    abnormal_info: '签收信息',
     finish_info: '完成信息',
 
     write: '填写信息',
