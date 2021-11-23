@@ -152,8 +152,8 @@
             }).then(({data}) => {
               if (data && data.status === 200) {
                 this.dataForm.member_id   = data.data.member_id
-                this.dataForm.type        = data.data.type
-                this.dataForm.category    = data.data.category
+                this.dataForm.type        = data.data.type.value
+                this.dataForm.category    = data.data.category.value
                 this.dataForm.device_code = data.data.device_code
                 this.dataForm.total       = data.data.total
                 this.dataForm.operator    = data.data.operator
