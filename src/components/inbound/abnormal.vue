@@ -17,7 +17,7 @@
           </el-form-item>
 
           <el-form-item>
-            <el-button v-if="isAuth('module:outbound:handle')" type="primary" @click="dataFormSubmit()">
+            <el-button v-if="isAuth('module:inbound:handle')" type="primary" @click="dataFormSubmit()">
               {{ $t('common.confirm') }}
             </el-button>
             <el-button @click="resetForm()">
@@ -36,19 +36,14 @@
     extends: common,
     data() {
       return {
-        model: 'outbound',
+        model: 'inbound',
         upload_headers:{},
         dataForm:
         {
           id: 0,
           receipt_form: '',
         },
-        dataRule:
-        {
-          position_id: [
-            { required: true, message: this.$t('advertising.rules.position_id.require'), trigger: 'blur' },
-          ]
-        }
+        dataRule: {}
       };
     },
     methods: {
@@ -62,7 +57,7 @@
           this.$refs['dataForm'].resetFields()
           if (this.dataForm.id) {
             this.$http({
-              url: this.$http.adornUrl(`/outbound/view/${this.dataForm.id}`),
+              url: this.$http.adornUrl(`/inbound/view/${this.dataForm.id}`),
               method: 'get',
               params: this.$http.adornParams()
             }).then(({data}) => {
@@ -78,7 +73,7 @@
         this.$refs['dataForm'].validate((valid) => {
           if (valid) {
             this.$http({
-              url: this.$http.adornUrl(`/outbound/third_step`),
+              url: this.$http.adornUrl(`/inbound/third_step`),
               method: 'post',
               data: this.$http.adornData({
                 'id': this.dataForm.id || undefined,
