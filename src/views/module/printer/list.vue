@@ -18,7 +18,7 @@
             </el-input>
           </div>
           <div>
-            <el-select v-model="dataForm.status" :placeholder="$t('common.please_select') + $t('printer.status')" clearable>
+            <el-select v-model="dataForm.activate_status" :placeholder="$t('common.please_select') + $t('printer.status')" clearable>
               <el-option :label="$t('common.all')" value=""></el-option>
               <el-option v-for="(v,k) in statusList" :label="v.title" :key="k" :value="v.id"></el-option>
             </el-select>
@@ -106,13 +106,13 @@
             </template>
           </el-table-column>
 
-          <el-table-column prop="status" :label="$t('printer.status')" width="100">
+          <el-table-column :label="$t('printer.status')" width="100">
             <template slot-scope="scope">
               <el-switch
-                v-model="scope.row.status.value"
+                v-model="scope.row.activate_status.value"
                 :active-value="1"
                 :inactive-value="2"
-                @change="handleStatus($event, scope.row.id, 'status')">
+                @change="handleStatus($event, scope.row.id, 'activate_status')">
               </el-switch>
             </template>
           </el-table-column>
@@ -172,7 +172,7 @@
         dataForm: [
           'title',
           'bind_status',
-          'status',
+          'activate_status',
         ]
       };
     },

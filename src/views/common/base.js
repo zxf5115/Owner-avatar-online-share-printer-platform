@@ -81,6 +81,7 @@ export default {
           'pay_status': this.dataForm.pay_status,
           'audit_status': this.dataForm.audit_status,
           'order_status': this.dataForm.order_status,
+          'activate_status': this.dataForm.activate_status,
           'certification_status': this.dataForm.certification_status,
 
 
