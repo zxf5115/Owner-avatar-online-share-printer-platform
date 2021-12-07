@@ -2,14 +2,6 @@
   <div class="qingwu">
     <div class="admin_main_block">
       <div class="admin_main_block_top">
-        <div class="admin_main_block_left">
-          <div>
-            <el-button v-if="isAuth('module:complain:category:list')" icon="el-icon-price-tag" @click="$router.push({name: 'module_complain_category_list'})">
-              {{ $t('complain.category.list') }}
-            </el-button>
-          </div>
-        </div>
-
         <div class="admin_main_block_right">
           <div>
             <el-button v-if="isAuth('module:complain:delete')" type="danger" icon="el-icon-delete" @click="deleteHandle()">
@@ -20,12 +12,6 @@
       </div>
       <div class="admin_main_block_top">
         <div class="admin_main_block_left">
-          <div>
-            <el-select v-model="dataForm.category_id" :placeholder="$t('common.please_select') + $t('complain.category.title')" clearable>
-              <el-option :label="$t('common.all')" value=""></el-option>
-              <el-option v-for="(v,k) in categoryList" :label="v.title" :key="k" :value="v.id"></el-option>
-            </el-select>
-          </div>
           <div>
             <el-button icon="el-icon-search" @click="getDataList(true)">
               {{ $t('common.search') }}
@@ -42,19 +28,13 @@
           <el-table-column prop="id" label="#"  width="70px">
           </el-table-column>
 
-          <el-table-column prop="category_id" :label="$t('complain.category.title')">
-            <template slot-scope="scope" v-if="scope.row.category">
-              {{ scope.row.category.title }}
+          <el-table-column prop="type" :label="$t('complain.type')">
+            <template slot-scope="scope">
+              {{ scope.row.type.text }}
             </template>
           </el-table-column>
 
-          <el-table-column prop="title" :label="$t('complain.title')">
-          </el-table-column>
-
           <el-table-column prop="content" :label="$t('complain.content')">
-          </el-table-column>
-
-          <el-table-column prop="customer_name" :label="$t('complain.customer_name')">
           </el-table-column>
 
           <el-table-column prop="contact" :label="$t('complain.contact')">
@@ -104,24 +84,10 @@
     data() {
       return {
         model: 'complain',
-        category_id: 0,
-        categoryList: [],
         dataForm: []
       };
     },
     methods: {
-      loadCategoryList () {
-        this.$http({
-          url: this.$http.adornUrl('/complain/category/select'),
-          method: 'get'
-        }).then(({data}) => {
-          if (data && data.status === 200) {
-            this.categoryList = data.data
-          } else {
-            this.$message.error(this.$t(data.message))
-          }
-        })
-      },
       readHandle (id) {
 
         let message = '您已经阅读当前投诉信息？'
@@ -152,11 +118,7 @@
         }).catch(() => {})
       }
     },
-    mounted () {
-      this.loadCategoryList();
-    },
     created() {
-      this.dataForm.category_id = this.$route.query.category_id;
       this.getDataList()
     }
   };
