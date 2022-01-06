@@ -83,7 +83,9 @@
 
           <el-table-column :label="$t('order.type')" width="100">
             <template slot-scope="scope">
-              {{ scope.row.type.text }}
+              <span v-if="scope.row.price">
+                {{ scope.row.price.title }}
+              </span>
             </template>
           </el-table-column>
 
