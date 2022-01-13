@@ -136,6 +136,14 @@
             </template>
           </el-table-column>
 
+          <el-table-column :label="$t('agent.archive.qrcode_url')" width="120">
+            <template slot-scope="scope" v-if="scope.row.archive">
+              <el-link type="primary" :href="scope.row.archive.qrcode_url" target="_blank">
+                {{ $t('common.download') }}
+              </el-link>
+            </template>
+          </el-table-column>
+
           <el-table-column prop="status" :label="$t('agent.status')" width="100">
             <template slot-scope="scope">
               <el-switch
@@ -147,10 +155,14 @@
             </template>
           </el-table-column>
 
-          <el-table-column :label="$t('common.handle')" fixed="right" width="200">
+          <el-table-column :label="$t('common.handle')" fixed="right" width="280">
             <template slot-scope="scope">
               <el-button v-if="isAuth('module:agent:view')" type="info" icon="el-icon-view" @click="$router.push({name: 'module_agent_view', query: {id: scope.row.id}})">
                 {{ $t('common.view') }}
+              </el-button>
+
+              <el-button v-if="isAuth('module:agent:apply')" type="primary" icon="el-icon-view" @click="applyHandle(scope.row.id)">
+                {{ $t('agent.apply_info') }}
               </el-button>
 
               <el-button v-if="isAuth('module:agent:delete')" type="danger" icon="el-icon-delete" @click="deleteHandle(scope.row.id)">
@@ -218,6 +230,21 @@
           params: this.$http.adornParams({
             'role_id': 3,
             'level': 1
+          })
+        }).then(({data}) => {
+          if (data && data.status === 200) {
+            this.agentList = data.data
+          } else {
+            this.$message.error(this.$t(data.message))
+          }
+        })
+      },
+      applyHandle(id) {
+        this.$http({
+          url: this.$http.adornUrl('/agent/apply'),
+          method: 'post',
+          data: this.$http.adornData({
+            'id': id
           })
         }).then(({data}) => {
           if (data && data.status === 200) {

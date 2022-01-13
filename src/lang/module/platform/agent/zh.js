@@ -10,6 +10,7 @@ export const agent = {
   asset_info: '资金信息',
   facility_info: '设备信息',
   printer_info: '打印机信息',
+  apply_info: '申请文书',
 
   level: '代理商级别',
   another_name: '代理商别名',
@@ -57,6 +58,7 @@ export const agent = {
     area: '地区',
     address: '详细地址',
     source: '设备来源',
+    qrcode_url: '注册二维码',
 
     rules: {
       member_id: {
