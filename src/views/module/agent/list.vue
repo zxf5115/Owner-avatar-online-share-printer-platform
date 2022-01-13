@@ -155,7 +155,7 @@
             </template>
           </el-table-column>
 
-          <el-table-column :label="$t('common.handle')" fixed="right" width="280">
+          <el-table-column :label="$t('common.handle')" fixed="right" width="350">
             <template slot-scope="scope">
               <el-button v-if="isAuth('module:agent:view')" type="info" icon="el-icon-view" @click="$router.push({name: 'module_agent_view', query: {id: scope.row.id}})">
                 {{ $t('common.view') }}
@@ -248,7 +248,7 @@
           })
         }).then(({data}) => {
           if (data && data.status === 200) {
-            this.agentList = data.data
+            window.open(data.data)
           } else {
             this.$message.error(this.$t(data.message))
           }

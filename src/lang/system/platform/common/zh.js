@@ -97,6 +97,7 @@ export const common =  {
   file_info: '文件',
   audio_info: '音频',
   video_info: '视频',
+  download: '下载',
 
 
 
