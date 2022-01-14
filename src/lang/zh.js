@@ -43,6 +43,8 @@ import  {repair}  from './module/platform/repair/zh'
 
 import  {inventory}  from './module/platform/inventory/zh'
 
+import  {bank}  from './module/platform/common/bank/zh'
+
 export default {
 
   // 公共
@@ -165,5 +167,10 @@ export default {
   // 库存
   inventory: {
     ...inventory
+  },
+
+  // 银行
+  bank: {
+    ...bank
   },
 }
