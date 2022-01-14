@@ -212,6 +212,10 @@ export default {
     handleCoverSuccess(res, file) {
       this.dataForm.cover = res.data;
     },
+    // 上传Logo
+    handleLogoSuccess(res, file) {
+      this.dataForm.logo = res.data;
+    },
     beforePictureUpload(file) {
       const isPicture = (file.type === 'image/jpeg' || file.type === 'image/png');
       const isLt8M = file.size / 1024 / 1024 < 8;

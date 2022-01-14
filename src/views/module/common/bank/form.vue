@@ -19,7 +19,7 @@
         <el-form label-width="100px" ref="dataForm" :model="dataForm" :rules="dataRule">
 
           <el-form-item :label="$t('bank.logo')" prop="logo">
-            <el-upload class="avatar-uploader" :action="this.$http.adornUrl('/file/picture')" :show-file-list="false" :headers="upload_headers" :on-success="handlePictureSuccess" :before-upload="beforePictureUpload">
+            <el-upload class="avatar-uploader" :action="this.$http.adornUrl('/file/picture')" :show-file-list="false" :headers="upload_headers" :on-success="handleLogoSuccess" :before-upload="beforePictureUpload">
               <img v-if="dataForm.logo" :src="dataForm.logo" class="avatar-upload">
               <i v-else class="el-icon-plus avatar-uploader-icon"></i>
             </el-upload>
