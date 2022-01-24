@@ -210,6 +210,44 @@
               </el-card>
             </div>
           </el-card>
+
+          <el-card class="box-card mt10" shadow="never">
+            <div slot="header" class="clearfix">
+              <span>{{ $t('agent.bank_info') }}</span>
+            </div>
+            <div class="text item">
+              <el-row>
+                <el-col :span="4">
+                  <el-form-item :label="$t('agent.bank.company_name')" label-width="100">
+                    <span v-if="dataForm.bank">
+                      {{ dataForm.bank.company_name }}
+                    </span>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="4">
+                  <el-form-item :label="$t('agent.bank.open_bank_name')" label-width="100">
+                    <span v-if="dataForm.bank">
+                      {{ dataForm.bank.open_bank_name }}
+                    </span>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="4">
+                  <el-form-item :label="$t('agent.bank.branch_bank_name')" label-width="100">
+                    <span v-if="dataForm.bank">
+                      {{ dataForm.bank.branch_bank_name }}
+                    </span>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="4">
+                  <el-form-item :label="$t('agent.bank.card_no')" label-width="100">
+                    <span v-if="dataForm.bank">
+                      {{ dataForm.bank.card_no }}
+                    </span>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+            </div>
+          </el-card>
         </el-form>
       </div>
     </div>

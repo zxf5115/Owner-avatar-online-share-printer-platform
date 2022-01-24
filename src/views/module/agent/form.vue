@@ -18,96 +18,140 @@
       <div class="admin_form_main color">
         <el-form label-width="120px" ref="dataForm" :model="dataForm" :rules="dataRule">
 
-          <el-form-item :label="$t('agent.nickname')" prop="nickname">
-            <el-input v-model="dataForm.nickname" :placeholder="$t('common.please_input') + $t('agent.nickname')"></el-input>
-          </el-form-item>
-
-          <el-form-item :label="$t('agent.username')" prop="username">
-            <el-input v-model="dataForm.username" :placeholder="$t('common.please_input') + $t('agent.username')"></el-input>
-          </el-form-item>
-
-          <el-form-item :label="$t('agent.level')" prop="level">
-            <el-radio-group v-model="dataForm.level" @change="handleParentAgent">
-              <el-radio label="1">一级代理</el-radio>
-              <el-radio label="2">二级代理</el-radio>
-            </el-radio-group>
-          </el-form-item>
-
-          <el-form-item :class="display ? 'display' : ''" :label="$t('agent.parent_agent_mobile')" prop="parent_username">
-            <el-input v-model="dataForm.parent_username" :placeholder="$t('common.please_input') + $t('agent.parent_agent_mobile')"></el-input>
-          </el-form-item>
-
-          <el-form-item :label="$t('agent.another_name')" prop="another_name">
-            <el-input v-model="dataForm.another_name" :placeholder="$t('common.please_input') + $t('agent.another_name')"></el-input>
-          </el-form-item>
-
-          <el-form-item :label="$t('agent.asset.should_printer_total')" prop="should_printer_total">
-            <el-input-number v-model="dataForm.should_printer_total" :placeholder="$t('common.please_input') + $t('agent.asset.should_printer_total')"></el-input-number>
-          </el-form-item>
-
-          <el-form-item :label="$t('agent.asset.proportion')" prop="proportion">
-            <el-input-number v-model="dataForm.proportion" :min="0.00" :precision="2" :placeholder="$t('common.please_input') + $t('agent.asset.proportion')"></el-input-number>
-          </el-form-item>
-
-          <form-area ref="area" :province_id="dataForm.province_id" :city_id="dataForm.city_id" :region_id="dataForm.region_id" @setProvinceInfo="setProvinceInfo" @setCityInfo="setCityInfo" @setAreaInfo="setAreaInfo"></form-area>
-
-          <el-form-item :label="$t('agent.archive.address')" prop="address">
-            <el-input type="textarea" v-model="dataForm.address" :placeholder="$t('common.please_input')+$t('agent.archive.address')"></el-input>
-          </el-form-item>
-
-          <el-form-item :label="$t('agent.resource.business_license')" prop="business_license">
-            <el-upload class="avatar-uploader" :action="this.$http.adornUrl('/file/picture')" :show-file-list="false" :headers="upload_headers" :on-success="handlePictureSuccess" :before-upload="beforePictureUpload">
-              <img v-if="dataForm.business_license" :src="dataForm.business_license" class="avatar-upload">
-              <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-            </el-upload>
-            <div class="red">
-              上传图片分辨率为：355*170
+          <el-card class="box-card" shadow="never">
+            <div slot="header" class="clearfix">
+              <span>{{ $t('common.basic_info') }}</span>
             </div>
-          </el-form-item>
+            <div class="text item">
+              <el-form-item :label="$t('agent.nickname')" prop="nickname">
+                <el-input v-model="dataForm.nickname" :placeholder="$t('common.please_input') + $t('agent.nickname')"></el-input>
+              </el-form-item>
 
-          <el-form-item :label="$t('agent.resource.contract')" prop="contract">
-            <el-upload class="upload-demo"
-              :action="this.$http.adornUrl('/file/file')"
-              :headers="upload_headers"
-              :show-file-list="is_show"
-              :file-list="contract_url"
-              :on-success="handleSuccess"
-              :on-change="changeShow">
-              <el-button size="small" type="primary">
-                {{ $t('common.upload') }}
-              </el-button>
-            </el-upload>
-          </el-form-item>
+              <el-form-item :label="$t('agent.username')" prop="username">
+                <el-input v-model="dataForm.username" :placeholder="$t('common.please_input') + $t('agent.username')"></el-input>
+              </el-form-item>
 
-          <el-form-item :label="$t('agent.archive.source')" prop="source">
-            <el-radio-group v-model="dataForm.source" @change="handleSource">
-              <el-radio label="1">官方提供</el-radio>
-              <el-radio label="2">分销商提供</el-radio>
-            </el-radio-group>
-          </el-form-item>
+              <el-form-item :label="$t('agent.level')" prop="level">
+                <el-radio-group v-model="dataForm.level" @change="handleParentAgent">
+                  <el-radio label="1">一级代理</el-radio>
+                  <el-radio label="2">二级代理</el-radio>
+                </el-radio-group>
+              </el-form-item>
 
-          <el-form-item :class="disable ? 'display' : ''" :label="$t('agent.resource.equipment')" prop="equipment">
-            <el-upload class="upload-demo"
-              :action="this.$http.adornUrl('/file/file')"
-              :headers="upload_headers"
-              :show-file-list="is_equipemnt_show"
-              :file-list="equipment_url"
-              :on-success="handleEquipemntSuccess"
-              :on-change="changeEquipemntShow">
-              <el-button size="small" type="primary">
-                {{ $t('common.upload') }}
-              </el-button>
-            </el-upload>
-          </el-form-item>
+              <el-form-item :class="display ? 'display' : ''" :label="$t('agent.parent_agent_mobile')" prop="parent_username">
+                <el-input v-model="dataForm.parent_username" :placeholder="$t('common.please_input') + $t('agent.parent_agent_mobile')"></el-input>
+              </el-form-item>
 
-          <el-form-item>
-            <el-button v-if="isAuth('module:agent:handle')" type="primary" @click="dataFormSubmit()">
-              {{ $t('common.confirm') }}
-            </el-button>
-            <el-button @click="resetForm()">
-              {{ $t('common.reset') }}
-            </el-button>
-          </el-form-item>
+              <el-form-item :label="$t('agent.another_name')" prop="another_name">
+                <el-input v-model="dataForm.another_name" :placeholder="$t('common.please_input') + $t('agent.another_name')"></el-input>
+              </el-form-item>
+
+              <el-form-item :label="$t('agent.asset.should_printer_total')" prop="should_printer_total">
+                <el-input-number v-model="dataForm.should_printer_total" :placeholder="$t('common.please_input') + $t('agent.asset.should_printer_total')"></el-input-number>
+              </el-form-item>
+
+              <el-form-item :label="$t('agent.asset.proportion')" prop="proportion">
+                <el-input-number v-model="dataForm.proportion" :min="0.00" :precision="2" :placeholder="$t('common.please_input') + $t('agent.asset.proportion')"></el-input-number>
+              </el-form-item>
+
+              <form-area ref="area" :province_id="dataForm.province_id" :city_id="dataForm.city_id" :region_id="dataForm.region_id" @setProvinceInfo="setProvinceInfo" @setCityInfo="setCityInfo" @setAreaInfo="setAreaInfo"></form-area>
+
+              <el-form-item :label="$t('agent.archive.address')" prop="address">
+                <el-input type="textarea" v-model="dataForm.address" :placeholder="$t('common.please_input')+$t('agent.archive.address')"></el-input>
+              </el-form-item>
+
+              <el-form-item :label="$t('agent.resource.business_license')" prop="business_license">
+                <el-upload class="avatar-uploader" :action="this.$http.adornUrl('/file/picture')" :show-file-list="false" :headers="upload_headers" :on-success="handlePictureSuccess" :before-upload="beforePictureUpload">
+                  <img v-if="dataForm.business_license" :src="dataForm.business_license" class="avatar-upload">
+                  <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                </el-upload>
+                <div class="red">
+                  上传图片分辨率为：355*170
+                </div>
+              </el-form-item>
+
+              <el-form-item :label="$t('agent.resource.contract')" prop="contract">
+                <el-upload class="upload-demo"
+                  :action="this.$http.adornUrl('/file/file')"
+                  :headers="upload_headers"
+                  :show-file-list="is_show"
+                  :file-list="contract_url"
+                  :on-success="handleSuccess"
+                  :on-change="changeShow">
+                  <el-button size="small" type="primary">
+                    {{ $t('common.upload') }}
+                  </el-button>
+                </el-upload>
+              </el-form-item>
+            </div>
+          </el-card>
+
+          <el-card class="box-card mt10" shadow="never">
+            <div slot="header" class="clearfix">
+              <span>{{ $t('agent.printer_info') }}</span>
+            </div>
+            <div class="text item">
+              <el-form-item :label="$t('agent.archive.source')" prop="source">
+                <el-radio-group v-model="dataForm.source" @change="handleSource">
+                  <el-radio label="1">官方提供</el-radio>
+                  <el-radio label="2">分销商提供</el-radio>
+                </el-radio-group>
+              </el-form-item>
+
+              <el-form-item :class="disable ? 'display' : ''" :label="$t('agent.resource.equipment')" prop="equipment">
+                <el-upload class="upload-demo"
+                  :action="this.$http.adornUrl('/file/file')"
+                  :headers="upload_headers"
+                  :show-file-list="is_equipemnt_show"
+                  :file-list="equipment_url"
+                  :on-success="handleEquipemntSuccess"
+                  :on-change="changeEquipemntShow">
+                  <el-button size="small" type="primary">
+                    {{ $t('common.upload') }}
+                  </el-button>
+                </el-upload>
+              </el-form-item>
+            </div>
+          </el-card>
+
+          <el-card class="box-card mt10" shadow="never">
+            <div slot="header" class="clearfix">
+              <span>{{ $t('agent.bank_info') }}</span>
+            </div>
+            <div class="text item">
+              <el-form-item :label="$t('agent.bank.company_name')" prop="company_name">
+                <el-input v-model="dataForm.company_name" :placeholder="$t('common.please_input') + $t('agent.bank.company_name')"></el-input>
+              </el-form-item>
+
+              <el-form-item :label="$t('agent.bank.open_bank_name')" prop="open_bank_name">
+                <el-select v-model="dataForm.open_bank_name" :placeholder="$t('common.please_select')+$t('agent.bank.open_bank_name')">
+                  <el-option v-for="(v,k) in bankList" :label="v.name" :key="k" :value="v.name"></el-option>
+                </el-select>
+              </el-form-item>
+
+              <el-form-item :label="$t('agent.bank.branch_bank_name')" prop="branch_bank_name">
+                <el-input v-model="dataForm.branch_bank_name" :placeholder="$t('common.please_input') + $t('agent.bank.branch_bank_name')"></el-input>
+              </el-form-item>
+
+              <el-form-item :label="$t('agent.bank.card_no')" prop="card_no">
+                <el-input v-model="dataForm.card_no" :placeholder="$t('common.please_input') + $t('agent.bank.card_no')"></el-input>
+              </el-form-item>
+
+            </div>
+          </el-card>
+
+          <el-card class="box-card mt10" shadow="never">
+            <div class="text item">
+              <el-form-item>
+                <el-button v-if="isAuth('module:agent:handle')" type="primary" @click="dataFormSubmit()">
+                  {{ $t('common.confirm') }}
+                </el-button>
+                <el-button @click="resetForm()">
+                  {{ $t('common.reset') }}
+                </el-button>
+              </el-form-item>
+            </div>
+          </el-card>
         </el-form>
       </div>
     </div>
@@ -133,6 +177,7 @@
         is_equipemnt_show: false,
         contract_url: [],
         equipment_url: [],
+        bankList: [],
         dataForm:
         {
           id: 0,
@@ -151,6 +196,11 @@
           contract: '',
           equipment_url: '',
           source: '1',
+
+          company_name: '',
+          open_bank_name: '',
+          branch_bank_name: '',
+          card_no: '',
         },
         dataRule:
         {
@@ -197,6 +247,11 @@
                 this.dataForm.contract             = data.data.resource.contract
                 this.dataForm.equipment_url        = data.data.resource.equipment_url
 
+                this.dataForm.company_name     = data.data.resource.company_name
+                this.dataForm.open_bank_name   = data.data.resource.open_bank_name
+                this.dataForm.branch_bank_name = data.data.resource.branch_bank_name
+                this.dataForm.card_no          = data.data.resource.card_no
+
                 this.contract_url = [{'url': data.data.resource.contract}]
 
                 if(isNotEmpty(data.data.resource.contract))
@@ -239,6 +294,10 @@
                 'business_license': this.dataForm.business_license,
                 'contract': this.dataForm.contract,
                 'equipment_url': this.dataForm.equipment_url,
+                'company_name': this.dataForm.company_name,
+                'open_bank_name': this.dataForm.open_bank_name,
+                'branch_bank_name': this.dataForm.branch_bank_name,
+                'card_no': this.dataForm.card_no,
               })
             }).then(({data}) => {
               if (data && data.status === 200) {
@@ -305,9 +364,23 @@
       changeEquipemntShow(file, fileList) {
         this.is_equipemnt_show = true
       },
+      loadBankList () {
+        this.$http({
+          url: this.$http.adornUrl('/common/bank/select'),
+          method: 'get'
+        }).then(({data}) => {
+          if (data && data.status === 200) {
+            this.bankList = data.data
+          } else {
+            this.$message.error(this.$t(data.message))
+          }
+        })
+      }
     },
     created() {
       this.init();
+
+      this.loadBankList();
 
       // 要保证取到
       this.upload_headers.Authorization = 'Bearer ' + localStorage.getItem('token');

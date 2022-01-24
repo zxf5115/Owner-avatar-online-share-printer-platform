@@ -10,6 +10,7 @@ export const agent = {
   asset_info: '资金信息',
   facility_info: '设备信息',
   printer_info: '打印机信息',
+  bank_info: '银行卡信息',
   apply_info: '申请文书',
 
   level: '代理商级别',
@@ -87,5 +88,12 @@ export const agent = {
     should_printer_total: '认购数量',
     already_printer_total: '已分配总量',
     without_printer_total: '未分配总量',
+  },
+
+  bank: {
+    company_name: '公司名称',
+    open_bank_name: '开户行名称',
+    branch_bank_name: '支行名称',
+    card_no: '银行卡号',
   }
 }

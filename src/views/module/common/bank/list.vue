@@ -31,7 +31,7 @@
 
           <el-table-column prop="logo" :label="$t('bank.logo')">
             <template slot-scope="scope">
-              <el-image style="width: 20px;" :src="scope.row.logo">
+              <el-image style="width: 20px;padding-top: 8px;" :src="scope.row.logo">
                 <div slot="error" class="image-slot">
                   <i class="el-icon-picture-outline"></i>
                 </div>

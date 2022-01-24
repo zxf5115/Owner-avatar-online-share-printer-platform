@@ -4,7 +4,7 @@
       <div class="admin_main_block_top">
         <div class="admin_main_block_left">
           <div>
-            {{ $t('config.agreement.privacy') }}
+            {{ $t('config.agreement.employ') }}
           </div>
         </div>
       </div>
@@ -21,7 +21,7 @@
           </el-form-item>
 
           <el-form-item>
-            <el-button v-if="isAuth('setting:privacy')" type="primary" @click="dataFormSubmit()">
+            <el-button v-if="isAuth('setting:employ')" type="primary" @click="dataFormSubmit()">
               {{ $t('common.confirm') }}
             </el-button>
           </el-form-item>
@@ -41,7 +41,7 @@
     },
     data() {
       return {
-        model: 'setting/privacy',
+        model: 'setting/agreement',
         upload_headers:{},
         dataForm:
         {
@@ -61,9 +61,11 @@
       init ()
       {
         this.$http({
-          url: this.$http.adornUrl(`/setting/privacy`),
+          url: this.$http.adornUrl(`/setting/agreement`),
           method: 'get',
-          params: this.$http.adornParams()
+          params: this.$http.adornParams({
+            'type': 'organization_employ'
+          })
         }).then(({data}) => {
           if (data && data.status === 200) {
             this.dataForm.name = data.data.name
@@ -76,10 +78,11 @@
         this.$refs['dataForm'].validate((valid) => {
           if (valid) {
             this.$http({
-              url: this.$http.adornUrl(`/setting/privacy`),
+              url: this.$http.adornUrl(`/setting/agreement`),
               method: 'post',
               data: this.$http.adornData({
                 'id': this.dataForm.id || undefined,
+                'type': 'organization_employ',
                 'name': this.dataForm.name,
                 'content': this.$refs.editor.content,
               })
