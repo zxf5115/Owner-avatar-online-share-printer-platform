@@ -21,7 +21,7 @@
           </el-form-item>
 
           <el-form-item>
-            <el-button v-if="isAuth('setting:employ')" type="primary" @click="dataFormSubmit()">
+            <el-button v-if="isAuth('setting:manger_employ')" type="primary" @click="dataFormSubmit()">
               {{ $t('common.confirm') }}
             </el-button>
           </el-form-item>

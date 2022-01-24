@@ -21,7 +21,7 @@
           </el-form-item>
 
           <el-form-item>
-            <el-button v-if="isAuth('setting:liability')" type="primary" @click="dataFormSubmit()">
+            <el-button v-if="isAuth('setting:manger_liability')" type="primary" @click="dataFormSubmit()">
               {{ $t('common.confirm') }}
             </el-button>
           </el-form-item>
