@@ -106,10 +106,14 @@
             </template>
           </el-table-column>
 
-          <el-table-column :label="$t('common.handle')" fixed="right" width="200">
+          <el-table-column :label="$t('common.handle')" fixed="right" width="280">
             <template slot-scope="scope">
               <el-button v-if="isAuth('module:manager:view')" type="info" icon="el-icon-view" @click="$router.push({name: 'module_manager_view', query: {id: scope.row.id}})">
                 {{ $t('common.view') }}
+              </el-button>
+
+              <el-button v-if="isAuth('module:manager:form')" type="primary" icon="el-icon-edit" @click="$router.push({name: 'module_manager_form', query: {id: scope.row.id}})">
+                {{ $t('common.update') }}
               </el-button>
 
               <el-button v-if="isAuth('module:manager:delete')" type="danger" icon="el-icon-delete" @click="deleteHandle(scope.row.id)">

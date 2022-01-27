@@ -155,10 +155,14 @@
             </template>
           </el-table-column>
 
-          <el-table-column :label="$t('common.handle')" fixed="right" width="320">
+          <el-table-column :label="$t('common.handle')" fixed="right" width="400">
             <template slot-scope="scope">
               <el-button v-if="isAuth('module:agent:view')" type="info" icon="el-icon-view" @click="$router.push({name: 'module_agent_view', query: {id: scope.row.id}})">
                 {{ $t('common.view') }}
+              </el-button>
+
+              <el-button v-if="isAuth('module:agent:form')" type="primary" icon="el-icon-edit" @click="$router.push({name: 'module_agent_form', query: {id: scope.row.id}})">
+                {{ $t('common.update') }}
               </el-button>
 
               <el-button v-if="isAuth('module:agent:apply')" type="primary" icon="el-icon-view" @click="applyHandle(scope.row.id)">
