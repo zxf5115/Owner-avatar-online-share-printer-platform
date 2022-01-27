@@ -247,10 +247,10 @@
                 this.dataForm.contract             = data.data.resource.contract
                 this.dataForm.equipment_url        = data.data.resource.equipment_url
 
-                this.dataForm.company_name     = data.data.resource.company_name
-                this.dataForm.open_bank_name   = data.data.resource.open_bank_name
-                this.dataForm.branch_bank_name = data.data.resource.branch_bank_name
-                this.dataForm.card_no          = data.data.resource.card_no
+                this.dataForm.company_name     = data.data.bank.company_name
+                this.dataForm.open_bank_name   = data.data.bank.open_bank_name
+                this.dataForm.branch_bank_name = data.data.bank.branch_bank_name
+                this.dataForm.card_no          = data.data.bank.card_no
 
                 this.contract_url = [{'url': data.data.resource.contract}]
 
