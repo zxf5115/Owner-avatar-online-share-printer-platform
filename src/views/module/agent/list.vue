@@ -162,10 +162,10 @@
               </el-button>
 
               <el-button v-if="isAuth('module:agent:bank:form')" type="primary" icon="el-icon-edit" @click="$router.push({name: 'module_agent_bank_form', query: {id: scope.row.id}})">
-                {{ $t('agent.bank_info') }}
+                {{ $t('agent.bank') }}
               </el-button>
 
-              <el-button v-if="isAuth('module:agent:apply')" type="primary" icon="el-icon-view" @click="applyHandle(scope.row.id)">
+              <el-button v-if="isAuth('module:agent:apply')" type="warning" icon="el-icon-view" @click="applyHandle(scope.row.id)">
                 {{ $t('agent.apply_info') }}
               </el-button>
 
