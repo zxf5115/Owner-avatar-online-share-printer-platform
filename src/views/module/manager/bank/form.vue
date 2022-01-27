@@ -3,7 +3,7 @@
     <div class="admin_main_block">
       <div class="admin_main_block_top">
         <div class="admin_main_block_left">
-          <div>{{ $t('agent.bank.from') }}</div>
+          <div>{{ $t('manager.bank.from') }}</div>
         </div>
 
         <div class="admin_main_block_right">
@@ -56,7 +56,7 @@
     extends: common,
     data() {
       return {
-        model: 'agent/bank',
+        model: 'manager/bank',
         bankList: [],
         dataForm:
         {
@@ -93,7 +93,7 @@
           this.$refs['dataForm'].resetFields()
           if (this.dataForm.id) {
             this.$http({
-              url: this.$http.adornUrl(`/agent/bank/view/${this.dataForm.id}`),
+              url: this.$http.adornUrl(`/manager/bank/view/${this.dataForm.id}`),
               method: 'get',
               params: this.$http.adornParams()
             }).then(({data}) => {
@@ -112,7 +112,7 @@
         this.$refs['dataForm'].validate((valid) => {
           if (valid) {
             this.$http({
-              url: this.$http.adornUrl(`/agent/bank/handle`),
+              url: this.$http.adornUrl(`/manager/bank/handle`),
               method: 'post',
               data: this.$http.adornData({
                 'id': this.dataForm.id || undefined,

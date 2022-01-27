@@ -99,5 +99,11 @@ export const manager = {
     proportion: '收益(元)',
     withdrawal_money: '已提现金额(元)',
     order_total: '订单总量',
+  },
+
+  bank: {
+    list: '银行卡列表',
+    from: '银行卡操作',
+    view: '银行卡详情',
   }
 }

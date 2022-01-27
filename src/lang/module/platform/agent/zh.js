@@ -92,9 +92,28 @@ export const agent = {
   },
 
   bank: {
+    list: '银行卡列表',
+    from: '银行卡操作',
+    view: '银行卡详情',
+
     company_name: '公司名称',
     open_bank_name: '开户行名称',
     branch_bank_name: '支行名称',
     card_no: '银行卡号',
+
+    rules: {
+      company_name: {
+        require: '公司名称不能为空',
+      },
+      open_bank_name: {
+        require: '开户行名称不能为空',
+      },
+      branch_bank_name: {
+        require: '支行名称不能为空',
+      },
+      card_no: {
+        require: '银行卡号不能为空',
+      },
+    },
   }
 }
