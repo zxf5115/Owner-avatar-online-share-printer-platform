@@ -115,6 +115,32 @@
           </el-card>
 
           <el-card class="box-card mt10" shadow="never">
+            <div slot="header" class="clearfix">
+              <span>{{ $t('agent.bank_info') }}</span>
+            </div>
+            <div class="text item">
+              <el-form-item :label="$t('agent.bank.company_name')" prop="company_name">
+                <el-input v-model="dataForm.company_name" :placeholder="$t('common.please_input') + $t('agent.bank.company_name')"></el-input>
+              </el-form-item>
+
+              <el-form-item :label="$t('agent.bank.open_bank_name')" prop="open_bank_name">
+                <el-select v-model="dataForm.open_bank_name" :placeholder="$t('common.please_select')+$t('agent.bank.open_bank_name')">
+                  <el-option v-for="(v,k) in bankList" :label="v.name" :key="k" :value="v.name"></el-option>
+                </el-select>
+              </el-form-item>
+
+              <el-form-item :label="$t('agent.bank.branch_bank_name')" prop="branch_bank_name">
+                <el-input v-model="dataForm.branch_bank_name" :placeholder="$t('common.please_input') + $t('agent.bank.branch_bank_name')"></el-input>
+              </el-form-item>
+
+              <el-form-item :label="$t('agent.bank.card_no')" prop="card_no">
+                <el-input v-model="dataForm.card_no" :placeholder="$t('common.please_input') + $t('agent.bank.card_no')"></el-input>
+              </el-form-item>
+
+            </div>
+          </el-card>
+
+          <el-card class="box-card mt10" shadow="never">
             <div class="text item">
               <el-form-item>
                 <el-button v-if="isAuth('module:agent:handle')" type="primary" @click="dataFormSubmit()">
@@ -170,6 +196,11 @@
           contract: '',
           equipment_url: '',
           source: '1',
+
+          company_name: '',
+          open_bank_name: '',
+          branch_bank_name: '',
+          card_no: '',
         },
         dataRule:
         {
@@ -214,7 +245,12 @@
                 this.dataForm.address              = data.data.archive.address
                 this.dataForm.business_license     = data.data.resource.business_license
                 this.dataForm.contract             = data.data.resource.contract
-                this.dataForm.equipment_url        = data.data.resource.equipment_url
+                this.dataForm.equipment_url        = data.data.resource.equipment
+
+                this.dataForm.company_name     = data.data.bank.company_name
+                this.dataForm.open_bank_name   = data.data.bank.open_bank_name
+                this.dataForm.branch_bank_name = data.data.bank.branch_bank_name
+                this.dataForm.card_no          = data.data.bank.card_no
 
                 this.contract_url = [{'url': data.data.resource.contract}]
 
@@ -258,6 +294,10 @@
                 'business_license': this.dataForm.business_license,
                 'contract': this.dataForm.contract,
                 'equipment_url': this.dataForm.equipment_url,
+                'company_name': this.dataForm.company_name,
+                'open_bank_name': this.dataForm.open_bank_name,
+                'branch_bank_name': this.dataForm.branch_bank_name,
+                'card_no': this.dataForm.card_no,
               })
             }).then(({data}) => {
               if (data && data.status === 200) {
@@ -323,10 +363,24 @@
       },
       changeEquipemntShow(file, fileList) {
         this.is_equipemnt_show = true
+      },
+      loadBankList () {
+        this.$http({
+          url: this.$http.adornUrl('/common/bank/select'),
+          method: 'get'
+        }).then(({data}) => {
+          if (data && data.status === 200) {
+            this.bankList = data.data
+          } else {
+            this.$message.error(this.$t(data.message))
+          }
+        })
       }
     },
     created() {
       this.init();
+
+      this.loadBankList();
 
       // 要保证取到
       this.upload_headers.Authorization = 'Bearer ' + localStorage.getItem('token');
