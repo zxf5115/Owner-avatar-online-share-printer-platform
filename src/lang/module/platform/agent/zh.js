@@ -12,7 +12,7 @@ export const agent = {
   printer_info: '打印机信息',
   bank_info: '银行卡信息',
   apply_info: '申请文书',
-  bank_info: '银行卡',
+  bank_card: '银行卡',
 
   level: '代理商级别',
   another_name: '代理商别名',
