@@ -240,7 +240,7 @@
           }
         }).then(({data}) => {
           if (data && data.status === 200) {
-            this.$message.success('生成完成')
+            this.refresh();
           }
         })
       }
