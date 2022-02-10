@@ -139,7 +139,7 @@
                 {{ $t('printer.equipment_info') }}
               </el-button>
 
-              <el-button v-if="isAuth('module:printer:handle') && scope.row.bind_status.value == 1" icon="el-icon-menu" @click="qrcodeHandle(scope.row.id)">
+              <el-button v-if="isAuth('module:printer:handle') && scope.row.bind_status.value == 1 && scope.row.qrcode_url == ''" icon="el-icon-menu" @click="qrcodeHandle(scope.row.id)">
                 {{ $t('printer.qrcode_info') }}
               </el-button>
 
