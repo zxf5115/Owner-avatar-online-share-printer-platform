@@ -20,6 +20,7 @@ export const common =  {
   hidden: '隐藏',
   confirm: '确定',
   cancel: '取消',
+  finish: '完成',
   return: '返回',
   next: '下一步',
   select: '选择',

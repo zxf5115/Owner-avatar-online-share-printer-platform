@@ -60,13 +60,13 @@
           <el-table-column prop="create_time" :label="$t('financial.create_time')">
           </el-table-column>
 
-          <!-- <el-table-column :label="$t('common.handle')" fixed="right" width="120">
+          <el-table-column :label="$t('common.handle')" fixed="right" width="100">
             <template slot-scope="scope">
-              <el-button v-if="isAuth('module:financial:withdrawal:handle') && scope.row.withdrawal_status.value == 0" type="primary" icon="el-icon-check" @click="agreeHandle(scope.row.id)">
-                {{ $t('financial.agree') }}
+              <el-button v-if="isAuth('module:withdrawal:view')" type="info" icon="el-icon-view" @click="$router.push({name: 'module_withdrawal_view', query: {id: scope.row.id}})">
+                {{ $t('common.view') }}
               </el-button>
             </template>
-          </el-table-column> -->
+          </el-table-column>
         </el-table>
 
         <div class="admin_table_main_pagination">

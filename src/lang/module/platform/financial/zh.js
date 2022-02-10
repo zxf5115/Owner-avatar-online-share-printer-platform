@@ -1,7 +1,9 @@
 export const financial = {
   list: '提现列表',
+  view: '提现详情',
 
   agree: '同意',
+  finish: '完成提现',
 
   pay_type: '提现方式',
   username: '提现人电话',

@@ -11,6 +11,9 @@
           <!-- 数字输入项 -->
           <el-input-number v-else-if="item.type == 'number'"  v-model="dataForm[item.title]" @input="handleValue"></el-input-number>
 
+          <!-- 金额输入项 -->
+          <el-input-number v-else-if="item.type == 'money'"  v-model="dataForm[item.title]" :min="0" :precision="2" :step="0.01" @input="handleValue"></el-input-number>
+
           <!-- 天数输入项 -->
           <el-input-number v-else-if="item.type == 'day'"  v-model="dataForm[item.title]" @input="handleValue" :min="1" :max="31" :label="item.content"></el-input-number>
 
