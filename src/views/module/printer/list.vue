@@ -98,6 +98,14 @@
           <el-table-column prop="address" :label="$t('printer.address')">
           </el-table-column>
 
+          <el-table-column :label="$t('printer.qrcode_url')" width="120">
+            <template slot-scope="scope" v-if="scope.row.qrcode_url != ''">
+              <el-link type="primary" :href="scope.row.qrcode_url" target="_blank">
+                {{ $t('common.download') }}
+              </el-link>
+            </template>
+          </el-table-column>
+
           <el-table-column :label="$t('printer.bind_status')" width="100">
             <template slot-scope="scope">
               <span>
@@ -117,7 +125,7 @@
             </template>
           </el-table-column>
 
-          <el-table-column :label="$t('common.handle')" fixed="right" width="470">
+          <el-table-column :label="$t('common.handle')" fixed="right" width="580">
             <template slot-scope="scope">
               <el-button v-if="isAuth('module:printer:paper') && scope.row.bind_status.value == 1" icon="el-icon-files" @click="actionHandle(scope.row.id, 1)">
                 {{ $t('printer.paper_info') }}
@@ -129,6 +137,10 @@
 
               <el-button v-if="isAuth('module:printer:equipment') && scope.row.bind_status.value == 1" type="success" icon="el-icon-printer" @click="actionHandle(scope.row.id, 3)">
                 {{ $t('printer.equipment_info') }}
+              </el-button>
+
+              <el-button v-if="isAuth('module:printer:handle') && scope.row.bind_status.value == 1" icon="el-icon-menu" @click="qrcodeHandle(scope.row.id)">
+                {{ $t('printer.qrcode_info') }}
               </el-button>
 
               <el-button v-if="isAuth('module:printer:log:list') && scope.row.bind_status.value == 1" type="info" icon="el-icon-paperclip" @click="$router.push({name: 'module_printer_log_list', query: {printer_id : scope.row.id}})">
@@ -217,6 +229,20 @@
             }
           })
         }).catch(() => {})
+      },
+      // 生成二维码
+      qrcodeHandle (id) {
+        this.$http({
+          url: this.$http.adornUrl(`/printer/handle`),
+          method: 'post',
+          data: {
+            printer_id: id
+          }
+        }).then(({data}) => {
+          if (data && data.status === 200) {
+            this.$message.success('生成完成')
+          }
+        })
       }
     },
     created() {
