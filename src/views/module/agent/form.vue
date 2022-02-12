@@ -27,8 +27,8 @@
                 <el-input v-model="dataForm.nickname" :placeholder="$t('common.please_input') + $t('agent.nickname')"></el-input>
               </el-form-item>
 
-              <el-form-item :label="$t('agent.id_card_no')" prop="id_card_no">
-                <el-input v-model="dataForm.id_card_no" :placeholder="$t('common.please_input') + $t('agent.id_card_no')"></el-input>
+              <el-form-item :label="$t('agent.archive.id_card_no')" prop="id_card_no">
+                <el-input v-model="dataForm.id_card_no" :placeholder="$t('common.please_input') + $t('agent.archive.id_card_no')"></el-input>
               </el-form-item>
 
               <el-form-item :label="$t('agent.username')" prop="username">
