@@ -6,6 +6,7 @@ export const bank = {
   logo: '银行Logo',
   code: '银行代码',
   name: '银行名称',
+  color: '银行色调',
 
   rules: {
     logo: {

@@ -27,6 +27,10 @@
                 <el-input v-model="dataForm.nickname" :placeholder="$t('common.please_input') + $t('agent.nickname')"></el-input>
               </el-form-item>
 
+              <el-form-item :label="$t('agent.id_card_no')" prop="id_card_no">
+                <el-input v-model="dataForm.id_card_no" :placeholder="$t('common.please_input') + $t('agent.id_card_no')"></el-input>
+              </el-form-item>
+
               <el-form-item :label="$t('agent.username')" prop="username">
                 <el-input v-model="dataForm.username" :placeholder="$t('common.please_input') + $t('agent.username')"></el-input>
               </el-form-item>
@@ -162,6 +166,7 @@
           nickname: '',
           should_printer_total: 0,
           proportion: 0.00,
+          id_card_no : '',
           province_id : '',
           city_id : '',
           region_id : '',
@@ -208,6 +213,7 @@
                 this.dataForm.nickname             = data.data.nickname
                 this.dataForm.should_printer_total = data.data.asset.should_printer_total
                 this.dataForm.proportion           = data.data.asset.proportion
+                this.dataForm.id_card_no           = data.data.archive.id_card_no
                 this.dataForm.province_id          = data.data.archive.province_id.value
                 this.dataForm.city_id              = data.data.archive.city_id.value
                 this.dataForm.region_id            = data.data.archive.region_id.value
@@ -251,6 +257,7 @@
                 'nickname': this.dataForm.nickname,
                 'should_printer_total': this.dataForm.should_printer_total,
                 'proportion': this.dataForm.proportion,
+                'id_card_no': this.dataForm.id_card_no,
                 'province_id': this.$refs.area.province_id,
                 'city_id': this.$refs.area.city_id,
                 'region_id': this.$refs.area.region_id,

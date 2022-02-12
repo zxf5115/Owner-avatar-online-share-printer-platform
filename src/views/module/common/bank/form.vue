@@ -36,6 +36,10 @@
             <el-input :placeholder="$t('common.please_input')+$t('bank.name')" v-model="dataForm.name"></el-input>
           </el-form-item>
 
+          <el-form-item :label="$t('bank.color')" prop="color">
+            <el-input :placeholder="$t('common.please_input')+$t('bank.color')" v-model="dataForm.color"></el-input>
+          </el-form-item>
+
           <el-form-item :label="$t('common.sort')" prop="sort">
             <el-input-number :placeholder="$t('common.please_input')+$t('common.sort')" v-model="dataForm.sort"></el-input-number>
           </el-form-item>
@@ -68,6 +72,7 @@
           logo: '',
           code: '',
           name: '',
+          color: '',
           sort: 0,
         },
         dataRule:
@@ -99,6 +104,7 @@
                 this.dataForm.logo = data.data.logo
                 this.dataForm.code = data.data.code
                 this.dataForm.name = data.data.name
+                this.dataForm.color = data.data.color
                 this.dataForm.sort = data.data.sort
               }
             })
@@ -117,6 +123,7 @@
                 'logo': this.dataForm.logo,
                 'code': this.dataForm.code,
                 'name': this.dataForm.name,
+                'color': this.dataForm.color,
                 'sort': this.dataForm.sort,
               })
             }).then(({data}) => {

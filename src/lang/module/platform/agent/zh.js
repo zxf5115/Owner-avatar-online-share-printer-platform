@@ -56,6 +56,7 @@ export const agent = {
 
     age: '代理商年龄',
     sex: '代理商性别',
+    id_card_no: '身份证号码',
     city: '所在城市',
     area: '地区',
     address: '详细地址',
