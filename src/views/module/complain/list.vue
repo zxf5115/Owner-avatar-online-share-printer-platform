@@ -34,6 +34,14 @@
             </template>
           </el-table-column>
 
+          <el-table-column prop="customer_name" :label="$t('complain.customer_name')">
+            <template slot-scope="scope">
+              <span v-if="scope.row.member">
+                {{ scope.row.member.nickname }}
+              </span>
+            </template>
+          </el-table-column>
+
           <el-table-column prop="content" :label="$t('complain.content')">
           </el-table-column>
 
@@ -49,10 +57,10 @@
           <el-table-column prop="create_time" :label="$t('common.create_time')">
           </el-table-column>
 
-          <el-table-column :label="$t('common.handle')" fixed="right" width="240">
+          <el-table-column :label="$t('common.handle')" fixed="right" width="200">
             <template slot-scope="scope">
-              <el-button v-if="isAuth('module:complain:read') && scope.row.read_status.value == 0" type="info" icon="el-icon-view" @click="readHandle(scope.row.id)">
-                {{ $t('complain.read') }}
+              <el-button v-if="isAuth('module:complain:view')" type="info" icon="el-icon-view" @click="$router.push({name: 'module_complain_view', query: {id: scope.row.id}})">
+                {{ $t('common.view') }}
               </el-button>
 
               <el-button v-if="isAuth('module:complain:delete')" type="danger" icon="el-icon-delete" @click="deleteHandle(scope.row.id)">

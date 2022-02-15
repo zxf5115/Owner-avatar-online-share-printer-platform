@@ -6,10 +6,14 @@ export const complain = {
   type: '投诉类型',
   title: '反馈问题',
   content: '问题描述',
-  customer_name: '联系人',
+  customer_name: '投诉人',
   contact: '联系方式',
   read_status: '阅读状态',
+  create_time: '投诉时间',
 
+  resource: {
+    picture: '投诉图片'
+  },
 
   // 投诉分类
   category: {
