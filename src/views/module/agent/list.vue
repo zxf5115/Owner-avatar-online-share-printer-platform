@@ -136,9 +136,9 @@
             </template>
           </el-table-column>
 
-          <el-table-column :label="$t('agent.archive.qrcode_url')" width="120">
+          <el-table-column :label="$t('agent.archive.register_qrcode_url')" width="120">
             <template slot-scope="scope" v-if="scope.row.archive">
-              <el-link type="primary" :href="scope.row.archive.qrcode_url" target="_blank">
+              <el-link type="primary" :href="scope.row.archive.register_qrcode_url" target="_blank">
                 {{ $t('common.download') }}
               </el-link>
             </template>

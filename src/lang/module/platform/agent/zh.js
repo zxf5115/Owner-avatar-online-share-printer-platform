@@ -61,7 +61,8 @@ export const agent = {
     area: '地区',
     address: '详细地址',
     source: '设备来源',
-    qrcode_url: '注册二维码',
+    register_qrcode_url: '注册二维码',
+    invitation_qrcode_url: '邀请二维码',
 
     rules: {
       member_id: {
