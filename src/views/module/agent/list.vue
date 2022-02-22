@@ -137,7 +137,7 @@
           </el-table-column>
 
           <el-table-column :label="$t('agent.archive.register_qrcode_url')" width="120">
-            <template slot-scope="scope" v-if="scope.row.archive">
+            <template slot-scope="scope" v-if="scope.row.archive && scope.row.archive.register_qrcode_url != ''">
               <el-link type="primary" :href="scope.row.archive.register_qrcode_url" target="_blank">
                 {{ $t('common.download') }}
               </el-link>
@@ -145,7 +145,7 @@
           </el-table-column>
 
           <el-table-column :label="$t('agent.archive.invitation_qrcode_url')" width="120">
-            <template slot-scope="scope" v-if="scope.row.archive">
+            <template slot-scope="scope" v-if="scope.row.archive && scope.row.archive.invitation_qrcode_url != ''">
               <el-link type="primary" :href="scope.row.archive.invitation_qrcode_url" target="_blank">
                 {{ $t('common.download') }}
               </el-link>
