@@ -144,6 +144,14 @@
             </template>
           </el-table-column>
 
+          <el-table-column :label="$t('agent.archive.invitation_qrcode_url')" width="120">
+            <template slot-scope="scope" v-if="scope.row.archive">
+              <el-link type="primary" :href="scope.row.archive.invitation_qrcode_url" target="_blank">
+                {{ $t('common.download') }}
+              </el-link>
+            </template>
+          </el-table-column>
+
           <el-table-column prop="status" :label="$t('agent.status')" width="100">
             <template slot-scope="scope">
               <el-switch
