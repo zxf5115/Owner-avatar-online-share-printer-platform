@@ -92,7 +92,7 @@
             </template>
           </el-table-column>
 
-          <el-table-column prop="username" :label="$t('agent.username')" width="120">
+          <el-table-column prop="username" :label="$t('agent.username')" width="150">
           </el-table-column>
 
           <el-table-column :label="$t('agent.level')" width="120">
