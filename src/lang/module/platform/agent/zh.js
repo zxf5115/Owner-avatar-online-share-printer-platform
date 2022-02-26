@@ -86,6 +86,7 @@ export const agent = {
   asset: {
     money: '账户余额(元)',
     proportion: '收益(元)',
+    manger_proportion: '直属店长收益(元)',
     withdrawal_money: '已提现金额(元)',
     order_total: '订单总量',
     should_printer_total: '认购数量',

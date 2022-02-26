@@ -75,8 +75,8 @@
           </el-table-column>
 
           <el-table-column :label="$t('manager.asset.proportion')" width="120">
-            <template slot-scope="scope" v-if="scope.row.asset">
-              {{ scope.row.asset.proportion }}
+            <template slot-scope="scope" v-if="scope.row.parent && scope.row.parent.asset">
+              {{ scope.row.parent.asset.manger_proportion }}
             </template>
           </el-table-column>
 

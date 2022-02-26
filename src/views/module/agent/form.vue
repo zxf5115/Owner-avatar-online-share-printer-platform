@@ -58,6 +58,10 @@
                 <el-input-number v-model="dataForm.proportion" :min="0.00" :precision="2" :placeholder="$t('common.please_input') + $t('agent.asset.proportion')"></el-input-number>
               </el-form-item>
 
+              <el-form-item :label="$t('agent.asset.manger_proportion')" prop="manger_proportion">
+                <el-input-number v-model="dataForm.manger_proportion" :min="0.00" :precision="2" :placeholder="$t('common.please_input') + $t('agent.asset.manger_proportion')"></el-input-number>
+              </el-form-item>
+
               <form-area ref="area" :province_id="dataForm.province_id" :city_id="dataForm.city_id" :region_id="dataForm.region_id" @setProvinceInfo="setProvinceInfo" @setCityInfo="setCityInfo" @setAreaInfo="setAreaInfo"></form-area>
 
               <el-form-item :label="$t('agent.archive.address')" prop="address">
@@ -166,6 +170,7 @@
           nickname: '',
           should_printer_total: 0,
           proportion: 0.00,
+          manger_proportion: 0.00,
           id_card_no : '',
           province_id : '',
           city_id : '',
@@ -213,6 +218,7 @@
                 this.dataForm.nickname             = data.data.nickname
                 this.dataForm.should_printer_total = data.data.asset.should_printer_total
                 this.dataForm.proportion           = data.data.asset.proportion
+                this.dataForm.manger_proportion    = data.data.asset.manger_proportion
                 this.dataForm.id_card_no           = data.data.archive.id_card_no
                 this.dataForm.province_id          = data.data.archive.province_id.value
                 this.dataForm.city_id              = data.data.archive.city_id.value
@@ -257,6 +263,7 @@
                 'nickname': this.dataForm.nickname,
                 'should_printer_total': this.dataForm.should_printer_total,
                 'proportion': this.dataForm.proportion,
+                'manger_proportion': this.dataForm.manger_proportion,
                 'id_card_no': this.dataForm.id_card_no,
                 'province_id': this.$refs.area.province_id,
                 'city_id': this.$refs.area.city_id,
