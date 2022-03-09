@@ -115,8 +115,8 @@
       <div slot="header" class="clearfix">
         <span>各地区市场销售额</span>
         <div class="type">
-          <el-select v-model="order_type" clearable @change="data">
-            <el-option v-for="(v,k) in typeList" :label="v.title" :key="k" :value="v.id"></el-option>
+          <el-select v-model="area_id" clearable @change="agentArea">
+            <el-option v-for="(v,k) in areaList" :label="v.title" :key="k" :value="v.id"></el-option>
           </el-select>
         </div>
       </div>
@@ -131,14 +131,14 @@
       <div slot="header" class="clearfix">
         <span>各代理商市场销售额</span>
         <div class="type">
-          <el-select v-model="level" clearable @change="agentSales">
+          <el-select v-model="level" clearable @change="agentLevel">
             <el-option v-for="(v,k) in levelList" :label="v.title" :key="k" :value="v.id"></el-option>
           </el-select>
         </div>
       </div>
       <div class="text item text-center">
         <el-card shadow="never">
-          <ve-histogram :data="statistical.histogram.agent"></ve-histogram>
+          <ve-histogram :data="statistical.histogram.level"></ve-histogram>
         </el-card>
       </div>
     </el-card>
@@ -158,12 +158,9 @@
     },
     data() {
       return {
-        order_type: 3,
+        area_id: 110000,
         level: 1,
-        typeList: [
-          {'id': 3, 'title': '最近七日'},
-          {'id': 4, 'title': '最近一个月'},
-        ],
+        areaList: [],
         levelList: [
           {'id': 1, 'title': '一级代理'},
           {'id': 2, 'title': '二级代理'},
@@ -216,25 +213,11 @@
           histogram: {
             area: {
               columns: ['title', '销售额'],
-              rows: [
-                { 'title': '代理人1', '销售额': 123 },
-                { 'title': '代理人2', '销售额': 1223 },
-                { 'title': '代理人3', '销售额': 2123 },
-                { 'title': '代理人4', '销售额': 4123 },
-                { 'title': '代理人5', '销售额': 3123 },
-                { 'title': '代理人6', '销售额': 7123 }
-              ]
+              rows: []
             },
-            agent: {
+            level: {
               columns: ['title', '销售额'],
-              rows: [
-                { 'title': '代理人1', '销售额': 123 },
-                { 'title': '代理人2', '销售额': 1223 },
-                { 'title': '代理人3', '销售额': 2123 },
-                { 'title': '代理人4', '销售额': 4123 },
-                { 'title': '代理人5', '销售额': 3123 },
-                { 'title': '代理人6', '销售额': 7123 }
-              ]
+              rows: []
             }
           }
         },
@@ -292,29 +275,68 @@
           }
         })
       },
-      agentSales(level = 1) {
-        // this.$http({
-        //   url: this.$http.adornUrl(`/index/agentsales`),
-        //   method: 'get',
-        //   params: this.$http.adornParams({
-        //     'level': level
-        //   })
-        // }).then(({data}) => {
-        //   if (data && data.status === 200) {
-        //     this.statistical.line.agent.rows   = data.data.line
-        //   }
-        // })
+      area() {
+        this.$http({
+          url: this.$http.adornUrl(`/common/area/list`),
+          method: 'get',
+          params: this.$http.adornParams({
+            'parent_id': 0
+          })
+        }).then(({data}) => {
+          if (data && data.status === 200) {
+            this.areaList   = data.data
+          }
+        })
+      },
+      agentArea(area_id = 110000) {
+        this.$http({
+          url: this.$http.adornUrl(`/index/area`),
+          method: 'get',
+          params: this.$http.adornParams({
+            'area_id': area_id
+          })
+        }).then(({data}) => {
+          if (data && data.status === 200) {
+            this.statistical.histogram.area.rows   = data.data
+          }
+        })
+      },
+      agentLevel(level = 1) {
+        this.$http({
+          url: this.$http.adornUrl(`/index/level`),
+          method: 'get',
+          params: this.$http.adornParams({
+            'level': level
+          })
+        }).then(({data}) => {
+          if (data && data.status === 200) {
+            this.statistical.histogram.level.rows   = data.data
+          }
+        })
       },
     },
     created(request)
     {
+      // 获取打印机信息
       this.printer();
+
+      // 获取代理商信息
       this.agent();
+
+      // 获取会员信息
       this.member();
 
+      // 获取设备信息
       this.equipment();
 
-      this.agentSales();
+      // 获取全国地区信息
+      this.area();
+
+      // 根据区域获取代理商销售额
+      this.agentArea();
+
+      // 根据代理商级别获取代理商销售额
+      this.agentLevel();
     }
   };
 </script>

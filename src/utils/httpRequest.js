@@ -49,7 +49,7 @@ http.interceptors.response.use(response => {
     localStorage.removeItem('token');
     localStorage.removeItem('user_info');
 
-    Message.error(response.data.message);
+    // Message.error(response.data.message);
 
     let platform = /^\/platform\/+./i
     let store = /^\/store\/+./i
