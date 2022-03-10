@@ -49,7 +49,7 @@ export const config = {
   },
 
   agreement: {
-    center: '协议中心',
+    center: '系统协议',
 
     title: '协议名称',
     content: '协议内容',
