@@ -4,7 +4,7 @@
       <div class="admin_main_block_top">
         <div class="admin_main_block_left">
           <div>
-            {{ $t('config.agreement.employ') }}
+            {{ $t('config.agreement.center') }}
           </div>
         </div>
       </div>
@@ -12,8 +12,10 @@
       <div class="admin_form_main">
         <el-form label-width="120px" ref="dataForm" :model="dataForm" :rules="dataRule">
 
-          <el-form-item :label="$t('config.agreement.name')" prop="name">
-            <el-input v-model="dataForm.name" :placeholder="$t('common.please_input')+$t('config.agreement.name')"></el-input>
+          <el-form-item :label="$t('config.agreement.title')" prop="title">
+            <el-select v-model="dataForm.title" :placeholder="$t('common.please_select')+$t('config.agreement.title')" @change="changeContent">
+              <el-option v-for="(v,k) in agreementList" :label="v.name" :key="k" :value="v.title"></el-option>
+            </el-select>
           </el-form-item>
 
           <el-form-item class="mavon" prop="content" :label="$t('config.agreement.content')">
@@ -21,7 +23,7 @@
           </el-form-item>
 
           <el-form-item>
-            <el-button v-if="isAuth('setting:organization_employ')" type="primary" @click="dataFormSubmit()">
+            <el-button v-if="isAuth('setting:agreement')" type="primary" @click="dataFormSubmit()">
               {{ $t('common.confirm') }}
             </el-button>
           </el-form-item>
@@ -42,17 +44,17 @@
     data() {
       return {
         model: 'setting/agreement',
-        upload_headers:{},
+        agreementList: [],
         dataForm:
         {
           id: 0,
-          name: '',
+          title: '',
           content : '',
         },
         dataRule:
         {
-          name: [
-            { required: true, message: this.$t('config.agreement.rules.name.require'), trigger: 'blur' },
+          title: [
+            { required: true, message: this.$t('config.agreement.rules.title.require'), trigger: 'blur' },
           ]
         }
       };
@@ -64,12 +66,12 @@
           url: this.$http.adornUrl(`/setting/agreement`),
           method: 'get',
           params: this.$http.adornParams({
-            'type': 'organization_employ'
+            'title': 'about',
           })
         }).then(({data}) => {
           if (data && data.status === 200) {
-            this.dataForm.name = data.data.name
-            this.dataForm.content     = data.data.content
+            this.dataForm.title = data.data.title
+            this.dataForm.content = data.data.content
           }
         })
       },
@@ -81,9 +83,7 @@
               url: this.$http.adornUrl(`/setting/agreement`),
               method: 'post',
               data: this.$http.adornData({
-                'id': this.dataForm.id || undefined,
-                'type': 'organization_employ',
-                'name': this.dataForm.name,
+                'title': this.dataForm.title,
                 'content': this.$refs.editor.content,
               })
             }).then(({data}) => {
@@ -97,9 +97,38 @@
           }
         })
       },
+      loadAgreementList () {
+        this.$http({
+          url: this.$http.adornUrl('/config/agreement/select'),
+          method: 'get'
+        }).then(({data}) => {
+          if (data && data.status === 200) {
+            this.agreementList = data.data
+          } else {
+            this.$message.error(this.$t(data.message))
+          }
+        })
+      },
+      changeContent (title) {
+        this.$http({
+          url: this.$http.adornUrl('/config/agreement/data'),
+          method: 'get',
+          params: this.$http.adornParams({
+            'title': title,
+          })
+        }).then(({data}) => {
+          if (data && data.status === 200) {
+            this.dataForm.content = data.data
+          } else {
+            this.$message.error(this.$t(data.message))
+          }
+        })
+      }
     },
     created(request)
     {
+      this.loadAgreementList();
+
       this.init();
     },
   };

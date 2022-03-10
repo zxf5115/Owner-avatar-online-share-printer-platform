@@ -49,17 +49,12 @@ export const config = {
   },
 
   agreement: {
-    user: '用户协议',
-    about: '关于我们',
-    employ: '使用协议',
-    privacy: '隐私协议',
-    specification: '账户使用规范',
-    liability: '免责声明',
+    center: '协议中心',
 
-    name: '协议名称',
+    title: '协议名称',
     content: '协议内容',
     rules: {
-      name: {
+      title: {
         require: '协议名称不能为空',
         length: '长度在 1 到 50 个字符',
       },

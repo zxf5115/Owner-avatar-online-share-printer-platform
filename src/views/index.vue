@@ -195,7 +195,7 @@
             settings: {
               aspectScale: 1,
               roam: true,
-              zoom: 1.2,
+              zoom: 5,
               beforeRegisterMap (json) {
                 return china
               },
