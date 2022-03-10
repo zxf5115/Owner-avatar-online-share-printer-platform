@@ -2,14 +2,16 @@ export const notice = {
   list: '通知列表',
   from: '通知操作',
   view: '查看通知',
+  send: '发送',
 
   content: '通知内容',
+  delivery_status: '推送状态',
 
   rules: {
     content: {
       require: '通知内容不能为空',
     },
-    category: {
+    category_id: {
       require: '通知分类不能为空',
     },
   },
