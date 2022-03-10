@@ -89,7 +89,7 @@
             }).then(({data}) => {
               if (data && data.status === 200) {
                 this.$message.success(this.$t('common.handle_success'));
-                this.$router.go(-1);
+                this.refresh()
               } else {
                 this.$message.error(this.$t(data.message))
               }
