@@ -14,9 +14,9 @@
 
         <div class="admin_main_block_right">
           <div>
-            <el-button v-if="isAuth('message:delete')" type="danger" icon="el-icon-delete" @click="deleteHandle()">
+            <!-- <el-button v-if="isAuth('message:delete')" type="danger" icon="el-icon-delete" @click="deleteHandle()">
               {{ $t('common.batch_delete') }}
-            </el-button>
+            </el-button> -->
           </div>
         </div>
       </div>
@@ -81,13 +81,13 @@
           <el-table-column prop="create_time" header-align="center" align="center" :label="$t('common.create_time')">
           </el-table-column>
 
-          <el-table-column :label="$t('common.handle')" fixed="right" width="120">
+          <!-- <el-table-column :label="$t('common.handle')" fixed="right" width="120">
             <template slot-scope="scope">
               <el-button v-if="isAuth('message:form')" type="primary" icon="el-icon-edit" @click="$router.push({name: 'message_form', query: {id: scope.row.id}})">
                 {{ $t('common.update') }}
               </el-button>
             </template>
-          </el-table-column>
+          </el-table-column> -->
         </el-table>
 
         <div class="admin_table_main_pagination">
