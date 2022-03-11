@@ -39,7 +39,12 @@
               <el-row>
                 <el-col :span="6">
                   <el-form-item :label="$t('manager.username')" label-width="80">
-                    {{ dataForm.username }}
+                    <span v-if="11 == dataForm.username.length">
+                      {{ dataForm.username }}
+                    </span>
+                    <span v-else>
+                      {{ $t('common.empty') }}
+                    </span>
                   </el-form-item>
                 </el-col>
                 <el-col :span="6">
@@ -53,15 +58,6 @@
               <el-row>
                 <el-col :span="6">
                   <el-form-item :label="$t('common.area')" label-width="80">
-                    <span v-if="dataForm.archive">
-                      {{ dataForm.archive.province_id.text }} {{ dataForm.archive.city_id.text }} {{ dataForm.archive.region_id.text }}
-                    </span>
-                  </el-form-item>
-                </el-col>
-              </el-row>
-              <el-row>
-                <el-col :span="6">
-                  <el-form-item :label="$t('manager.archive.address')" label-width="80">
                     <span v-if="dataForm.archive">
                       {{ dataForm.archive.address }}
                     </span>
@@ -132,17 +128,17 @@
 
                 <el-table-column :label="$t('printer.status')">
                   <template slot-scope="scope">
-                    <span v-if="2 == scope.row.bind_status.value">
-                      {{ scope.row.bind_status.text }}
+                    <span v-if="2 == scope.row.activate_status.value">
+                      {{ scope.row.activate_status.text }}
                     </span>
-                    <span class="green1" v-else-if="1 == scope.row.status.value">
-                      {{ scope.row.status.text }}
+                    <span class="green1" v-else-if="1 == scope.row.activate_status.value">
+                      {{ scope.row.activate_status.text }}
                     </span>
-                    <span class="red" v-else-if="2 == scope.row.status.value">
-                      {{ scope.row.status.text }}
+                    <span class="red" v-else-if="2 == scope.row.activate_status.value">
+                      {{ scope.row.activate_status.text }}
                     </span>
                     <span v-else>
-                      {{ scope.row.status.text }}
+                      {{ scope.row.activate_status.text }}
                     </span>
                   </template>
                 </el-table-column>

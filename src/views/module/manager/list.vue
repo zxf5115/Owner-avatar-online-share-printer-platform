@@ -47,7 +47,7 @@
             </template>
           </el-table-column>
 
-          <el-table-column :label="$t('manager.info')" width="360">
+          <el-table-column :label="$t('manager.info')">
             <template slot-scope="scope">
               <dl class="table_dl">
                 <dt>
@@ -65,31 +65,39 @@
             </template>
           </el-table-column>
 
-          <el-table-column prop="username" :label="$t('manager.username')" width="120">
+          <el-table-column prop="username" :label="$t('manager.username')" width="100">
+            <template slot-scope="scope">
+              <span v-if="11 == scope.row.username.length">
+                {{ scope.row.username }}
+              </span>
+              <span v-else>
+                {{ $t('common.empty') }}
+              </span>
+            </template>
           </el-table-column>
 
-          <el-table-column :label="$t('manager.asset.money')" width="120">
+          <el-table-column :label="$t('manager.asset.money')" width="90">
             <template slot-scope="scope" v-if="scope.row.asset">
               {{ scope.row.asset.money }}
             </template>
           </el-table-column>
 
-          <el-table-column :label="$t('manager.asset.proportion')" width="120">
+          <el-table-column :label="$t('manager.asset.proportion')" width="80">
             <template slot-scope="scope" v-if="scope.row.parent && scope.row.parent.asset">
               {{ scope.row.parent.asset.manger_proportion }}
             </template>
           </el-table-column>
 
-          <el-table-column prop="printer_total" :label="$t('manager.printer_total')" width="100">
+          <el-table-column prop="printer_total" :label="$t('manager.printer_total')" width="80">
           </el-table-column>
 
-          <el-table-column :label="$t('manager.asset.order_total')" width="100">
+          <el-table-column :label="$t('manager.asset.order_total')" width="80">
             <template slot-scope="scope" v-if="scope.row.asset">
               {{ scope.row.asset.order_total }}
             </template>
           </el-table-column>
 
-          <el-table-column :label="$t('common.area')" width="150">
+          <el-table-column :label="$t('common.area')" width="180">
             <template slot-scope="scope" v-if="scope.row.archive">
               {{ scope.row.archive.province_id.text }}
             </template>
