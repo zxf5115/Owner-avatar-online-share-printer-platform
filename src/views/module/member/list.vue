@@ -69,24 +69,6 @@
             </template>
           </el-table-column>
 
-          <el-table-column :label="$t('common.province')" width="140">
-            <template slot-scope="scope" v-if="scope.row.archive">
-              {{ scope.row.archive.province_id.text }}
-            </template>
-          </el-table-column>
-
-          <el-table-column :label="$t('common.city')" width="140">
-            <template slot-scope="scope" v-if="scope.row.archive">
-              {{ scope.row.archive.city_id.text }}
-            </template>
-          </el-table-column>
-
-          <el-table-column :label="$t('common.region')" width="140">
-            <template slot-scope="scope" v-if="scope.row.archive">
-              {{ scope.row.archive.region_id.text }}
-            </template>
-          </el-table-column>
-
           <el-table-column prop="last_login_time" :label="$t('member.last_login_time')" width="140">
           </el-table-column>
 
