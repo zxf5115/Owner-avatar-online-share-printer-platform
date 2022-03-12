@@ -6,9 +6,9 @@ export const inventory = {
   ink_total: '墨盒合计',
   paper_total: '纸张合计',
 
-  type: '类型',
-  code: '编号',
-  model: '型号',
+  type: '设备类型',
+  code: '设备编号',
+  model: '设备型号',
   equipment_status: '设备状态',
   inventory_status: '库存状态',
   create_time: '入库时间',
@@ -32,6 +32,7 @@ export const inventory = {
     abnormal_info: '异常',
     receipt_info: '签收信息',
     finish_info: '完成信息',
+    detail_info: '明细',
 
     write: '填写信息',
     inventory: '盘点',
@@ -40,6 +41,13 @@ export const inventory = {
     nickname: '系统入库',
     category: '入库类型',
     total: '入库数量',
+    create_time: '入库时间',
+
+    rules: {
+      picture: {
+        require: '单据不能为空',
+      },
+    },
 
     abnormal: {
       inbound_id: '入库批次',
@@ -73,7 +81,7 @@ export const inventory = {
     finish: '完成',
 
     category: '出库类型',
-    device_code: '盘点设备码',
+    device_code: '设备码',
     total: '出库数量',
     operator: '操作人',
     picture: '单据',
@@ -91,6 +99,9 @@ export const inventory = {
       },
       category: {
         require: '出库类型不能为空',
+      },
+      device_code: {
+        require: '设备码不能为空',
       },
       total: {
         require: '出库数量不能为空',

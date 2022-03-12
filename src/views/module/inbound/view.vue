@@ -4,8 +4,8 @@
       <div class="admin_main_block_top">
         <div class="admin_main_block_right">
           <div>
-            <el-button v-if="isAuth('log:action:delete')" type="danger" icon="el-icon-delete" @click="deleteHandle()">
-              {{ $t('common.batch_delete') }}
+            <el-button icon="el-icon-back" @click="$router.go(-1)">
+              {{ $t('common.return') }}
             </el-button>
           </div>
         </div>
@@ -14,12 +14,12 @@
       <div class="admin_main_block_top">
         <div class="admin_main_block_left">
           <div>
-            <el-input v-model="dataForm.operator" :placeholder="$t('common.please_input') + $t('inventory.log.operator')" clearable>
+            <el-input v-model="dataForm.model" :placeholder="$t('common.please_input') + $t('inventory.model')" clearable>
             </el-input>
           </div>
           <div>
-            <el-date-picker format="yyyy-MM-dd HH:mm" v-model="dataForm.create_time" type="daterange" :range-separator="$t('common.to')" :start-placeholder="$t('common.start_time')" :end-placeholder="$t('common.end_time')" clearable>
-            </el-date-picker>
+            <el-input v-model="dataForm.code" :placeholder="$t('common.please_input') + $t('inventory.code')" clearable>
+            </el-input>
           </div>
           <div>
             <el-button icon="el-icon-search" @click="getDataList(true)">
@@ -37,24 +37,13 @@
           <el-table-column prop="id" :label="$t('common.id')" width="70">
           </el-table-column>
 
-          <el-table-column prop="username" :label="$t('log.action.username')" width="100">
+          <el-table-column prop="model" :label="$t('inventory.model')" width="100">
           </el-table-column>
 
-          <el-table-column prop="operation" :label="$t('log.action.operation')">
+          <el-table-column prop="code" :label="$t('inventory.code')">
           </el-table-column>
 
-          <el-table-column prop="address" :label="$t('log.action.address')">
-          </el-table-column>
-
-          <el-table-column prop="create_time" :label="$t('log.action.create_time')" width="150">
-          </el-table-column>
-
-          <el-table-column :label="$t('common.handle')" fixed="right" width="120">
-            <template slot-scope="scope">
-              <el-button v-if="isAuth('user:delete')" type="danger" icon="el-icon-delete" @click="deleteHandle(scope.row.id)">
-                {{ $t('common.delete') }}
-              </el-button>
-            </template>
+          <el-table-column prop="create_time" :label="$t('inventory.inbound.create_time')" width="140">
           </el-table-column>
         </el-table>
         <div class="admin_table_main_pagination">
@@ -78,10 +67,10 @@
     extends: common,
     data() {
       return {
-        model: 'inventory/log',
+        model: 'inbound/detail',
         dataForm: [
-          'operator',
-          'create_time'
+          'code',
+          'model',
         ],
       };
     },

@@ -8,15 +8,19 @@
         </div>
         <div class="text item">
           <el-form-item :label="$t('inventory.type')" prop="type">
-            <el-select v-model="dataForm.type" :placeholder="$t('common.please_select')+$t('inventory.type')">
-              <el-option v-for="(v,k) in typeList" :label="v.title" :key="k" :value="v.id"></el-option>
-            </el-select>
+            <el-radio-group v-model="dataForm.type">
+              <el-radio-button v-for="(v,k) in typeList" :key="k" :label="v.id">
+                {{ v.title }}
+              </el-radio-button>
+            </el-radio-group>
           </el-form-item>
 
           <el-form-item :label="$t('inventory.inbound.category')" prop="category">
-            <el-select v-model="dataForm.category" :placeholder="$t('common.please_select')+$t('inventory.inbound.category')" @change="handleCategory">
-              <el-option v-for="(v,k) in categoryList" :label="v.title" :key="k" :value="v.id"></el-option>
-            </el-select>
+            <el-radio-group v-model="dataForm.category" @change="handleCategory">
+              <el-radio-button v-for="(v,k) in categoryList" :key="k" :label="v.id">
+                {{ v.title }}
+              </el-radio-button>
+            </el-radio-group>
           </el-form-item>
 
           <el-form-item :class="display ? 'display' : ''" :label="$t('agent.nickname')" prop="member_id">
@@ -144,21 +148,24 @@
             }).then(({data}) => {
               if (data && data.status === 200) {
                 this.dataForm.member_id   = data.data.member_id
-                this.dataForm.type        = data.data.type
+                this.dataForm.type        = data.data.type.value
                 this.dataForm.category    = data.data.category
-                this.dataForm.device_code = data.data.resource.device_code
                 this.dataForm.total       = data.data.total
                 this.dataForm.operator    = data.data.operator
-                this.dataForm.picture     = data.data.resource.picture
+                this.username             = data.data.username
 
-                this.device_code_url = [{'url': data.data.resource.device_code}]
-
-                if(isNotEmpty(data.data.resource.device_code))
+                if(isNotEmpty(data.data.resource))
                 {
-                  this.is_show = true
-                }
+                  this.dataForm.picture     = data.data.resource.picture
+                  this.dataForm.device_code = data.data.resource.device_code
 
-                this.username = data.data.username
+                  this.device_code_url = [{'url': data.data.resource.device_code}]
+
+                  if(isNotEmpty(data.data.resource.device_code))
+                  {
+                    this.is_show = true
+                  }
+                }
               }
             })
           }

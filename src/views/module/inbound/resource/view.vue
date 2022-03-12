@@ -40,7 +40,7 @@
                     </el-image>
                     <div class="mt10">
                       <span>
-                        {{ $t('inventory.inbound.resource.device_code') }}
+                        {{ $t('inventory.outbound.device_code') }}
                       </span>
                     </div>
                   </el-link>

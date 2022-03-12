@@ -51,13 +51,13 @@
             </template>
           </el-table-column>
 
-          <el-table-column :label="$t('inventory.inbound.category')">
+          <el-table-column :label="$t('inventory.inbound.category')" width="80">
             <template slot-scope="scope">
               {{ scope.row.category.text }}
             </template>
           </el-table-column>
 
-          <el-table-column :label="$t('agent.nickname')">
+          <el-table-column :label="$t('agent.nickname')" width="80">
             <template slot-scope="scope">
               <span v-if="scope.row.member">
                 {{ scope.row.member.nickname }}
@@ -68,27 +68,34 @@
             </template>
           </el-table-column>
 
-          <el-table-column :label="$t('agent.username')">
+          <el-table-column :label="$t('agent.username')" width="80">
             <template slot-scope="scope">
               <span v-if="scope.row.member">
                 {{ scope.row.member.username }}
               </span>
+              <span v-else>
+                {{ $t('common.empty') }}
+              </span>
             </template>
           </el-table-column>
 
-          <el-table-column prop="total" :label="$t('inventory.inbound.total')">
+          <el-table-column prop="total" :label="$t('inventory.inbound.total')" width="80">
           </el-table-column>
 
-          <el-table-column prop="operator" :label="$t('inventory.outbound.operator')">
+          <el-table-column prop="operator" :label="$t('inventory.outbound.operator')" width="80">
           </el-table-column>
 
-          <el-table-column prop="create_time" :label="$t('inventory.create_time')" width="150">
+          <el-table-column prop="create_time" :label="$t('inventory.inbound.create_time')" width="140">
           </el-table-column>
 
-          <el-table-column :label="$t('common.handle')" fixed="right" width="280">
+          <el-table-column :label="$t('common.handle')" fixed="right" width="370">
             <template slot-scope="scope">
               <el-button v-if="isAuth('module:inbound:form')" type="success" icon="el-icon-download" @click="$router.push({name: 'module_inbound_form', query: {id: scope.row.id}})">
                 {{ $t('inventory.inbound.update') }}
+              </el-button>
+
+              <el-button v-if="isAuth('module:inbound:view')" type="info" icon="el-icon-printer" @click="$router.push({name: 'module_inbound_view', query: {id: scope.row.id}})">
+                {{ $t('inventory.inbound.detail_info') }}
               </el-button>
 
               <el-button v-if="isAuth('module:inbound:abnormal:list')" type="warning" icon="el-icon-question" @click="$router.push({name: 'module_inbound_abnormal_list', query: {inbound_id: scope.row.id}})">

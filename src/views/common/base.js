@@ -50,6 +50,7 @@ export default {
           'name': this.dataForm.name,
           'type': this.dataForm.type,
           'code': this.dataForm.code,
+          'model': this.dataForm.model,
           'title': this.dataForm.title,
           'status': this.dataForm.status,
           'order_no': this.dataForm.order_no,

@@ -16,7 +16,6 @@
         </div>
       </div>
 
-
       <div class="admin_main_block_top">
         <el-descriptions class="margin-top mt10 color" :column="7">
           <el-descriptions-item :label="$t('inventory.printer_total')">
@@ -68,16 +67,16 @@
           <el-table-column type="selection" header-align="center" align="center">
           </el-table-column>
 
-          <el-table-column prop="id" label="#"  width="70px">
+          <el-table-column prop="id" label="#" width="70">
           </el-table-column>
 
-          <el-table-column :label="$t('inventory.type')">
+          <el-table-column :label="$t('inventory.type')" width="80">
             <template slot-scope="scope">
               {{ scope.row.type.text }}
             </template>
           </el-table-column>
 
-          <el-table-column prop="model" :label="$t('inventory.model')">
+          <el-table-column prop="model" :label="$t('inventory.model')" width="100">
           </el-table-column>
 
           <el-table-column prop="code" :label="$t('inventory.code')">
