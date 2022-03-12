@@ -47,7 +47,7 @@
             </template>
           </el-table-column>
 
-          <el-table-column :label="$t('manager.info')">
+          <el-table-column :label="$t('manager.info')" min-width="260">
             <template slot-scope="scope">
               <dl class="table_dl">
                 <dt>
@@ -67,12 +67,7 @@
 
           <el-table-column prop="username" :label="$t('manager.username')" width="100">
             <template slot-scope="scope">
-              <span v-if="11 == scope.row.username.length">
-                {{ scope.row.username }}
-              </span>
-              <span v-else>
-                {{ $t('common.empty') }}
-              </span>
+              {{ scope.row.username | emptyData }}
             </template>
           </el-table-column>
 

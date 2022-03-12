@@ -23,6 +23,7 @@ import i18n from './lang'
 import VueCookie from 'vue-cookie'
 import store from './store'
 import { isAuth } from './utils/auth'
+import * as filter from './utils/filter'
 import httpRequest from './utils/httpRequest'
 import ElTreeGrid from 'element-tree-grid'
 import Icon from 'vue2-svg-icon/Icon'
@@ -42,6 +43,12 @@ Vue.use(VueCookie, {
   i18n: (key, value) => i18n.t(key, value)
 })
 
+// 导出的是对象，可以直接通过 key 和 value 来获得过滤器的名和过滤器的方法
+Object.keys(filter).forEach(key => {
+  Vue.filter(key, filter[key])
+})
+
+
 
 Vue.component('icon',Icon);
 
@@ -59,7 +66,7 @@ router.afterEach(() => {
 })
 
 /* eslint-disable no-new */
-new Vue({
+window.vm = new Vue({
   el: '#app',
   i18n,
   router,

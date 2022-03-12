@@ -37,9 +37,12 @@
           </el-table-column>
 
           <el-table-column prop="username" :label="$t('member.username')" width="100">
+            <template slot-scope="scope">
+              {{ scope.row.username | emptyData }}
+            </template>
           </el-table-column>
 
-          <el-table-column :label="$t('member.info')">
+          <el-table-column :label="$t('member.info')" min-width="260">
             <template slot-scope="scope">
               <dl class="table_dl">
                 <dt>

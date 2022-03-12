@@ -1,66 +1,22 @@
-/**
- * 模拟测试结果
- * @param {*} value
- */
-export function simulationExamResult (value)
-{
-  if(84 < value)
-  {
-    return '优';
-  }
-  else if(74 < value)
-  {
-    return '良';
-  }
-  else if(59 < value)
-  {
-    return '中';
-  }
-  else if(1 < value)
-  {
-    return '差';
-  }
-  else
-  {
-    return '无';
-  }
-}
+
 
 /**
- * 学习设备类型
- * @param {*} value
+ * 格式化普通内容
+ * @param data
+ * @returns 格式后的数据
  */
-export function studyDeviceType (value)
+export function emptyData (data)
 {
-  if(1 == value)
+  let response = data
+
+  if (data == '' || data === '' || data == 0 || data == null || data === undefined || data === 'undefined')
   {
-    return '电脑端';
+    response = window.vm.$t('common.empty')
   }
-  else
-  {
-    return '移动端';
-  }
+
+  return response
 }
 
-/**
- * 作业回复
- * @param {*} value
- */
-export function homeworkResult (value)
-{
-  if(1 == value)
-  {
-    return '回答正确';
-  }
-  else if(2 == value)
-  {
-    return '回答错误'
-  }
-  else
-  {
-    return '待批复';
-  }
-}
 
 /**
  * 时长
@@ -70,7 +26,7 @@ export function datetime (value)
 {
   if (0 == value || '' == value)
   {
-    return '暂无';
+    return window.vm.$t('common.empty')
   }
 
   value = value * 1000;
@@ -114,7 +70,7 @@ export function timeLength (value)
 
   if (0 == value || '' == value)
   {
-    return '暂无';
+    return window.vm.$t('common.empty')
   }
 
   day = Math.floor(value / (3600 * 24));

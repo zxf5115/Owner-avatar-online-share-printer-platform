@@ -186,17 +186,17 @@
 
                   <el-table-column :label="$t('printer.status')">
                     <template slot-scope="scope">
-                      <span v-if="2 == scope.row.bind_status.value">
+                      <span v-if="2 == scope.row.activate_status.value">
                         {{ scope.row.bind_status.text }}
                       </span>
-                      <span class="green1" v-else-if="1 == scope.row.status.value">
-                        {{ scope.row.status.text }}
+                      <span class="green1" v-else-if="1 == scope.row.activate_status.value">
+                        {{ scope.row.activate_status.text }}
                       </span>
-                      <span class="red" v-else-if="2 == scope.row.status.value">
-                        {{ scope.row.status.text }}
+                      <span class="red" v-else-if="2 == scope.row.activate_status.value">
+                        {{ scope.row.activate_status.text }}
                       </span>
                       <span v-else>
-                        {{ scope.row.status.text }}
+                        {{ scope.row.activate_status.text }}
                       </span>
                     </template>
                   </el-table-column>

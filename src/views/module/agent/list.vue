@@ -74,7 +74,7 @@
             </template>
           </el-table-column>
 
-          <el-table-column :label="$t('agent.info')" width="260">
+          <el-table-column :label="$t('agent.info')" min-width="260">
             <template slot-scope="scope">
               <dl class="table_dl">
                 <dt>
@@ -92,18 +92,21 @@
             </template>
           </el-table-column>
 
-          <el-table-column prop="username" :label="$t('agent.username')" width="150">
+          <el-table-column prop="username" :label="$t('agent.username')" width="100">
+            <template slot-scope="scope">
+              {{ scope.row.username | emptyData }}
+            </template>
           </el-table-column>
 
-          <el-table-column :label="$t('agent.level')" width="120">
+          <el-table-column :label="$t('agent.level')" width="100">
             <template slot-scope="scope">
               {{ scope.row.level.text }}
             </template>
           </el-table-column>
 
-          <el-table-column :label="$t('common.area')" width="120">
+          <el-table-column :label="$t('common.area')" width="100">
             <template slot-scope="scope" v-if="scope.row.archive">
-              {{ scope.row.archive.province_id.text }}
+              {{ scope.row.archive.province_id.text | emptyData }}
             </template>
           </el-table-column>
 
@@ -113,22 +116,22 @@
             </template>
           </el-table-column>
 
-          <el-table-column :label="$t('agent.asset.proportion')" width="100">
+          <el-table-column :label="$t('agent.asset.proportion')" width="80">
             <template slot-scope="scope" v-if="scope.row.asset">
               {{ scope.row.asset.proportion }}
             </template>
           </el-table-column>
 
-          <el-table-column :label="$t('agent.asset.should_printer_total')" width="100">
+          <el-table-column :label="$t('agent.asset.should_printer_total')" width="80">
             <template slot-scope="scope" v-if="scope.row.asset">
               {{ scope.row.asset.should_printer_total }}
             </template>
           </el-table-column>
 
-          <el-table-column prop="below_agent_total" :label="$t('agent.below_agent')" width="100">
+          <el-table-column prop="below_agent_total" :label="$t('agent.below_agent')" width="80">
           </el-table-column>
 
-          <el-table-column :label="$t('agent.below_manager')" width="100">
+          <el-table-column :label="$t('agent.below_manager')" width="80">
             <template slot-scope="scope">
               <el-link type="primary" @click="$router.push({name: 'module_manager_list', query: {parent_id: scope.row.id}})">
                 {{ scope.row.below_manager_total }}
@@ -136,7 +139,7 @@
             </template>
           </el-table-column>
 
-          <el-table-column :label="$t('agent.archive.register_qrcode_url')" width="120">
+          <el-table-column :label="$t('agent.archive.register_qrcode_url')" width="100">
             <template slot-scope="scope" v-if="scope.row.archive && scope.row.archive.register_qrcode_url != ''">
               <el-link type="primary" :href="scope.row.archive.register_qrcode_url" target="_blank">
                 {{ $t('common.download') }}
@@ -144,7 +147,7 @@
             </template>
           </el-table-column>
 
-          <el-table-column :label="$t('agent.archive.invitation_qrcode_url')" width="120">
+          <el-table-column :label="$t('agent.archive.invitation_qrcode_url')" width="100">
             <template slot-scope="scope" v-if="scope.row.archive && scope.row.archive.invitation_qrcode_url != ''">
               <el-link type="primary" :href="scope.row.archive.invitation_qrcode_url" target="_blank">
                 {{ $t('common.download') }}
@@ -152,7 +155,7 @@
             </template>
           </el-table-column>
 
-          <el-table-column prop="status" :label="$t('agent.status')" width="100">
+          <el-table-column prop="status" :label="$t('agent.status')" width="80">
             <template slot-scope="scope">
               <el-switch
                 v-model="scope.row.status.value"
@@ -268,7 +271,10 @@
       }
     },
     created() {
-      this.dataForm.parent_id = this.$route.query.parent_id;
+      if(this.$route.query.parent_id)
+      {
+        this.dataForm.parent_id = this.$route.query.parent_id;
+      }
 
       this.getDataList();
 
