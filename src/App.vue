@@ -1,6 +1,6 @@
 <template>
   <div id="apps">
-    <router-view></router-view>
+    <router-view :key="$route.query.t"></router-view>
   </div>
 </template>
 

@@ -23,12 +23,6 @@
       <div class="admin_main_block_top">
         <div class="admin_main_block_left">
           <div>
-            <el-select v-model="dataForm.parent_id" :placeholder="$t('common.please_select') + $t('manager.agent_name')" clearable>
-              <el-option :label="$t('common.all')" value=""></el-option>
-              <el-option v-for="(v,k) in agentList" :label="v.nickname" :key="k" :value="v.id"></el-option>
-            </el-select>
-          </div>
-          <div>
             <el-input v-model="dataForm.username" :placeholder="$t('common.please_input') + $t('agent.username')" clearable>
             </el-input>
           </div>
@@ -129,6 +123,11 @@
           </el-table-column>
 
           <el-table-column prop="below_agent_total" :label="$t('agent.below_agent')" width="80">
+            <template slot-scope="scope">
+              <el-link type="primary" @click="$router.push({name: 'module_agent_list', query: {parent_id: scope.row.id, t: Date.now()}})">
+                {{ scope.row.below_agent_total }}
+              </el-link>
+            </template>
           </el-table-column>
 
           <el-table-column :label="$t('agent.below_manager')" width="80">
@@ -215,7 +214,6 @@
           {'id': 2, 'title': '二级代理'},
         ],
         provinceList: [],
-        agentList: [],
         dataForm: [
           'username',
           'nickname',
@@ -233,22 +231,6 @@
         }).then(({data}) => {
           if (data && data.status === 200) {
             this.provinceList = data.data
-          } else {
-            this.$message.error(this.$t(data.message))
-          }
-        })
-      },
-      loadAgentList () {
-        this.$http({
-          url: this.$http.adornUrl('/agent/select'),
-          method: 'get',
-          params: this.$http.adornParams({
-            'role_id': 3,
-            'level': 1
-          })
-        }).then(({data}) => {
-          if (data && data.status === 200) {
-            this.agentList = data.data
           } else {
             this.$message.error(this.$t(data.message))
           }
@@ -279,7 +261,6 @@
       this.getDataList();
 
       this.loadProvinceList();
-      this.loadAgentList();
     }
   };
 </script>
