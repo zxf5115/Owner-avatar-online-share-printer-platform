@@ -94,7 +94,7 @@
                 {{ $t('inventory.inbound.update') }}
               </el-button>
 
-              <el-button v-if="isAuth('module:inbound:view')" type="info" icon="el-icon-printer" @click="$router.push({name: 'module_inbound_view', query: {id: scope.row.id}})">
+              <el-button v-if="isAuth('module:inbound:detail:list')" type="info" icon="el-icon-printer" @click="$router.push({name: 'module_inbound_detail_list', query: {inbound_id: scope.row.id}})">
                 {{ $t('inventory.inbound.detail_info') }}
               </el-button>
 

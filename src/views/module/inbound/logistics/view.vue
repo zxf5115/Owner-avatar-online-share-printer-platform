@@ -61,7 +61,7 @@
     {
       init ()
       {
-        let id = this.$route.query.outbound_id
+        let id = this.$route.query.inbound_id
 
         this.dataForm.id = id || 0
         this.$nextTick(() => {

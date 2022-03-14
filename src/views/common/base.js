@@ -101,6 +101,8 @@ export default {
           'printer_code': this.dataForm.printer_code,
           'equipment_status': this.dataForm.equipment_status,
           'inventory_id': this.dataForm.inventory_id,
+          'inbound_id': this.dataForm.inbound_id,
+          'outbound_id': this.dataForm.outbound_id,
           'category': this.dataForm.category,
         })
       }).then(({data}) => {

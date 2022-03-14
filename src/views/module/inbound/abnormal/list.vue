@@ -11,7 +11,7 @@
         </div>
       </div>
 
-      <div class="admin_table_main">
+      <div class="admin_table_main color">
         <el-table :data="dataList" v-loading="dataListLoading" @selection-change="selectionChangeHandle">
           <el-table-column type="selection" header-align="center" align="center">
           </el-table-column>
@@ -19,7 +19,7 @@
           <el-table-column prop="id" label="#"  width="70px">
           </el-table-column>
 
-          <el-table-column :label="$t('inventory.inbound.abnormal.inbound_id')">
+          <el-table-column :label="$t('inventory.inbound.abnormal.inbound_id')" width="80">
             <template slot-scope="scope">
               <span v-if="scope.row.inbound">
                 {{ scope.row.inbound.id }}
@@ -27,19 +27,35 @@
             </template>
           </el-table-column>
 
-          <el-table-column :label="$t('inventory.inbound.abnormal.type')">
+          <el-table-column :label="$t('inventory.inbound.abnormal.type')" width="80">
             <template slot-scope="scope">
-              {{ scope.row.type.text }}
+              <b class="red">{{ scope.row.type.text }}</b>
             </template>
           </el-table-column>
 
-          <el-table-column prop="model" :label="$t('inventory.inbound.abnormal.model')">
+          <el-table-column :label="$t('inventory.type')" width="80">
+            <template slot-scope="scope">
+              <span v-if="scope.row.inbound">
+                {{ scope.row.inbound.type.text }}
+              </span>
+            </template>
+          </el-table-column>
+
+          <el-table-column prop="model" :label="$t('inventory.inbound.abnormal.model')" width="100">
           </el-table-column>
 
           <el-table-column prop="code" :label="$t('inventory.inbound.abnormal.code')">
           </el-table-column>
 
-          <el-table-column prop="create_time" :label="$t('inventory.inbound.abnormal.create_time')" width="150">
+          <el-table-column :label="$t('inventory.outbound.operator')" width="80">
+            <template slot-scope="scope">
+              <span v-if="scope.row.inbound">
+                {{ scope.row.inbound.operator }}
+              </span>
+            </template>
+          </el-table-column>
+
+          <el-table-column prop="create_time" :label="$t('inventory.inbound.abnormal.create_time')" width="140">
           </el-table-column>
         </el-table>
 
@@ -65,10 +81,13 @@
     data() {
       return {
         model: 'inbound/abnormal',
-        dataForm: []
+        dataForm: [
+          'inbound_id'
+        ]
       };
     },
     created() {
+      this.dataForm.inbound_id = this.$route.query.inbound_id;
       this.getDataList()
     }
   };
