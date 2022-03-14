@@ -25,15 +25,19 @@
         </div>
         <div class="text item">
           <el-form-item :label="$t('inventory.type')" prop="type">
-            <el-select v-model="dataForm.type" :placeholder="$t('common.please_select')+$t('inventory.type')">
-              <el-option v-for="(v,k) in typeList" :label="v.title" :key="k" :value="v.id"></el-option>
-            </el-select>
+            <el-radio-group v-model="dataForm.type">
+              <el-radio-button v-for="(v,k) in typeList" :key="k" :label="v.id">
+                {{ v.title }}
+              </el-radio-button>
+            </el-radio-group>
           </el-form-item>
 
           <el-form-item :label="$t('inventory.outbound.category')" prop="category">
-            <el-select v-model="dataForm.category" :placeholder="$t('common.please_select')+$t('inventory.outbound.category')">
-              <el-option v-for="(v,k) in categoryList" :label="v.title" :key="k" :value="v.id"></el-option>
-            </el-select>
+            <el-radio-group v-model="dataForm.category">
+              <el-radio-button v-for="(v,k) in categoryList" :key="k" :label="v.id">
+                {{ v.title }}
+              </el-radio-button>
+            </el-radio-group>
           </el-form-item>
 
           <el-form-item :label="$t('inventory.outbound.device_code')" prop="device_code">

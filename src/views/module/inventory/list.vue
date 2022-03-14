@@ -51,6 +51,14 @@
             </el-select>
           </div>
           <div>
+            <el-input v-model="dataForm.model" :placeholder="$t('common.please_input') + $t('inventory.model')" clearable>
+            </el-input>
+          </div>
+          <div>
+            <el-input v-model="dataForm.code" :placeholder="$t('common.please_input') + $t('inventory.code')" clearable>
+            </el-input>
+          </div>
+          <div>
             <el-date-picker format="yyyy-MM-dd HH:mm" v-model="dataForm.create_time" type="daterange" :range-separator="$t('common.to')" :start-placeholder="$t('common.start_time')" :end-placeholder="$t('common.end_time')" clearable>
             </el-date-picker>
           </div>
@@ -143,6 +151,8 @@
         dataForm: [
           'type',
           'equipment_status',
+          'model',
+          'code',
           'create_time',
         ]
       };
