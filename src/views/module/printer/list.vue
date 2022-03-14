@@ -14,7 +14,11 @@
       <div class="admin_main_block_top">
         <div class="admin_main_block_left">
           <div>
-            <el-input v-model="dataForm.title" :placeholder="$t('common.please_input') + $t('printer.title')" clearable>
+            <el-input v-model="dataForm.model" :placeholder="$t('common.please_input') + $t('printer.model')" clearable>
+            </el-input>
+          </div>
+          <div>
+            <el-input v-model="dataForm.code" :placeholder="$t('common.please_input') + $t('printer.code')" clearable>
             </el-input>
           </div>
           <div>
@@ -61,7 +65,7 @@
             </template>
           </el-table-column>
 
-          <el-table-column :label="$t('manager.nickname')" width="120">
+          <el-table-column :label="$t('manager.nickname')" width="100">
             <template slot-scope="scope">
               <span v-if="scope.row.manager">
                 {{ scope.row.manager.nickname }}
@@ -83,7 +87,10 @@
             </template>
           </el-table-column>
 
-          <el-table-column prop="code" :label="$t('printer.code')" width="120">
+          <el-table-column prop="model" :label="$t('printer.model')" width="100">
+          </el-table-column>
+
+          <el-table-column prop="code" :label="$t('printer.code')" width="100">
           </el-table-column>
 
           <el-table-column prop="ink_quantity" :label="$t('printer.ink_quantity')" width="200">
@@ -92,13 +99,13 @@
             </template>
           </el-table-column>
 
-          <el-table-column prop="paper_quantity" :label="$t('printer.paper_quantity')" width="120">
+          <el-table-column prop="paper_quantity" :label="$t('printer.paper_quantity')" width="80">
           </el-table-column>
 
           <el-table-column prop="address" :label="$t('printer.address')">
           </el-table-column>
 
-          <el-table-column :label="$t('printer.qrcode_url')" width="120">
+          <el-table-column :label="$t('printer.qrcode_url')" width="100">
             <template slot-scope="scope" v-if="scope.row.qrcode_url != ''">
               <el-link type="primary" :href="scope.row.qrcode_url" target="_blank">
                 {{ $t('common.download') }}
@@ -116,40 +123,45 @@
 
           <el-table-column :label="$t('printer.status')" width="100">
             <template slot-scope="scope">
-              <el-switch
-                v-model="scope.row.activate_status.value"
-                :active-value="1"
-                :inactive-value="2"
-                @change="handleStatus($event, scope.row.id, 'activate_status')">
-              </el-switch>
+              <span v-if="scope.row.bind_status.value == 1">
+                <el-switch
+                  v-model="scope.row.activate_status.value"
+                  :active-value="1"
+                  :inactive-value="2"
+                  @change="handleStatus($event, scope.row.id, 'activate_status')">
+                </el-switch>
+              </span>
             </template>
           </el-table-column>
 
           <el-table-column :label="$t('common.handle')" fixed="right" width="580">
             <template slot-scope="scope">
-              <el-button v-if="isAuth('module:printer:paper') && scope.row.bind_status.value == 1" icon="el-icon-files" @click="actionHandle(scope.row.id, 1)">
-                {{ $t('printer.paper_info') }}
-              </el-button>
+              <span>
+                <el-button class="mr10i" v-if="isAuth('module:printer:paper') && scope.row.bind_status.value == 1" icon="el-icon-files" @click="actionHandle(scope.row.id, 1)">
+                  {{ $t('printer.paper_info') }}
+                </el-button>
+              </span>
+              <span>
+                <el-button v-if="isAuth('module:printer:ink') && scope.row.bind_status.value == 1" type="warning" icon="el-icon-help" @click="actionHandle(scope.row.id, 2)">
+                  {{ $t('printer.ink_info') }}
+                </el-button>
 
-              <el-button v-if="isAuth('module:printer:ink') && scope.row.bind_status.value == 1" type="warning" icon="el-icon-help" @click="actionHandle(scope.row.id, 2)">
-                {{ $t('printer.ink_info') }}
-              </el-button>
+                <el-button v-if="isAuth('module:printer:equipment') && scope.row.bind_status.value == 1" type="success" icon="el-icon-printer" @click="actionHandle(scope.row.id, 3)">
+                  {{ $t('printer.equipment_info') }}
+                </el-button>
 
-              <el-button v-if="isAuth('module:printer:equipment') && scope.row.bind_status.value == 1" type="success" icon="el-icon-printer" @click="actionHandle(scope.row.id, 3)">
-                {{ $t('printer.equipment_info') }}
-              </el-button>
+                <el-button v-if="isAuth('module:printer:handle') && scope.row.bind_status.value == 1 && scope.row.qrcode_url == ''" icon="el-icon-menu" @click="qrcodeHandle(scope.row.id)">
+                  {{ $t('printer.qrcode_info') }}
+                </el-button>
 
-              <el-button v-if="isAuth('module:printer:handle') && scope.row.bind_status.value == 1 && scope.row.qrcode_url == ''" icon="el-icon-menu" @click="qrcodeHandle(scope.row.id)">
-                {{ $t('printer.qrcode_info') }}
-              </el-button>
+                <el-button v-if="isAuth('module:printer:log:list') && scope.row.bind_status.value == 1" type="info" icon="el-icon-paperclip" @click="$router.push({name: 'module_printer_log_list', query: {printer_id : scope.row.id}})">
+                  {{ $t('printer.log_info') }}
+                </el-button>
 
-              <el-button v-if="isAuth('module:printer:log:list') && scope.row.bind_status.value == 1" type="info" icon="el-icon-paperclip" @click="$router.push({name: 'module_printer_log_list', query: {printer_id : scope.row.id}})">
-                {{ $t('printer.log_info') }}
-              </el-button>
-
-              <el-button v-if="isAuth('module:printer:delete')" type="danger" icon="el-icon-delete" @click="deleteHandle(scope.row.id)">
-                {{ $t('common.delete') }}
-              </el-button>
+                <el-button v-if="isAuth('module:printer:delete')" type="danger" icon="el-icon-delete" @click="deleteHandle(scope.row.id)">
+                  {{ $t('common.delete') }}
+                </el-button>
+              </span>
             </template>
           </el-table-column>
         </el-table>
@@ -182,7 +194,8 @@
           {'id': 3, title: '损坏'},
         ],
         dataForm: [
-          'title',
+          'model',
+          'code',
           'bind_status',
           'activate_status',
         ]

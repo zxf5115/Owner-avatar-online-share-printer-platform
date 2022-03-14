@@ -158,7 +158,7 @@
                 this.dataForm.member_id   = data.data.member_id
                 this.dataForm.type        = data.data.type.value
                 this.dataForm.category    = data.data.category.value
-                this.dataForm.device_code = data.data.device_code
+                this.dataForm.device_code = data.data.resource.device_code
                 this.dataForm.total       = data.data.total
                 this.dataForm.operator    = data.data.operator
                 this.dataForm.picture     = data.data.resource.picture
