@@ -41,6 +41,7 @@ export const inventory = {
     nickname: '系统入库',
     category: '入库类型',
     total: '入库数量',
+    inbound_status: '入库状态',
     create_time: '入库时间',
 
     rules: {
@@ -88,6 +89,7 @@ export const inventory = {
     company_id: '物流公司',
     logistics_no: '物流单号',
     receipt_form: '签收单',
+    outbound_status: '出库状态',
     create_time: '出库时间',
 
     rules: {

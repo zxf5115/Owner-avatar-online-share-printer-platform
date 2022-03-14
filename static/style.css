@@ -205,11 +205,17 @@ text-align: center;
 .ptb3 {
     padding: 3px 0
 }
+.pr10 {
+    padding-right: 10px;
+}
 .ml10 {
     margin-left: 10px;
 }
 .mr10 {
     margin-right: 10px;
+}
+.mr10i {
+    margin-right: 10px !important;
 }
 .mt6 {
     margin-top: 6px;
