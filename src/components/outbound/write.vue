@@ -155,22 +155,30 @@
               params: this.$http.adornParams()
             }).then(({data}) => {
               if (data && data.status === 200) {
-                this.dataForm.member_id   = data.data.member_id
-                this.dataForm.type        = data.data.type.value
-                this.dataForm.category    = data.data.category.value
-                this.dataForm.device_code = data.data.resource.device_code
-                this.dataForm.total       = data.data.total
-                this.dataForm.operator    = data.data.operator
-                this.dataForm.picture     = data.data.resource.picture
+                this.dataForm.member_id = data.data.member_id
+                this.dataForm.type      = data.data.type.value
+                this.dataForm.total     = data.data.total
+                this.dataForm.operator  = data.data.operator
+                this.username           = data.data.username
 
-                this.device_code_url = [{'url': data.data.resource.device_code}]
-
-                if(isNotEmpty(data.data.resource.device_code))
+                if(data.data.category)
                 {
-                  this.is_show = true
+                  this.dataForm.category  = data.data.category.value
                 }
 
-                this.username = data.data.username
+                if(data.data.resource)
+                {
+                  this.dataForm.device_code = data.data.resource.device_code
+
+                  this.dataForm.picture     = data.data.resource.picture
+
+                  this.device_code_url = [{'url': data.data.resource.device_code}]
+
+                  if(isNotEmpty(data.data.resource.device_code))
+                  {
+                    this.is_show = true
+                  }
+                }
               }
             })
           }

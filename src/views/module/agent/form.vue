@@ -94,19 +94,12 @@
             </div>
           </el-card>
 
-          <el-card class="box-card mt10" shadow="never">
+          <el-card :class="display ? 'box-card mt10 display' : 'box-card mt10'" shadow="never">
             <div slot="header" class="clearfix">
               <span>{{ $t('agent.printer_info') }}</span>
             </div>
             <div class="text item">
-              <el-form-item :label="$t('agent.archive.source')" prop="source">
-                <el-radio-group v-model="dataForm.source" @change="handleSource">
-                  <el-radio label="1">官方提供</el-radio>
-                  <el-radio label="2">分销商提供</el-radio>
-                </el-radio-group>
-              </el-form-item>
-
-              <el-form-item :class="disable ? 'display' : ''" :label="$t('agent.resource.equipment')" prop="equipment">
+              <el-form-item :label="$t('agent.resource.equipment')" prop="equipment">
                 <el-upload class="upload-demo"
                   :action="this.$http.adornUrl('/file/file')"
                   :headers="upload_headers"
@@ -153,7 +146,6 @@
       return {
         model: 'agent',
         display: true,
-        disable: true,
         upload_headers:{},
         is_show: false,
         is_equipemnt_show: false,
@@ -179,7 +171,6 @@
           business_license: '',
           contract: '',
           equipment_url: '',
-          source: '1',
         },
         dataRule:
         {
@@ -309,16 +300,6 @@
         else
         {
           this.display = true
-        }
-      },
-      handleSource(source) {
-        if(2 == source)
-        {
-          this.disable = false
-        }
-        else
-        {
-          this.disable = true
         }
       },
       handleSuccess(res, file) {
