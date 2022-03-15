@@ -36,8 +36,11 @@
 
           <el-table-column prop="customer_name" :label="$t('complain.customer_name')">
             <template slot-scope="scope">
-              <span v-if="scope.row.member">
+              <span v-if="scope.row.member && scope.row.type.value == 2">
                 {{ scope.row.member.nickname }}
+              </span>
+              <span v-else-if="scope.row.organization && scope.row.type.value == 1">
+                {{ scope.row.organization.nickname }}
               </span>
             </template>
           </el-table-column>
