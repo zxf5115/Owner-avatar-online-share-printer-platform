@@ -33,6 +33,7 @@ export const inventory = {
     receipt_info: '签收信息',
     finish_info: '完成信息',
     detail_info: '明细',
+    log_info: '日志',
 
     write: '填写信息',
     inventory: '盘点',
@@ -40,7 +41,8 @@ export const inventory = {
 
     nickname: '系统入库',
     category: '入库类型',
-    total: '入库数量',
+    total: '应入库数量',
+    actual_total: '已入库数量',
     inbound_status: '入库状态',
     create_time: '入库时间',
 
@@ -83,13 +85,15 @@ export const inventory = {
 
     category: '出库类型',
     device_code: '设备码',
-    total: '出库数量',
+    total: '应出库数量',
+    actual_total: '已出库数量',
     operator: '操作人',
     picture: '单据',
     company_id: '物流公司',
     logistics_no: '物流单号',
     receipt_form: '签收单',
     outbound_status: '出库状态',
+    abnormal_status: '异常状态',
     create_time: '出库时间',
 
     rules: {
@@ -129,5 +133,10 @@ export const inventory = {
       picture: '凭证',
       receipt_form: '签收单',
     },
+
+    log: {
+      content: '日志内容',
+      create_time: '记录时间',
+    }
   },
 }

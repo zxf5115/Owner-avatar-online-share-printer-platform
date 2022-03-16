@@ -37,7 +37,7 @@
         </div>
       </div>
 
-      <div class="admin_table_main">
+      <div class="admin_table_main color">
         <el-table :data="dataList" v-loading="dataListLoading" @selection-change="selectionChangeHandle">
           <el-table-column type="selection" header-align="center" align="center">
           </el-table-column>
@@ -82,6 +82,22 @@
           <el-table-column prop="total" :label="$t('inventory.inbound.total')" width="80">
           </el-table-column>
 
+          <el-table-column :label="$t('inventory.inbound.actual_total')" width="80">
+            <template slot-scope="scope">
+              <b class="green1">
+                {{ scope.row.actual_total }}
+              </b>
+            </template>
+          </el-table-column>
+
+          <el-table-column :label="$t('inventory.outbound.abnormal_status')" width="80">
+            <template slot-scope="scope">
+              <b :class="2 == scope.row.abnormal_status.value ? 'red' : 'blue'">
+                {{ scope.row.abnormal_status.text }}
+              </b>
+            </template>
+          </el-table-column>
+
           <el-table-column prop="operator" :label="$t('inventory.outbound.operator')" width="80">
           </el-table-column>
 
@@ -94,7 +110,7 @@
           <el-table-column prop="create_time" :label="$t('inventory.inbound.create_time')" width="140">
           </el-table-column>
 
-          <el-table-column :label="$t('common.handle')" fixed="right" width="370">
+          <el-table-column :label="$t('common.handle')" fixed="right" width="460">
             <template slot-scope="scope">
               <span>
                 <el-button class="mr10i" v-if="isAuth('module:inbound:form') && scope.row.inbound_status.value != 3" type="success" icon="el-icon-download" @click="$router.push({name: 'module_inbound_form', query: {id: scope.row.id}})">
@@ -104,6 +120,10 @@
               <span>
                 <el-button v-if="isAuth('module:inbound:detail:list')" type="info" icon="el-icon-printer" @click="$router.push({name: 'module_inbound_detail_list', query: {inbound_id: scope.row.id}})">
                   {{ $t('inventory.inbound.detail_info') }}
+                </el-button>
+
+                <el-button v-if="isAuth('module:inbound:log:list')" type="warning" icon="el-icon-tickets" @click="$router.push({name: 'module_inbound_log_list', query: {inbound_id: scope.row.id}})">
+                  {{ $t('inventory.inbound.log_info') }}
                 </el-button>
 
                 <el-button v-if="isAuth('module:inbound:abnormal:list')" type="warning" icon="el-icon-question" @click="$router.push({name: 'module_inbound_abnormal_list', query: {inbound_id: scope.row.id}})">
