@@ -122,7 +122,7 @@
                   {{ $t('inventory.inbound.detail_info') }}
                 </el-button>
 
-                <el-button v-if="isAuth('module:inbound:log:list')" type="warning" icon="el-icon-tickets" @click="$router.push({name: 'module_inbound_log_list', query: {inbound_id: scope.row.id}})">
+                <el-button v-if="isAuth('module:inbound:log:list') && scope.row.abnormal_status.value == 2" type="warning" icon="el-icon-tickets" @click="$router.push({name: 'module_inbound_log_list', query: {inbound_id: scope.row.id}})">
                   {{ $t('inventory.inbound.log_info') }}
                 </el-button>
 

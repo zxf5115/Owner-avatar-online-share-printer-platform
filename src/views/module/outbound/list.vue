@@ -129,11 +129,11 @@
                   {{ $t('inventory.inbound.detail_info') }}
                 </el-button>
 
-                <el-button v-if="isAuth('module:outbound:log:list')" type="warning" icon="el-icon-tickets" @click="$router.push({name: 'module_outbound_log_list', query: {outbound_id: scope.row.id}})">
+                <el-button v-if="isAuth('module:outbound:log:list') && scope.row.abnormal_status.value == 2" type="warning" icon="el-icon-tickets" @click="$router.push({name: 'module_outbound_log_list', query: {outbound_id: scope.row.id}})">
                   {{ $t('inventory.inbound.log_info') }}
                 </el-button>
 
-                <el-button v-if="isAuth('module:outbound:logistics:view')" type="primary" icon="el-icon-truck" @click="$router.push({name: 'module_outbound_logistics_view', query: {outbound_id: scope.row.id}})">
+                <el-button v-if="isAuth('module:outbound:logistics:view') && scope.row.outbound_status.value > 1" type="primary" icon="el-icon-truck" @click="$router.push({name: 'module_outbound_logistics_view', query: {outbound_id: scope.row.id}})">
                   {{ $t('inventory.log.logistics_info') }}
                 </el-button>
 

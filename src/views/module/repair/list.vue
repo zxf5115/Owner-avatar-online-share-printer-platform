@@ -50,25 +50,25 @@
           <el-table-column prop="id" label="#" width="70">
           </el-table-column>
 
-          <el-table-column :label="$t('repair.category.title')" width="120">
+          <el-table-column :label="$t('repair.category.title')" width="100">
             <template slot-scope="scope" v-if="scope.row.category">
               {{ scope.row.category.title }}
             </template>
           </el-table-column>
 
-          <el-table-column :label="$t('manager.nickname')" width="120">
+          <el-table-column :label="$t('manager.nickname')" width="80">
             <template slot-scope="scope" v-if="scope.row.member">
               {{ scope.row.member.nickname }}
             </template>
           </el-table-column>
 
-          <el-table-column :label="$t('manager.username')" width="120">
+          <el-table-column :label="$t('manager.username')" width="100">
             <template slot-scope="scope" v-if="scope.row.member">
               {{ scope.row.member.username }}
             </template>
           </el-table-column>
 
-          <el-table-column :label="$t('printer.code')" width="120">
+          <el-table-column :label="$t('printer.code')" width="100">
             <template slot-scope="scope" v-if="scope.row.printer">
               {{ scope.row.printer.code }}
             </template>
