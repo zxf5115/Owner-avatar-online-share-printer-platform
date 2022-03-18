@@ -39,13 +39,13 @@
             </template>
           </el-table-column>
 
-          <el-table-column :label="$t('financial.money')">
+          <el-table-column :label="$t('financial.money')" width="100">
             <template slot-scope="scope">
               <b class="red">{{ scope.row.money }}</b>
             </template>
           </el-table-column>
 
-          <el-table-column :label="$t('financial.pay_type')">
+          <el-table-column :label="$t('financial.pay_type')" width="80">
             <template slot-scope="scope">
                 {{ scope.row.pay_type.text }}
             </template>
