@@ -39,7 +39,7 @@
           <el-table-column type="selection" header-align="center" align="center">
           </el-table-column>
 
-          <el-table-column prop="id" label="#"  width="70px">
+          <el-table-column prop="id" label="#" width="70">
           </el-table-column>
 
           <el-table-column prop="title" :label="$t('financial.price.title')">
@@ -48,10 +48,10 @@
           <el-table-column prop="price" :label="$t('financial.price.price')">
           </el-table-column>
 
-          <el-table-column prop="sort" :label="$t('common.sort')">
+          <el-table-column prop="sort" :label="$t('common.sort')" width="80">
           </el-table-column>
 
-          <el-table-column prop="create_time" :label="$t('common.create_time')">
+          <el-table-column prop="create_time" :label="$t('common.create_time')" width="140">
           </el-table-column>
 
           <el-table-column :label="$t('common.handle')" fixed="right" width="200">

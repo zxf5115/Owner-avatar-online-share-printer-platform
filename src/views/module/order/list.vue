@@ -172,10 +172,12 @@
           {'id': 1, 'title': '已支付'},
         ],
         orderList: [
-          {'id': 0, 'title': '待学习'},
-          {'id': 1, 'title': '学习中'},
+          {'id': 0, 'title': '待开始'},
+          {'id': 1, 'title': '打印中'},
           {'id': 2, 'title': '已完成'},
-          {'id': 3, 'title': '已关闭'},
+          {'id': 3, 'title': '订单异常'},
+          {'id': 4, 'title': '已取消'},
+          {'id': 5, 'title': '已退款'},
         ],
         dataForm: [
           'order_no',

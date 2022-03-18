@@ -26,7 +26,7 @@
           </div>
         </div>
       </div>
-      <div class="admin_table_main">
+      <div class="admin_table_main color">
         <el-table :data="dataList" v-loading="dataListLoading" @selection-change="selectionChangeHandle">
           <el-table-column type="selection" header-align="center" align="center">
           </el-table-column>
@@ -72,9 +72,15 @@
             </template>
           </el-table-column>
 
+          <el-table-column :label="$t('statistical.money')" width="100">
+            <template slot-scope="scope" v-if="scope.row.asset">
+              <b class="red">{{ scope.row.asset.money }}</b>
+            </template>
+          </el-table-column>
+
           <el-table-column :label="$t('statistical.withdrawal_money')" width="100">
             <template slot-scope="scope" v-if="scope.row.asset">
-              {{ scope.row.asset.withdrawal_money }}
+              <b class="red">{{ scope.row.asset.withdrawal_money }}</b>
             </template>
           </el-table-column>
 
@@ -141,7 +147,10 @@
       }
     },
     created() {
-      this.dataForm.parent_id = this.$route.query.parent_id;
+      if(this.$route.query.parent_id)
+      {
+        this.dataForm.parent_id = this.$route.query.parent_id;
+      }
 
       this.money();
 

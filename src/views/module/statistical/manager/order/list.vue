@@ -2,6 +2,19 @@
   <div class="qingwu color">
     <div class="admin_main_block">
       <div class="admin_main_block_top">
+        <div class="admin_main_block_left">
+          <div>{{ $t('statistical.manager.order.list') }}</div>
+        </div>
+
+        <div class="admin_main_block_right">
+          <div class="mr10">
+            <el-button icon="el-icon-back" @click="$router.go(-1)">
+              {{ $t('common.return') }}
+            </el-button>
+          </div>
+        </div>
+      </div>
+      <div class="admin_main_block_top">
         <el-descriptions class="margin-top mt10" :column="3" border>
           <el-descriptions-item>
             <template slot="label">
@@ -129,7 +142,9 @@
 
           <el-table-column :label="$t('order.type')" width="100">
             <template slot-scope="scope">
-              {{ scope.row.type.text }}
+              <span v-if="scope.row.price">
+                {{ scope.row.price.title }}
+              </span>
             </template>
           </el-table-column>
 
@@ -200,10 +215,12 @@
           {'id': 1, 'title': '已支付'},
         ],
         orderList: [
-          {'id': 0, 'title': '待学习'},
-          {'id': 1, 'title': '学习中'},
+          {'id': 0, 'title': '待开始'},
+          {'id': 1, 'title': '打印中'},
           {'id': 2, 'title': '已完成'},
-          {'id': 3, 'title': '已关闭'},
+          {'id': 3, 'title': '订单异常'},
+          {'id': 4, 'title': '已取消'},
+          {'id': 5, 'title': '已退款'},
         ],
         printer_id: 0,
         printerInfo: {},

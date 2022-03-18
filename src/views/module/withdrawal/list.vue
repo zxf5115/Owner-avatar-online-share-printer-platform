@@ -20,7 +20,7 @@
           <el-table-column type="selection" header-align="center" align="center">
           </el-table-column>
 
-          <el-table-column prop="id" label="#" width="70px">
+          <el-table-column prop="id" label="#" width="70">
           </el-table-column>
 
           <el-table-column :label="$t('financial.nickname')">
@@ -51,13 +51,13 @@
             </template>
           </el-table-column>
 
-          <el-table-column :label="$t('financial.confirm_status')">
+          <el-table-column :label="$t('financial.confirm_status')" width="80">
             <template slot-scope="scope">
                 {{ scope.row.confirm_status.text }}
             </template>
           </el-table-column>
 
-          <el-table-column prop="create_time" :label="$t('financial.create_time')">
+          <el-table-column prop="create_time" :label="$t('financial.create_time')" width="140">
           </el-table-column>
 
           <el-table-column :label="$t('common.handle')" fixed="right" width="100">

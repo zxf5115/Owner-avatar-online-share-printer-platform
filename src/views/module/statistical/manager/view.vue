@@ -8,7 +8,7 @@
 
         <div class="admin_main_block_right">
           <div class="mr10">
-            <el-button icon="el-icon-back" @click="$router.push({name: 'module_manager_list'})">
+            <el-button icon="el-icon-back" @click="$router.push({name: 'module_statistical_manager_list'})">
               {{ $t('common.return') }}
             </el-button>
           </div>
@@ -50,7 +50,7 @@
                   </el-form-item>
                 </el-col>
               </el-row>
-              <el-row>
+              <!-- <el-row>
                 <el-col :span="6">
                   <el-form-item :label="$t('common.area')" label-width="80">
                     <span v-if="dataForm.archive">
@@ -58,7 +58,7 @@
                     </span>
                   </el-form-item>
                 </el-col>
-              </el-row>
+              </el-row> -->
               <el-row>
                 <el-col :span="6">
                   <el-form-item :label="$t('manager.archive.address')" label-width="80">
