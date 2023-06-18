@@ -232,9 +232,15 @@ text-align: center;
 
 
 /*富文本编辑破解*/
-/*.fr-wrapper > div[style*='z-index: 9999'] {
-display: none !important;
+.fr-wrapper > div[style*="z-index: 9999"] {
+  position: absolute;
+  top: -10000px;
+  opacity: 0;
 }
-.fr-placeholder {
-    margin-top: 0px !important;
-}*/
+.fr-element.fr-view {
+  position: absolute;
+  top: 0;
+}
+.fr-placeholder{
+  margin-top: 0 !important;
+}
